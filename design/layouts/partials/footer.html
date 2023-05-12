@@ -1,0 +1,55 @@
+<footer>
+
+	<svg viewBox="0 0 200 150">
+		  <use href="#guez_sign"/>
+	</svg>
+
+	<p class="baseline">
+		<span>Bureau <br>d'ingéniérie</span> 
+		<span>dans la</span> 
+		<span>Caraïbes</span>
+	</p>
+
+	<ul class="agrement" 
+			aria-label="Liste des Agrément">
+		<li role="none">
+			{% include "../../assets/svg/opqibi.svg" %}
+			<p aria-label="Certification">Agrément n° 09 02 2045</p>
+		</li>
+		<li role="none">
+			AB Certification
+			<p aria-label="Certification">Certification ISO 9001:2008</p>
+		</li>
+	</ul>
+
+	<address aria-label="Liste des équipes">
+		<ul>
+			{%- for equipe in collections.equipes -%}
+        <li role="none"
+        >
+          <p aria-label="Localisation">
+          	{{ equipe.data.nom }}
+          </p>
+          
+          {% set mail = equipe.data.adresse.mail | reverse %}
+          {% set phone = equipe.data.adresse.téléphone | reverse %}
+	          <a class="obf" 
+	          	 data-href="{{ mail }}"
+	          	 data-protocol="mail"
+	          	 role="Email de l'équipe {{ equipe.data.nom }}">
+	          	{{ mail }}
+	          </a>
+          <a class="obf" 
+          	 data-href="{{ phone }}"
+          	 data-protocol="phone"
+	          	 role="Téléphone de l'équipe {{ equipe.data.nom }}">
+          	{{ phone }}
+          </a>
+
+          <p>{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
+
+        </li>
+      {%- endfor -%}
+		</ul>
+	</address>
+</footer>

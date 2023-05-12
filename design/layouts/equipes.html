@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+
+{% block main %}
+  <section>
+    <header>
+      <h1>{{ slogan | markdown | escaP | safe }}</h1>
+      <div class="description">
+        {{ description | markdown | safe }}
+      </div>
+    </header>
+
+    <address aria-label="Liste des équipes">
+      <ul>
+        {%- for equipe in collections.equipes -%}
+          <li role="none"
+          >
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
+            
+            <h2 aria-label="Localisation">
+              {{ equipe.data.nom }}
+            </h2>
+            
+            {% set mail = equipe.data.adresse.mail | reverse %}
+            {% set phone = equipe.data.adresse.téléphone | reverse %}
+              <a class="obf" 
+                 data-href="{{ mail }}"
+                 data-protocol="mail"
+                 role="Email de l'équipe {{ equipe.data.nom }}">
+                {{ mail }}
+              </a>
+            <a class="obf" 
+               data-href="{{ phone }}"
+               data-protocol="phone"
+                 role="Téléphone de l'équipe {{ equipe.data.nom }}">
+              {{ phone }}
+            </a>
+
+            <p>{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
+
+          </li>
+        {%- endfor -%}
+      </ul>
+    </address>
+  </section>
+{% endblock %}
+
+{% block script %}<script type="text/javascript">event().equipes()</script>{% endblock %}

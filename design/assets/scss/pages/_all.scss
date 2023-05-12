@@ -1,0 +1,16 @@
+body{
+	padding: 0 $unite; 
+	overflow-x: hidden;
+}
+main:not([data-type="projets"]){
+	min-height: calc(100vh - #{$tbHeight});
+	min-height: calc(100dvh - #{$tbHeight});
+}
+main:not([data-type="index"]):not([data-type="projets"]){
+	@include for-size(phone){
+		padding-top: $baseline*3;
+	}
+	@include for-size(desktop){
+		padding-top: $baseline*3;
+	}
+}

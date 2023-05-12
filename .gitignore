@@ -1,0 +1,6 @@
+node_modules/
+public/
+package-lock.json
+.DS_store
+design/assets/css/main.css
+design/assets/css/main.css.map

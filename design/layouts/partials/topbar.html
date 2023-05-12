@@ -1,0 +1,78 @@
+<nav id="topbar">
+	<ul role="Topbar">
+		<li role="none" 
+				class="home">
+			<a 	href="/"
+					role="topbar Item"
+					tabindex="-1"
+					{% if page.url == '/' %}aria-current="page"{% endif %}>
+				{% include "../../assets/svg/guez_logo.svg" %}
+			</a>
+		</li>
+		<li role="none" 
+				class="pages">
+
+			<input id="mobileMenu" 
+						 type="checkbox"
+						 hidden>
+			<label for="mobileMenu">
+				Menu
+			</label>
+
+			<ul>
+				<li role="none" id="tb_savoir-faire">
+					<a 	href="/savoir-faire/"
+							role="topbar Item"
+							{% if page.url == '/savoir-faire/' %}aria-current="page"{% endif %}>
+						Savoir-faire
+					</a>
+				</li>
+				<li role="none" 
+						id="tb_projets">
+					<a 	href="/projets/"
+							role="topbar Item"
+							{% if page.url == '/projets/' %}aria-current="page"{% endif %}>
+						Projets
+					</a>
+				</li>
+				<li role="none" 
+						id="tb_equipes">
+					<a 	href="/equipes/"
+							role="topbar Item"
+							{% if page.url == '/equipes/' %}aria-current="page"{% endif %}>		
+						Équipes
+					</a>
+
+					<address aria-label="Liste des équipes">
+						<ul>
+							{%- for equipe in collections.equipes -%}
+				        <li role="none"
+				        >
+				          <p aria-label="Localisation">
+				          	{{ equipe.data.nom }}
+				          </p>
+				          
+				          {% set mail = equipe.data.adresse.mail | reverse %}
+				          {% set phone = equipe.data.adresse.téléphone | reverse %}
+ 				          <a class="obf" 
+ 				          	 data-href="{{ mail }}"
+ 				          	 data-protocol="mail"
+ 				          	 role="Email de l'équipe {{ equipe.data.nom }}">
+ 				          	{{ mail }}
+ 				          </a>
+				          <a class="obf" 
+				          	 data-href="{{ phone }}"
+				          	 data-protocol="phone"
+ 				          	 role="Téléphone de l'équipe {{ equipe.data.nom }}">
+				          	{{ phone }}
+				          </a>
+
+				        </li>
+				      {%- endfor -%}
+						</ul>
+					</address>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</nav>

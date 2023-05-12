@@ -1,0 +1,225 @@
+#topbar{
+	
+	width: 100%;
+	padding: $base*4 0;
+	box-sizing: border-box;
+	z-index: 5;
+
+	&::after {
+	  content: "";
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  display: block;
+	  width: 100%;
+	  height: 1px;
+	  border-bottom: 1px solid currentColor;
+	}
+
+	> ul{
+		// @include flex;
+		// @include align-items(center);
+		// @include justify-content(space-between);
+		display: grid;
+		grid-template-columns: 5fr 1fr;
+		grid-gap: $unite;
+		align-items: center;
+	}
+
+	.home{
+		z-index: 5;
+		a{
+			display: inline-block;
+		}
+		svg{
+			width: $unite*15
+		}
+	}
+
+	.pages{
+		address{
+			display: none;
+		}
+
+		li[id^="tb_"]{
+			> a {
+				padding-left: 0;
+				transition: padding .25s 0s cubic-bezier(.68,-.55,.265,1.55);
+
+				&:before{
+					content: "";
+					position: absolute;
+					left: 0;
+					top: 50%;
+					display: inline-block;
+					width: $u*.25;
+					height: $u*.25;
+					border-radius: 50%;
+					background-color: currentColor;
+					transform: transformY(-50%) scale(0);
+					opacity: 0;
+					transition: all .25s cubic-bezier(.68,-.55,.265,1.55);
+				}
+			}
+		}
+
+		> ul:not(:hover) > li a[aria-current="page"],
+		> ul:hover > li a:hover{
+			padding-left: $u*.5;
+			&:before{
+				transform: transformY(-50%) scale(1);
+				opacity: 1;
+			}
+		}
+	}
+
+
+	@include for-size(phone){
+
+		.pages{
+			justify-self: end;
+			min-width: $unite*2;
+			
+			> label{
+				font-size: 0;
+				width: $unite*2;
+				display: block;
+				height: $base*4;
+				cursor: pointer;
+				z-index: 5;
+
+				&::before, &::after {
+				  content: '';
+				  position: absolute;
+				  width: $unite*2;
+				  height: 1px;
+				  transition: 0.25s;
+				  background: currentColor;
+				}
+				&::before {
+				  top: 1px;
+				}
+				&::after {
+				  top: 100%;
+				}
+			}
+			> input:checked + label{
+				color: var(--cW);
+				&::before{
+					top: 50%;
+					transform: rotate(135deg);
+				}
+				&::after{
+					top: 50%;
+					transform: rotate(225deg);
+				}
+			}
+
+
+			> ul {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 0;
+				height: 0;
+				overflow: hidden scroll;
+				background: var(--cB);
+				color: var(--cW);
+				clip-path: circle(0% at calc(100% - 3rem) 3rem);
+				transition: height 0s .25s,
+										width 0s .25s,
+										clip-path .25s 0s ease-in-out;
+
+				//display: flex;
+				//flex-direction: column;
+				//justify-content: end;
+
+				display: grid;
+				grid-template-rows: calc(100vh - #{$baseline} - #{$base*13} * 3) #{$base*13} auto;
+				grid-template-columns: 1fr;
+				grid-gap: $base*4;
+				align-items: end;
+
+				padding: $baseline $unite;
+				box-sizing: border-box;
+
+				> li{
+					@include f1(3, -2, $bold);
+					text-transform: uppercase;
+
+				}
+
+				address{
+					display: block;
+					font-style: normal;
+
+					@include f1(1);
+
+					p{font-weight: $bold}
+					a{
+						display: block;
+					}
+
+					li{
+						margin-top: $baseline
+					}
+
+
+				}
+			}
+
+			> input:not(:checked) ~ ul {
+
+				//> * { display: none;}
+
+			}
+
+			> input:checked ~ ul {
+				width: 100vw;
+				width: 100dvw;
+				height: 100vh;
+				height: 100dvh;
+
+				box-sizing: border-box;
+				transition: height 0s 0s,
+										width 0s 0s,
+										clip-path .75s 0s ease-in-out;
+				clip-path: circle(110vh at calc(100% - 3rem) 3rem);
+
+				//> * { display: inline-block;}
+
+			}
+		}
+	}
+	@include for-size(desktop){
+
+		.pages{
+			width: $unite*15;
+			border-left: 1px solid currentColor;
+			padding-left: $unite;
+			> label {display: none;}
+			> ul {
+
+				@include f1(1);
+				text-transform: uppercase;
+			}
+		}
+
+	}
+
+}
+
+
+
+
+body[data-serve="index"]{
+	#topbar{
+	}
+}
+
+body[data-serve="projets"],
+body[data-serve="equipes"],
+body[data-serve="savoir-faire"]{
+	#topbar{
+	}
+}

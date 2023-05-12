@@ -1,0 +1,53 @@
+$alpha: 1;
+
+$c1: rgba( 64,  181, 238, 1 ); // Cyan
+$c1a: rgba( 64,  181, 238, .25 ); // Cyan
+$c2: rgba( 68,  202, 203, 1 ); // Turquoise
+$c2a: rgba( 68,  202, 203, .25 ); // Turquoise
+$c3: rgba( 238, 200,  64, 1 ); // Ocre
+$c3a: rgba( 238, 200,  64, .25 ); // Ocre
+$c4: rgba( 255,  65,  71, 1 );  // Vermillon
+$c4a: rgba( 255,  65,  71, .25 );  // Vermillon
+
+body{
+
+	--cW: #ffffff;
+	--cB: #004D9B; //004B9C
+	--cR: #E40521;
+
+
+}
+
+
+body[data-serve="index"]{
+	color: var(--cW);
+
+	::selection {
+	  color: var(--cB);
+	  background-color: var(--cW);
+	}
+
+	#topbar{
+		.c1, .c2{fill: var(--cW)}
+	}
+
+}
+
+body[data-serve="projets"],
+body[data-serve="equipes"],
+body[data-serve="savoir-faire"]{
+	color: var(--cB);
+
+	::selection {
+	  color: var(--cW);
+		background-color: var(--cR);
+	}
+
+	#topbar{
+		.c1{fill: var(--cB)}
+		.c2{fill: var(--cR)}
+	}
+}
+
+
+

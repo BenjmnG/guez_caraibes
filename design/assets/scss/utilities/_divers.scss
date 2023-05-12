@@ -1,0 +1,83 @@
+$maxW: 50rem;
+$unite: 1rem;
+$u: $unite;
+
+$tbHeight: $base*8 + $base*21;
+
+body{
+  --spaT: 1s
+}
+
+@mixin text-overflow($value: ellipsis) {
+    @if $value == clip {
+		text-overflow: clip;
+	}
+	@else {
+		text-overflow: $value;
+	}
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+@mixin grid($col: 3){
+
+	@if $col == 3 {
+	  /* first breakpoint*/
+	  --w1:#{$maxW}; --n:3;
+	  /* second breakpoint*/
+	  --w2:#{$maxW*.5}; 
+	  --m:2;
+	  display:grid;
+	  grid-template-columns:
+	    repeat(auto-fill,
+	      minmax(calc(clamp(calc(clamp(
+	          100%/(var(--n) + 1) + 0.1%, 
+	        (var(--w1) - 100vw)*1000,
+	           100%/(var(--m) + 1) + 0.1%)), 
+	        (var(--w2) - 100vw)*1000,
+	             100%)), 1fr));
+		gap:$unite;
+
+	} @else if $col == 4 {
+		/* first breakpoint*/
+	  --w1:#{$maxW};
+	  --n:4;
+	  /* second breakpoint*/
+	  --w2:#{$maxW*.66}  ;
+	  --m:3;
+	  /* third breakpoint*/
+	  --w3:#{$maxW*.33}  ;
+	  --l:2;
+	  display:grid;
+	  grid-template-columns:
+	    repeat(auto-fill,
+	      minmax(calc(clamp(calc(clamp(calc(clamp(
+	          100%/(var(--n) + 1) + 0.1%, 
+	        (var(--w1) - 100vw)*1000,
+	           100%/(var(--m) + 1) + 0.1%)), 
+	        (var(--w2) - 100vw)*1000,
+	           100%/(var(--l) + 1) + 0.1%)), 
+	        (var(--w3) - 100vw)*1000,
+	             100%)), 1fr));
+		gap:$unite;
+	} @else if $col == 2 {
+	  /* only breakpoint*/
+	  --w1:#{$maxW*.5}; 
+	  --n:2;
+	  display:grid;
+	  grid-template-columns:
+	    repeat(auto-fill,
+	      minmax(calc(clamp(
+	          100%/(var(--n) + 1) + 0.1%, 
+	        (var(--w1) - 100vw)*1000,
+	             100%)), 1fr));
+		gap:$unite;
+
+	}
+}
+
+@mixin simpleGrid($col: 6, $gap: $unite){
+	display: grid;
+	grid-template-columns: repeat($col, 1fr);
+	grid-gap: $gap;
+}

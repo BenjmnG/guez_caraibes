@@ -1,0 +1,126 @@
+const { EleventyI18nPlugin } 
+                      = require("@11ty/eleventy"),
+      yaml            = require("js-yaml"),
+      { Transform }   = require('readable-stream'),
+      { shuffle, 
+        uniq, 
+        to_charcode, 
+        map_range}    = require('./design/modules/_tools.js'),
+      videoShortcode  = require('./design/modules/video.js'),
+      imageShortcode  = require('./design/modules/image.js'),
+      markdownLibrary = require('./design/modules/markdownLibrary.js'),
+      minHTML         = require('./design/modules/minHTML.js'),
+      minJS           = require('./design/modules/minJS.js')
+
+
+
+module.exports = config => {
+  
+  config.addFilter("markdown", content => markdownLibrary.render(content) );
+  config.addFilter("debug", (content) => console.log(content));
+  config.addFilter('shuffle', shuffle)
+  config.addFilter('isArr', something => Array.isArray(something));
+  config.addFilter('isObj', something => _.isPlainObject(something))
+  config.addFilter("head", (array, n, m) => { if (m) { return array.slice(n, m) } else {return array.slice(n); } });
+  config.addFilter("escaP", content => content.replace('<p>', '').replace('</p>', ''));
+  config.addFilter("afterSlash", string => string.split("/").pop() );
+  config.addFilter("split", (content, character) => { return content.split(character) });
+  config.addFilter("int", string => parseFloat(string) );
+  config.addFilter("map", (value, low1, high1, low2, high2) => { return map_range(value, low1, high1, low2, high2) });
+  config.addFilter("getId", value => {return value.replace(/\W/g,'_')});
+  config.addFilter("toCharCode", value => to_charcode(value));
+  config.addFilter("reverse", value => value ? [...value].reverse().join("") : value);
+  config.addDataExtension("yaml", contents => yaml.load(contents));
+  
+  config.setLibrary("md", markdownLibrary);
+
+  config.addNunjucksAsyncShortcode("image", imageShortcode);
+  config.addNunjucksAsyncShortcode("video", videoShortcode);
+
+
+  //
+  // Collections
+  //   
+  config.addCollection("projets", function(collection) {
+      let projets = collection.getFilteredByGlob("contenu/projets/*.md")
+      return projets;
+  });
+
+  config.addCollection("savoirFaire", function(collection) {
+      let savoirFaire = collection.getFilteredByGlob("contenu/savoir-faire/*.md");
+      return savoirFaire;
+  });
+
+  config.addCollection("jobs", function(collection) {
+      let jobs = collection.getFilteredByGlob("contenu/jobs/*.md")
+      return jobs;
+  });
+
+
+  config.addCollection("equipes", function(collection) {
+      let équipes = collection.getFilteredByGlob("contenu/équipes/*.md")
+      return équipes.reverse();
+  });
+
+
+
+  // 
+  // Sass Watch
+  // 
+  // DEPRECATED IN MY USE ?
+  config.addWatchTarget("./design/assets/scss/");
+  
+
+  // pass through !
+  config.addPassthroughCopy({
+    './design/assets/font/' : 'assets/font',
+    './design/assets/svg/' : 'assets/svg',
+    './design/assets/js/' : 'assets/js',
+    './design/assets/lib/' : 'assets/lib',
+    './design/assets/css/' : 'assets/css',
+    './design/assets/social/' : 'assets/social',
+    './design/assets/root/' : '/',
+    './design/assets/*.htaccess' : '/'
+  });
+
+
+  // 
+  // Passthrough & minify JS
+  // 
+  if(process.env.NODE_ENV == 'development'){
+  config.addPassthroughCopy({'./design/assets/js/' : 'assets/js'});
+  } else {
+      config.addPassthroughCopy(
+      {'./design/assets/js/' : 'assets/js'}, 
+      {
+        transform: (src, dest, stats) => {
+          return new Transform({
+            transform(chunk, enc, done) {
+              done(null, minJS(chunk.toString()));
+            },
+          });
+        },
+      }
+    );
+  }
+
+
+
+  // 
+  // Minify HTML
+  // 
+  config.addTransform("htmlmin", minHTML);
+
+  return {
+    markdownTemplateEngine: 'njk',
+    dataTemplateEngine: 'njk',
+    htmlTemplateEngine: 'njk',
+    dir: {
+      input: 'contenu',
+      data: './_data/',
+      includes: '../design/layouts',
+      output: 'public'
+    }
+
+  };
+};

@@ -1,0 +1,51 @@
+body.transition:not(.noJS){
+
+
+	//
+	// Index fallback animation
+	//
+
+	@mixin offScreen {top: 100vh; transform: translateX(calc(50% * var(--a))) rotate(calc(10deg * var(--b)))};
+	@mixin onScreen {top: 0; transform: translateX(0) rotate(0)};
+
+	@keyframes In{
+
+		from{ @include offScreen; }
+		50% { @include offScreen; }
+		to  { @include onScreen;  }
+	}  
+
+	@keyframes Out{
+		from{ @include onScreen;  }
+		50% {	@include offScreen; }
+		to  {	@include offScreen; }
+	}
+
+
+	@media (prefers-reduced-motion: no-preference) {
+	 	main{
+			&:not(.previous){	z-index: 2; }
+			&.previous{	z-index: 1; }
+		
+			&:not([data-serve="index"]) main{		
+				&:not(.previous){
+					animation: calc(var(--spaT) / 2) ease-in-out 1 In forwards;
+				}
+				&.previous{
+					animation: calc(var(--spaT) / 2) ease-in-out 1 Out forwards;
+				}
+			}
+
+			&[data-serve="index"] main{		
+				&:not(.previous){
+					animation: calc(var(--spaT) / 2) ease-in-out 1 In forwards;
+				}
+				&.previous{
+					animation: calc(var(--spaT) / 2) ease-in-out 1 Out forwards;
+				}
+			}
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) { --spaT: 0s }
+}

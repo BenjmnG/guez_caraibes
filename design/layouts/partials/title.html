@@ -1,0 +1,7 @@
+{% if layout == "info" %}
+  Info&thinsp;—&thinsp;{{ website.name }}
+{% elif layout == "index" %}
+  {{ website.name }}&thinsp;—&thinsp;{{ website.subname }}
+{% else %}
+  {{ titre }}&thinsp;—&thinsp;{{ website.subname }}
+{%endif%} 

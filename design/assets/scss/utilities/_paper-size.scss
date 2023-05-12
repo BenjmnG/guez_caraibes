@@ -1,0 +1,14 @@
+// Paper-size
+@mixin paper-size($size) {
+	@if $size == a0 {
+		$page-width: 841mm;
+		$page-height: 1189mm;
+	} @else if $size == a1 {
+		$page-width: 594mm;
+		$page-height: 841mm;	
+	}
+}
+
+@include for-size(a0) {}
+@include for-size(a1) {}
+

@@ -1,0 +1,31 @@
+stages:
+  - build
+  - deploy
+build:
+  stage: build
+  image: registry.gitlab.com/pages/hugo/hugo_extended:latest
+  script:
+  - hugo version
+  - hugo -s=website/ -d ../public --gc
+  artifacts:
+    paths:
+    - public
+    exclude:
+      - public/*/*/*-??.jpg
+      - public/photography/*/*_????.jpg
+      - public/photography/*/*_??????.jpg
+    expire_in: 1 week
+  only:
+  - master
+deploy:
+  stage: deploy
+  image: alpine:latest
+  tags:
+  - docker
+  before_script:
+  - apk update
+  - apk add lftp  
+  script:
+  - lftp -e "open ftp.cluster003.ovh.net; user $FTP_USERNAME $FTP_PASSWORD; mirror --reverse --verbose public/ www/; bye"
+  only:
+  - master

@@ -1,0 +1,99 @@
+body[data-serve="projets"]{
+
+}
+main[data-type="projets"]{
+	border-bottom: 1px solid var(--cB);
+	margin-bottom: $baseline;
+
+	&, #map, .map_container, .map_container svg{
+		width: 100%;
+		height: calc(100vh - #{$tbHeight} - #{$baseline});
+		height: calc(100dvh - #{$tbHeight} - #{$baseline});
+	}
+
+	#map{
+		background: $c1a;
+		position: absolute;
+		top: 0;
+		left: 0;
+		box-sizing: border-box;
+
+		.map_container{
+			overflow: hidden;
+		}
+	}
+
+	#filter{
+		position: absolute;
+		background: var(--cW);
+		width: 100%;
+
+		> ul{
+			@include f1(1);
+			text-transform: uppercase;
+			padding: $base*2 $u;
+
+			label{
+				cursor: pointer;
+				font-weight: $bold
+			}
+
+			> li{
+
+				&::before{
+					content: "";
+					position: absolute;
+				  top: 0;
+				  left: -$u;
+				  display: block;
+				  width: calc(100% + #{$u*2});
+				  height: 100%;
+				  background: var(--cW);
+				}
+
+			}
+
+			ul{
+				background: var(--cW);
+				overflow: hidden;
+				transition: max-height .2s ease-in-out;
+			}
+
+			input:not(:checked){
+				& ~ ul {
+					max-height: 0;
+				}
+			}
+			input:checked{
+				& ~ ul {
+					max-height: $baseline*10;
+					padding-bottom: $base*4;
+				}
+			}
+		}
+	}
+
+	@include for-size(desktop){
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		grid-gap: $baseline $u;
+
+
+		#filter{
+			grid-column: 4 / span2;
+
+			height: $base*11;
+
+			> ul{
+				display: grid;
+				grid-template-columns: repeat(6, 1fr);
+				grid-gap: $baseline $u;
+				align-items: start;
+
+				> li{
+					grid-column: span 2;
+				}
+			}
+		}
+	}
+}

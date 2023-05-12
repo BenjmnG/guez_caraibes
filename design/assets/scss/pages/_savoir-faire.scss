@@ -1,0 +1,133 @@
+body[data-serve="savoir-faire"]{
+
+}
+
+main[data-type="savoir-faire"]{
+
+	h1{
+		@include f1(2);
+		text-transform: uppercase;
+
+		width: 100%;
+
+		padding-bottom: $base*2;
+		border-bottom: 1px solid currentColor
+	}
+
+	h2{
+		text-transform: uppercase;
+	}
+
+	p{
+		max-width: 30rem;
+		@include f1(1);
+	}
+
+	.toProject{
+		@include f1(0);
+		text-decoration: underline;
+		margin-top: $base*4;
+		display: block;
+	}
+
+	ul{
+		counter-reset: items;
+		li{
+			counter-increment: items;
+			border-bottom: 1px solid currentColor;
+
+			&:before{
+				content: counter(items) "/"
+			}
+
+			&:nth-child(-n+9):before {
+			    content: "0"counter(items) "/"
+			}
+
+		}
+	}
+
+
+	@include for-size(phone){
+		li{
+			padding: $base*2 0;
+		}
+		h2{
+			@include f1(3, 0, $bold);
+			padding-top: $base*2;
+			padding-bottom: $base*2;
+			cursor: pointer;
+			display: inline-block;
+			padding-left: $unite*.5;
+			vertical-align: baseline;
+			word-break: break-all;
+			width: calc(100% - 2rem);
+
+
+			&:after{
+				content: "En savoir plus";
+				@include f1(0);
+				position: absolute;
+				opacity: 0;
+				transition: .5s 0s ease-in-out;
+				width: $u*8;
+				bottom: $base*3;
+				right: calc(min(#{$u*2}, 10vw));
+			}
+		}
+		
+		li:hover:not(.open) h2:after{
+			opacity: 1;
+		}
+
+		p{
+			padding-right: $unite*2;
+		}
+
+		li{
+			*:not(h2){
+				overflow: hidden;
+			}
+
+			&.close.init *:not(h2){
+				transition: none
+			}
+			&.close *:not(h2){
+				transition: max-height .25s ease-in-out,
+										margin .125s ease-in-out;
+				max-height: 0;
+				margin: 0;
+			}
+			&.open *:not(h2){
+				max-height: 20rem;
+				transition: max-height .5s ease-in-out,
+										margin .25s ease-in-out;
+			}
+		}
+	}
+
+	@include for-size(desktop){
+
+		li{
+			display: grid;
+			grid-template-columns: .25fr 3.75fr 2fr;
+			grid-template-rows: auto auto;
+			grid-gap: 0 $unite;
+			align-items: end;
+			padding: $base*4 0;
+
+			&:before{
+				align-self: end;
+			}
+		}
+
+		h1{
+			padding-left: calc((100% / 6) * .25 + #{$unite} + .5vw);
+		}
+
+		h2{
+			@include f1(6, 0, $bold);
+		}
+	}
+
+}

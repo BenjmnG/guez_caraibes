@@ -1,0 +1,118 @@
+body[data-serve="index"]{
+
+	background: var(--cB);
+
+	main{
+		$minH: calc(100vh - (#{$tbHeight}));
+		min-height: $minH;
+		padding: $baseline 0;
+		box-sizing: border-box;
+
+		picture{
+			position: fixed;
+			width: 100vw;
+			height: 100vh;
+			height: 100dvh;
+			top: 0;
+			left: 0;
+
+			*{
+				max-height: 100%;
+				object-fit: cover;
+				max-width: 100%;
+			}
+
+			&:after{
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				z-index: 3;
+				background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+			}
+		}
+
+		header{
+			border-bottom: 1px solid currentColor;
+			min-height: calc(#{$minH} - #{$baseline * 2});
+
+		}
+
+		h1{
+			@include f1(3, -3, $bold);
+			text-transform: uppercase;
+
+		}
+
+		.localisation{
+			@include f1(2, -4);
+			text-transform: uppercase;
+		}
+
+		.description{
+			max-width: calc(min(80vw, 25rem));
+			@include f1(1)
+		}
+
+		@include for-size(phone){
+			header{
+
+				display: flex;
+				flex-direction: column;
+				justify-content: end;
+
+				h1{
+					padding: $baseline 0;
+				}
+
+				.localisation, .description{
+					padding-bottom: $base*4;
+				}
+
+				.description{
+					display: none;
+				}
+			}
+		}
+		@include for-size(desktop){
+			header{
+				display: grid;
+			  //grid-template-columns: calc(max(25vw, 20rem)) 1fr;
+			  grid-template-columns: 1fr 5fr;
+			  grid-template-rows: calc(max(66vh, 40rem)) 1fr;
+			  grid-gap: $baseline $unite;
+
+			  h1{
+			  	grid-row: 1 / 2;
+			  	grid-column: 1/ span 2;
+			  	align-self: center;
+			  	@include f1(5, -2, $bold);
+			  }
+
+			  .localisation, .description{
+			  	margin: $base
+			  	*4 0;
+			  }
+
+			  .localisation{
+			  	grid-row: 2;
+			  	grid-column: 1;
+			  	align-self: end;
+			  }
+
+			  .description{
+			  	grid-row: 2;
+			  	grid-column: 2;
+			  	align-self: end;
+
+			  }
+
+
+
+			}
+		}
+	}
+	
+}

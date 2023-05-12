@@ -1,0 +1,75 @@
+$font-1: "Dinish", sans-serif;
+
+$base: .2rem;
+$baseline: $base*8;
+$font-size: $base*6;
+
+$normal: 400;
+$bold: 700;
+
+html{font-size: 100%; font-weight: $normal;}
+@include for-size(desktop-1921) {
+  @media (-webkit-device-pixel-ratio: 1) {
+    html{font-size: 150%;}
+  }
+}
+
+body{
+  font-size: 16px;
+  @media print{font-size: 13px;}
+  line-height: $baseline;
+  //@supports not (font-variation-settings : normal){
+  font-family: $font-1;
+  font-weight: $normal;
+  color: var(--cc);
+  /*}
+  @supports (font-variation-settings : normal){
+    font-family: $font-1v;
+    font-variation-settings: "wght" 300;
+  }*/
+}
+
+
+// Main
+
+@mixin f1($s, $l: 0, $w: $normal, $color: currentColor, $ls: 0){
+    @if $w == bolder{ $w: $bold; }
+
+    font-family: $font-1;
+    font-weight: $w;
+    letter-spacing: #{$ls}em;
+    color: $color;
+
+    @if($s == 0){
+      line-height: #{$base * (5 + $l)};
+      font-size: $base*3.5;      
+    } @else if( $s == 1){
+      line-height: #{$base * (7 + $l)};
+      font-size: $base*5;  
+    } @else if( $s == 2){
+      line-height: #{$base * (11 + $l)};
+      font-size: $base*7;  
+    } @else if( $s == 3){
+      line-height: #{$base * (15 + $l)};
+      font-size: $base*13;  
+    } @else if( $s == 4){
+      line-height: #{$base * (20 + $l)};
+      font-size: $base*20;
+      letter-spacing: -.05em;
+    } @else if( $s == 5){
+      @media screen{
+        font-size: calc(clamp( #{$base*25}, 6vw, #{$base*40}));
+        line-height: 1em;
+        letter-spacing: -.05em;
+      }
+    } @else if( $s == 6){
+      @media screen{
+        font-size: calc(clamp( #{$base*25}, 8vw, #{$base*60}));
+        line-height: 1em;
+        letter-spacing: -.05em;
+      }
+    } @else if(){
+      font-size: $base*$s;
+      line-height: #{$base*$s + $base*$l};
+    }
+}

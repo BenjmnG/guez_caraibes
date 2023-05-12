@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'Dinish';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src:  url('Dinish/Dinish-Regular.woff') format('woff'),
+        url('Dinish/Dinish-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Dinish';
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src:  url('Dinish/Italic.woff') format('woff'),
+        url('Dinish/Italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Dinish';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src:  url('Dinish/Dinish-Bold.woff') format('woff'),
+        url('Dinish/Dinish-Bold.woff2') format('woff2');
+}

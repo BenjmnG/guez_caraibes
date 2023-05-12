@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% include "partials/title.html" %}</title>
+
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+    
+    <!--SEO-->
+    <meta property="og:title" content='{% include "partials/title.html" %}'>
+    <meta name="twitter:title" content='{% include "partials/title.html" %}'>
+    <meta property="og:url" content="{{website.url}}{{ page.url }}">
+    <meta name="twitter:url" content="{{website.url}}{{ page.url }}">
+    <meta name="description" content="{% if website.in_short %}{{website.in_short}}{%else%}{{website.in_short}}{%endif%}">
+    <meta property="og:description" content="{% if in_short %}{{in_short}}{%else%}{{website.in_short}}{%endif%}">    
+    <meta name="twitter:description" content="{% if in_short %}{{in_short}}{%else%}{{website.in_short}}{%endif%}">    
+    <meta property="og:site_name" content="{{website.name}}">
+    <meta property="og:locale" content="{{locale}}">
+    <meta name="twitter:card" content="summary_large_image">
+
+    {% block SEO %}{% endblock %}
+
+    <!--Style-->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}" type="text/css" >
+
+    <link rel="stylesheet" href="{{ '/assets/font/stylesheet.css' | url }}" type="text/css" >
+  
+  </head>
+
+  <body class="noJS transition init"
+        data-serve="{{ layout | afterSlash }}" >
+
+    {% include "partials/topbar.html" %}
+
+    <main 
+      data-type="{{ layout | afterSlash }}" 
+      aria-live="assertive"
+      >
+      {% block main %}{% endblock %}
+    </main>
+
+    {% include "partials/footer.html" %}
+
+    <div class="sr-only" aria-hidden="true">
+      {% include "../../design/assets/svg/icons.svg" %}
+    </div>
+
+  </body>
+
+  <!--Scripts-->
+
+  <script type="text/javascript">
+    document.querySelector('body').classList.remove('noJS')
+    setTimeout( function() {
+      document.querySelector('body').classList.remove('transition', 'init')
+    }, 500);
+  </script>
+
+  <!--<script type="text/javascript" src="{{ '/assets/js/mini-spa.js' | url }}" async></script>-->
+  <script type="text/javascript" src="{{ '/assets/js/global.js' | url }}"></script>
+  {% block script %}{% endblock %}
+
+</html>
