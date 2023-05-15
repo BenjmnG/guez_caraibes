@@ -4,8 +4,8 @@ commanditaire: Eau publique du Grand Lyon
 
 maître_ouvrage: Basile
 
-# Commerces / Logements et Hébergements / Bureaux / Infrastructures / Santé / Enseignement / Culture, Sport et Loisirs
-typologie: Commerce 
+# Centres commerciaux et Commerces // Hôtels // Santé // Enseignement // Tertiaires // Logements et Hébergements // Culture, Sport et Loisirs // Aménagement Urbain
+typologie: Centres commerciaux et Commerces 
 
 # MOE MOE Fluides CSPS OPC AMO Diagnostique Economiste
 mission: MOE Fluides 

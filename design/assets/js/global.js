@@ -75,9 +75,9 @@ const map = () => ({
   setZoomLevel: (state = 'A') => {
 
     setTimeout(() => {
-      main_map.style.setProperty('--r', getPerfectRatio())
+      main_map.style.setProperty('--r', map().getPerfectRatio())
       main_map.classList =`scale-${state} transition`
-      focusMap();
+      map().focus();
       setTimeout(() => {
         main_map.classList.remove('transition') 
       }, 1000)
@@ -104,7 +104,7 @@ const map = () => ({
 
   focus: (id) => {
 
-    if(id){ map_on = id }
+    map_on = id !== undefined && id ? id : 'pt-Basse_Terre'
 
     map().setZoomLevel('A')
       
@@ -145,7 +145,7 @@ const event = () => ({
   },
 
   project: () => {
-    map().init()
+    //map().init()
   },
 
   equipes: () => {

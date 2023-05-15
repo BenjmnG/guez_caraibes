@@ -1,0 +1,20 @@
+@mixin icon_valid{
+	--sc: 0;
+
+	&:after{
+		content: "";
+		display: block;
+		box-sizing: border-box;
+		position: absolute;
+		right: $u;
+		top: 50%;
+		width: $u*.25;
+		height: $u*.5;
+		border-color: currentColor;
+		border-width: 0 .1em .1em 0;
+		border-style: solid;
+		transform-origin: bottom left;
+		transform: translateY(-50%) rotate(45deg) scale(var(--sc));
+		transition: all .25s cubic-bezier(.68,-.55,.265,1.55);
+	}
+}

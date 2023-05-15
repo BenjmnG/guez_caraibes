@@ -45,16 +45,99 @@ main[data-type="projets"]{
 		> ul{
 			@include f1(1);
 			text-transform: uppercase;
-			padding: $base*2 $u;
 
 			> li > label{
+				display: block;
+				font-weight: $bold;
+				width: 100%;
 				cursor: pointer;
-				font-weight: $bold
+				.value{
+					position: absolute;
+					right: 0;
+					top: 50%;
+					transform: translateY(-50%);
+					&:empty{@include icon_valid;}
+				}		
+			}
+
+			ul > li{
+				width: 100%;
+				label{
+					@include icon_valid;
+				}
 			}
 		}
 	}
 
+	input#filter_by_typo:not(:checked) ~ input[name="filter-typo"]:checked ~ #filter > ul > li:nth-of-type(1) > label .value:empty,
+	input#filter_by_sf:not(:checked) ~ input[name="filter-sf"]:checked ~ #filter > ul > li:nth-of-type(2) > label .value:empty,
+	input#filter_by_local:not(:checked) ~ input[name="filter-local"]:checked ~ #filter > ul > li:nth-of-type(3) > label .value:empty{
+		--sc: 1;
+	}
 
+	@for $i from 1 through 8 { 
+		#filter-typo_#{$i}:checked ~ #filter label[for="filter-typo_#{$i}"]{
+			--sc: 1;
+		}
+	}
+	@for $i from 1 through 6 { 
+		#filter-sf_#{$i}:checked ~ #filter label[for="filter-sf_#{$i}"]{
+			--sc: 1;
+		}
+	}
+	@for $i from 1 through 3 { 
+		#filter-local_#{$i}:checked ~ #filter  label[for="filter-local_#{$i}"]{
+			--sc: 1;
+		}
+	}
+
+	@include for-size(phone){
+
+		#filter{
+			position: absolute;
+			bottom: 0;
+			padding: 0;
+			transition: padding $t ease-in-out;
+			border-top: 1px solid currentColor;
+
+			>ul{
+				> li{
+					padding: $base 0;
+
+					&:not(:last-child){
+						border-bottom: 1px solid currentColor;
+					}
+				}
+				ul{
+	 				overflow: hidden;
+	 				max-height: 0;
+	 				padding: 0;
+					transition: max-height $t ease-in-out,
+											padding $t ease-in-out;
+
+					li{
+						padding-bottom: $base;
+					}
+				}
+			}
+		}
+
+		input[name="open_filter"]:checked ~ #filter{
+			padding: $base*2 0;
+			> ul ul{
+			}
+
+		}
+		
+		input#filter_by_typo:checked ~ #filter > ul > li:nth-of-type(1),
+		input#filter_by_sf:checked ~ #filter > ul > li:nth-of-type(2),
+		input#filter_by_local:checked ~ #filter > ul > li:nth-of-type(3){
+			ul{
+				padding: $base*2 0;
+				max-height: 50vh;
+			}
+		}
+	}
 	@include for-size(desktop){
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
@@ -62,14 +145,14 @@ main[data-type="projets"]{
 		grid-gap: $baseline $u;
 
 		> h1{
-			grid-column: 1 / 4;
+			grid-column: 1 / 3;
 			grid-row: 1;
 			padding: $base 0 0 $u; 
 			transition: padding $t ease-in-out;
 		}
 
 		#filter{
-			grid-column: 4 / span 3;
+			grid-column: 3 / span 4;
 			grid-row: 1;
 			height: auto;
 			padding: 0;
@@ -91,6 +174,7 @@ main[data-type="projets"]{
 				grid-template-columns: repeat(6, 1fr);
 				grid-gap: $baseline $u;
 				align-items: start;
+				padding: $base*2 $u;
 
 				> li{
 					grid-column: span 2;
@@ -105,8 +189,6 @@ main[data-type="projets"]{
 
 			}
 		}
-
-
 
 		input[name="open_filter"]:checked {
 			~ h1{
@@ -127,7 +209,20 @@ main[data-type="projets"]{
 	}
 
 	ul.list{
-		grid-column: 4 / span 3;
+		grid-column: 3 / span 4;
 		grid-row: 2; 
 	}
+	@include for-size(desktop-1800){
+		> h1{
+			grid-column: 1 / 4;
+		}
+		#filter{
+			grid-column: 4 / span 3;
+		}
+
+		ul.list{
+			grid-column: 4 / span 3;
+		}
+	}
 }
+
