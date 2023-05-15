@@ -131,7 +131,60 @@
   <!-- List of projects -->
   <ul class="list projets">
     {%- for projet in collections.projets -%}
-      {{ projet.data.titre }}
+      <li data-typo="{{ projet.data.typologie }}"
+          data-sf="{{ projet.data.mission }}"
+          data-local="{{ projet.data.ile }}"
+        >
+        <figure class="sample">
+
+        </figure>
+
+        <header>
+          <h1>{{ projet.data.titre }}</h1>
+        </header>
+
+        <ul aria-label="Détails" class="details">
+          
+          <li aria-label="Localisation">
+            {% if projet.data.localité %}
+              {{ projet.data.localité }},
+            {% endif %}
+            {{ projet.data.ile }}
+          </li>
+
+          <li aria-label="Maître d'ouvrage">
+            {{ projet.data.maître_ouvrage }}
+          </li>
+
+          <li aria-label="Typologie">
+            {{ projet.data.typologie }}
+          </li>
+
+          <li aria-label="Statut">
+            {{ projet.data.statut }}
+          </li>
+
+          <li aria-label="Mission">
+            {{ projet.data.missions  | join(",", "&") }}
+          </li>
+
+          <li aria-label="Montant des travaux">
+            {{ projet.data.montant | devise }}
+          </li>
+
+          <li aria-label="Surface">
+            {{ projet.data.surface }} m²
+          </li>
+
+          <li aria-label="Dates">
+            {{ projet.data.debut | simpleDate}}
+            {% if projet.data.debut and projet.data.fin  %}&#8239;—&#8239;{% endif %}
+            {{ projet.data.fin | simpleDate}}
+          </li>
+
+        </ul>
+      </li>
+      
     {%- endfor -%}
   </ul>
 

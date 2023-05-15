@@ -31,13 +31,13 @@
   --> 
 
   <g class="etiquette" 
-     id="pt-{{ projet.data.nom | getId }}"
+     id="pt-{{ projet.data.localité | getId }}"
      data-x="{{ x - r / 2}}"
      data-y="{{ y - r / 2}}"
      >
     <a xlink:href="{{ projet.url }}">
       <circle class="pt" x="{{ x - r / 2}}" y="{{ y - r / 2}}" radius="{{ r }}" />
-  	  <text x="{{ x - r / 2}}" y="{{ y - r / 2}}">{{ projet.data.nom | default(projet.data.nom) }}</text>
+  	  <text x="{{ x - r / 2}}" y="{{ y - r / 2}}">{{ projet.data.localité | default(projet.data.localité) }}</text>
     </a>
   </g>
 

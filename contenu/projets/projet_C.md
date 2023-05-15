@@ -1,6 +1,5 @@
 ---
 titre: Projet C
-commanditaire: Bla
 
 maître_ouvrage: Basile
 typologie: Logements et Hébergements
@@ -10,7 +9,8 @@ surface: 50
 montant: 1000000
 
 # localisation 
-nom: Basse-Terre
+ile: Guadeloupe
+localité: Basse-Terre
 coordonnées: 16.011868282518552, -61.7302383674222
 
 # date

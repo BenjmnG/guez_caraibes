@@ -1,6 +1,5 @@
 ---
 titre: Projet A
-commanditaire: Eau publique du Grand Lyon
 
 maître_ouvrage: Basile
 
@@ -17,7 +16,8 @@ surface: 10000
 montant: 1000000
 
 #localisation: 
-nom: Ile-Ville
+ile: Martinique
+localité: Ile-Ville
 coordonnées: 14.624761211676082, -61.0132691743709
 
 #date:
