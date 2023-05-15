@@ -1,9 +1,10 @@
 <nav id="topbar">
-	<ul role="Topbar">
+	<ul role="Topbar" role="none">
 		<li role="none" 
 				class="home">
 			<a 	href="/"
 					role="topbar Item"
+					title="Page d'accueil"
 					tabindex="-1"
 					{% if page.url == '/' %}aria-current="page"{% endif %}>
 				{% include "../../assets/svg/guez_logo.svg" %}

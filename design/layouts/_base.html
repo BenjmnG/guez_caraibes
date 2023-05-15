@@ -38,7 +38,10 @@
       data-type="{{ layout | afterSlash }}" 
       aria-live="assertive"
       >
+      {% block input %}{% endblock %}
+
       {% block main %}{% endblock %}
+      
     </main>
 
     {% include "partials/footer.html" %}

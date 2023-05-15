@@ -1,77 +1,142 @@
 {% extends "_base.html" %}
 
+<!-- Set typologie -->
+
+{% set typologies =  [
+  "Fluides",
+  "Enseignement",
+  "Culture / Sport / Loisir",
+  "Logement / Hôtellerie",
+  "Commerce","Industrie",
+  "Infrastructure", 
+  "Santé"
+] %}
+
+{% block input %}
+
+
+  <!-- To Open Nav filter -->
+
+  <input  id="filter_by_typo" 
+          type="checkbox" 
+          name="open_filter"
+          hidden>
+
+  <input  id="filter_by_sf" 
+          type="checkbox" 
+          name="open_filter"
+          hidden>
+
+  <input  id="filter_by_local" 
+          type="checkbox" 
+          name="open_filter"
+          hidden>
+
+  <!-- Write One input for each value -->
+
+  {%- for typo in typologies -%}
+    <input  id="filter-typo_{{loop.index}}" 
+            type="checkbox" 
+            name="filter-typo"
+            hidden>
+  {%- endfor -%}
+
+  {%- for sf in collections.savoirFaire -%}
+    <input  id="filter-sf_{{loop.index}}" 
+            type="checkbox" 
+            name="filter-sf"
+            hidden>
+  {%- endfor -%}
+
+  {%- for sf in collections.equipes -%}
+    <input  id="filter-local_{{loop.index}}" 
+            type="checkbox" 
+            name="filter-local"
+            hidden>
+  {%- endfor -%}
+
+{% endblock %}
+
+
 {% block main %}
 
-  {% include "partials/map/section.html" %}
+  <h1>Nos projets</h1>
+
+  <!-- Nav element -->
 
   <nav id="filter"
         aria-label="Filter les projets">
 
     <ul>
+      <!-- Filter -->
       <li role="none"
           aria-label="Filtrer les projets par typologie">
-        <input  id="filter_by_typo" 
-                type="checkbox" 
-                name="filter_by_typo"
-                hidden>
+
+        <!-- Header -->
         <label for="filter_by_typo">
           <span>Typologie</span>
           <span class="value"></span>
         </label>
-        <ul>
-          <li>Fluides</li>
-          <li>Enseignement</li>
-          <li>Culture / Sport / Loisir</li>
-          <li>Logement / Hôtellerie</li>
-          <li>Commerce</li>
-          <li>Industrie</li>
-          <li>Infrastructure</li>
-          <li>Santé</li>
+
+        <!-- List of values -->
+        <ul aria-label="Liste des typologies">  
+
+          {%- for typo in typologies -%}
+            <li><label for="filter-typo_{{ loop.index }}">{{ typo }}</label></li>
+          {%- endfor -%}
+
         </ul>
+
       </li>
 
+      <!-- Filter Savoir-Faire -->
       <li aria-label="Filtrer les projets par Savoir-faire">
-        <input  id="filter_by_sf" 
-                type="checkbox" 
-                name="filter_by_sf"
-                hidden>
+
+        <!-- Header -->
         <label for="filter_by_sf">
           <span>Savoir-Faire</span>
           <span class="value"></span>
-          </label>
-        <ul>
+        </label>
+
+        <!-- List of values -->
+        <ul  aria-label="Liste des Savoir-faire">
           {%- for sf in collections.savoirFaire -%}
-            <li>{{ sf.data.nom }}</li>
+            <li><label for="filter-sf_{{ loop.index }}">{{ sf.data.nom }}</label></li>
           {%- endfor -%}
         </ul>
+
       </li>
 
       <li aria-label="Filtrer les projets par localisation">
-        <input  id="filter_by_local" 
-                type="checkbox" 
-                name="filter_by_local"
-                hidden>
+
+        <!-- Header -->
         <label for="filter_by_local">
           <span>Localisation</span>
           <span class="value"></span>
-          </label>
-        <ul>
+        </label>
+
+        <!-- List of values -->
+        <ul aria-label="Liste des localistations">
           {%- for equipe in collections.equipes -%}
-            <li>{{ equipe.data.nom }}</li>
+            <li><label for="filter-local_{{ loop.index }}">{{ equipe.data.nom }}</label></li>
           {%- endfor -%}
         </ul>
+
       </li>
 
     </ul>
   </nav>
 
-  <section>
-    <ul class="list projets">
-      {%- for projet in collections.projets -%}
-        {{ projet.data.titre }}
-      {%- endfor -%}
-    </ul>
-  </section>
+  <!-- List of projects -->
+  <ul class="list projets">
+    {%- for projet in collections.projets -%}
+      {{ projet.data.titre }}
+    {%- endfor -%}
+  </ul>
+
+  {% include "partials/map/section.html" %}
+
+
 {% endblock %}
 
 {% block script %}<script type="text/javascript">event().project()</script>{% endblock %}

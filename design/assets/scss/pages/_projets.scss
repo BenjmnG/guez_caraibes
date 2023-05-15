@@ -2,6 +2,9 @@ body[data-serve="projets"]{
 
 }
 main[data-type="projets"]{
+
+	$t: .25s;
+
 	border-bottom: 1px solid var(--cB);
 	margin-bottom: $baseline;
 
@@ -17,72 +20,71 @@ main[data-type="projets"]{
 		top: 0;
 		left: 0;
 		box-sizing: border-box;
+		z-index: -1;
 
 		.map_container{
 			overflow: hidden;
 		}
 	}
 
+	> h1{
+		@include f1(2);
+		text-transform: uppercase;
+		z-index: 2;
+	}
+
 	#filter{
-		position: absolute;
 		background: var(--cW);
 		width: 100%;
+		
+
+		label{
+			cursor: pointer;
+		}
 
 		> ul{
 			@include f1(1);
 			text-transform: uppercase;
 			padding: $base*2 $u;
 
-			label{
+			> li > label{
 				cursor: pointer;
 				font-weight: $bold
-			}
-
-			> li{
-
-				&::before{
-					content: "";
-					position: absolute;
-				  top: 0;
-				  left: -$u;
-				  display: block;
-				  width: calc(100% + #{$u*2});
-				  height: 100%;
-				  background: var(--cW);
-				}
-
-			}
-
-			ul{
-				background: var(--cW);
-				overflow: hidden;
-				transition: max-height .2s ease-in-out;
-			}
-
-			input:not(:checked){
-				& ~ ul {
-					max-height: 0;
-				}
-			}
-			input:checked{
-				& ~ ul {
-					max-height: $baseline*10;
-					padding-bottom: $base*4;
-				}
 			}
 		}
 	}
 
+
 	@include for-size(desktop){
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
+		grid-template-rows: auto 1fr;
 		grid-gap: $baseline $u;
 
+		> h1{
+			grid-column: 1 / 4;
+			grid-row: 1;
+			padding: $base 0 0 $u; 
+			transition: padding $t ease-in-out;
+		}
 
 		#filter{
-			grid-column: 4 / span2;
+			grid-column: 4 / span 3;
+			grid-row: 1;
+			height: auto;
+			padding: 0;
+			transition: padding $t ease-in-out;
+			transition: padding $t ease-in-out;
 
-			height: $base*11;
+			&:before{
+				content: "";
+				position: absolute;
+				left: calc(-100% - #{$u});
+				top: 0;
+				width: calc(100vw - #{$u*3});
+				height: 0;
+				background: white;
+			}
 
 			> ul{
 				display: grid;
@@ -93,7 +95,39 @@ main[data-type="projets"]{
 				> li{
 					grid-column: span 2;
 				}
+	
+				ul{
+	 				overflow: hidden;
+	 				max-height: 0;
+					transition: max-height $t ease-in-out,
+											padding $t ease-in-out;
+				}
+
 			}
 		}
+
+
+
+		input[name="open_filter"]:checked {
+			~ h1{
+				padding-top: $base*4;
+			}
+			~ #filter{
+				padding: $base*4 0;
+				&:before{
+					height: 100%;
+				}
+				> ul ul{
+						max-height: $baseline*10;
+						padding-top: $base*4;
+
+				} 
+			}
+		}
+	}
+
+	ul.list{
+		grid-column: 4 / span 3;
+		grid-row: 2; 
 	}
 }
