@@ -156,7 +156,7 @@ const event = () => ({
     const removeInit = () => {
       main.classList.remove('init')
       openers.forEach( opener => {
-        opener.removeEventListener("change", removeInit)
+        opener.removeEventListener("change", removeInit, true)
       })
     }
 

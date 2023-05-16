@@ -3,7 +3,7 @@ titre: Projet B
 
 maître_ouvrage: Basile
 typologie: Logements et Hébergements
-mission: MOE
+mission: BET Fluides
 statut: Privé
 surface: 50
 montant: 1000000

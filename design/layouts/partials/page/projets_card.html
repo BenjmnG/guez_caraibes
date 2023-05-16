@@ -1,0 +1,66 @@
+<!-- List of projects -->
+<ul class="list projets">
+  {%- for projet in collections.projets -%}
+
+    <li data-ty=" {%- for t in typologies -%}{% if projet.data.typologie == t %}{{loop.index}},{% endif %}{% endfor %}"
+
+        data-sf="   {%- for sf in collections.savoirFaire -%}{% if projet.data.mission == sf.data.nom %}{{ loop.index }},{% endif %}{% endfor %}"
+
+        data-lo="{%- for t in collections.equipes -%}{% if projet.data.ile == t.data.nom %}{{loop.index}},{% endif %}{% endfor %}"
+      >
+      <figure class="sample">
+
+      </figure>
+
+      <header>
+        <h1>{{ projet.data.titre }}</h1>
+      </header>
+
+      <ul aria-label="Détails" class="details">
+        
+        <li aria-label="Localisation">
+          {% if projet.data.localité %}
+            {{ projet.data.localité }},
+          {% endif %}
+          {{ projet.data.ile }}
+        </li>
+
+        <li aria-label="Maître d'ouvrage">
+          {{ projet.data.maître_ouvrage }}
+        </li>
+
+        <li aria-label="Typologie">
+          {{ projet.data.typologie }}
+        </li>
+
+        <li aria-label="Statut">
+          {{ projet.data.statut }}
+        </li>
+
+        <li aria-label="Mission">
+          {% if projet.data.mission |isArr %}
+            {{ projet.data.mission  | join(", ", "&") }}
+          {% else %}
+            {{ projet.data.mission }}
+          {% endif %}
+        </li>
+
+        <li aria-label="Montant">
+          {{ projet.data.montant | devise }}
+        </li>
+
+        <li aria-label="Surface">
+          {{ projet.data.surface }} m²
+        </li>
+
+        <li aria-label="Dates">
+          {{ projet.data.debut | simpleDate | title}}
+          {% if projet.data.debut and projet.data.fin  %}&#8239;—&#8239;{% endif %}
+          {{ projet.data.fin | simpleDate | title}}
+        </li>
+
+      </ul>
+    </li>
+    
+  {%- endfor -%}
+</ul>

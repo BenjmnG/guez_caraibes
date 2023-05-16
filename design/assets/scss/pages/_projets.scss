@@ -1,3 +1,7 @@
+$ty_len: 8;
+$sf_len: 11;
+$lo_len: 3;
+
 body[data-serve="projets"]{
 
 }
@@ -122,32 +126,6 @@ main[data-type="projets"]{
 		}
 	}
 
-
-	/* */
-	/* Project Filter*/
-
-	input#filter_by_typo:not(:checked) ~ input[name="filter-typo"]:checked ~ #filter > ul > li:nth-of-type(1) > label .value:empty,
-	input#filter_by_sf:not(:checked) ~ input[name="filter-sf"]:checked ~ #filter > ul > li:nth-of-type(2) > label .value:empty,
-	input#filter_by_local:not(:checked) ~ input[name="filter-local"]:checked ~ #filter > ul > li:nth-of-type(3) > label .value:empty{
-		--sc: 1;
-	}
-
-	@for $i from 1 through 8 { 
-		#filter-typo_#{$i}:checked ~ #filter label[for="filter-typo_#{$i}"]{
-			--sc: 1;
-		}
-	}
-	@for $i from 1 through 6 { 
-		#filter-sf_#{$i}:checked ~ #filter label[for="filter-sf_#{$i}"]{
-			--sc: 1;
-		}
-	}
-	@for $i from 1 through 3 { 
-		#filter-local_#{$i}:checked ~ #filter  label[for="filter-local_#{$i}"]{
-			--sc: 1;
-		}
-	}
-
 	/* */
 	/* Responsive */ 
 
@@ -269,6 +247,7 @@ main[data-type="projets"]{
 
 		}
 
+
 		input[name="open_filter"]:checked ~,
 		&.init{
 			h1{
@@ -286,7 +265,6 @@ main[data-type="projets"]{
 				} 
 			}
 		}
-
 		ul.list.projets{
 			grid-column: 3 / span 4;
 			grid-row: 2;
@@ -295,6 +273,9 @@ main[data-type="projets"]{
 			display: grid;
 			grid-template-columns: repeat(6, 1fr);
 			grid-gap: $u;
+
+			transition: transform .25s ease-in-out;
+			transform: translateX(100%);
 
 			> li{
 				grid-column: span 3;
@@ -308,6 +289,11 @@ main[data-type="projets"]{
 				margin-bottom: $base*4;
 			}
 		}
+
+		input[id^="f-"]:checked ~ ul.list.projets{
+			transform: translateX(0%) !important;
+		}
+
 	}
 
 	@include for-size(desktop-1800){

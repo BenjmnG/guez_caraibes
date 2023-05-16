@@ -1,5 +1,9 @@
 {% extends "_base.html" %}
 
+{% block css %}
+  <link rel="stylesheet" href="{{ '/assets/css/projets.css' | url }}" type="text/css" >
+{% endblock %}
+
 <!-- Set typologie -->
 
 {% set typologies =  [
@@ -14,49 +18,7 @@
 ] %}
 
 {% block input %}
-
-
-  <!-- To Open Nav filter -->
-
-  <input  id="filter_by_typo" 
-          type="checkbox" 
-          name="open_filter"
-          checked
-          hidden>
-
-  <input  id="filter_by_sf" 
-          type="checkbox" 
-          name="open_filter"
-          hidden>
-
-  <input  id="filter_by_local" 
-          type="checkbox" 
-          name="open_filter"
-          hidden>
-
-  <!-- Write One input for each value -->
-
-  {%- for typo in typologies -%}
-    <input  id="filter-typo_{{loop.index}}" 
-            type="checkbox" 
-            name="filter-typo"
-            hidden>
-  {%- endfor -%}
-
-  {%- for sf in collections.savoirFaire -%}
-    <input  id="filter-sf_{{loop.index}}" 
-            type="checkbox" 
-            name="filter-sf"
-            hidden>
-  {%- endfor -%}
-
-  {%- for sf in collections.equipes -%}
-    <input  id="filter-local_{{loop.index}}" 
-            type="checkbox" 
-            name="filter-local"
-            hidden>
-  {%- endfor -%}
-
+  {% include "partials/page/projets_inputs.html" %}
 {% endblock %}
 
 
@@ -64,131 +26,8 @@
 
   <h1>Nos projets</h1>
 
-  <!-- Nav element -->
-
-  <nav  id="filter"
-        aria-label="Filter les projets">
-
-    <ul>
-      <!-- Filter -->
-      <li role="none"
-          aria-label="Filtrer les projets par typologie">
-
-        <!-- Header -->
-        <label for="filter_by_typo">
-          <span>Typologie</span>
-          <span class="value"></span>
-        </label>
-
-        <!-- List of values -->
-        <ul aria-label="Liste des typologies">  
-
-          {%- for typo in typologies -%}
-            <li><label for="filter-typo_{{ loop.index }}">{{ typo }}</label></li>
-          {%- endfor -%}
-
-        </ul>
-
-      </li>
-
-      <!-- Filter Savoir-Faire -->
-      <li aria-label="Filtrer les projets par Savoir-faire">
-
-        <!-- Header -->
-        <label for="filter_by_sf">
-          <span>Savoir-Faire</span>
-          <span class="value"></span>
-        </label>
-
-        <!-- List of values -->
-        <ul  aria-label="Liste des Savoir-faire">
-          {%- for sf in collections.savoirFaire -%}
-            <li><label for="filter-sf_{{ loop.index }}">{{ sf.data.nom }}</label></li>
-          {%- endfor -%}
-        </ul>
-
-      </li>
-
-      <li aria-label="Filtrer les projets par localisation">
-
-        <!-- Header -->
-        <label for="filter_by_local">
-          <span>Localisation</span>
-          <span class="value"></span>
-        </label>
-
-        <!-- List of values -->
-        <ul aria-label="Liste des localistations">
-          {%- for equipe in collections.equipes -%}
-            <li><label for="filter-local_{{ loop.index }}">{{ equipe.data.nom }}</label></li>
-          {%- endfor -%}
-        </ul>
-
-      </li>
-
-    </ul>
-  </nav>
-
-  <!-- List of projects -->
-  <ul class="list projets">
-    {%- for projet in collections.projets -%}
-      <li data-typo="{{ projet.data.typologie }}"
-          data-sf="{{ projet.data.mission }}"
-          data-local="{{ projet.data.ile }}"
-        >
-        <figure class="sample">
-
-        </figure>
-
-        <header>
-          <h1>{{ projet.data.titre }}</h1>
-        </header>
-
-        <ul aria-label="Détails" class="details">
-          
-          <li aria-label="Localisation">
-            {% if projet.data.localité %}
-              {{ projet.data.localité }},
-            {% endif %}
-            {{ projet.data.ile }}
-          </li>
-
-          <li aria-label="Maître d'ouvrage">
-            {{ projet.data.maître_ouvrage }}
-          </li>
-
-          <li aria-label="Typologie">
-            {{ projet.data.typologie }}
-          </li>
-
-          <li aria-label="Statut">
-            {{ projet.data.statut }}
-          </li>
-
-          <li aria-label="Mission">
-            {{ projet.data.missions  | join(",", "&") }}
-          </li>
-
-          <li aria-label="Montant">
-            {{ projet.data.montant | devise }}
-          </li>
-
-          <li aria-label="Surface">
-            {{ projet.data.surface }} m²
-          </li>
-
-          <li aria-label="Dates">
-            {{ projet.data.debut | simpleDate | title}}
-            {% if projet.data.debut and projet.data.fin  %}&#8239;—&#8239;{% endif %}
-            {{ projet.data.fin | simpleDate | title}}
-          </li>
-
-        </ul>
-      </li>
-      
-    {%- endfor -%}
-  </ul>
-
+  {% include "partials/page/projets_filter.html" %}
+  {% include "partials/page/projets_card.html" %}
   {% include "partials/map/section.html" %}
 
 

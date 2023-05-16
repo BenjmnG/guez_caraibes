@@ -1,0 +1,40 @@
+<!-- To Open Nav filter -->
+
+<input  id="filter_by_typo" 
+        type="checkbox" 
+        name="open_filter"
+        checked
+        hidden>
+
+<input  id="filter_by_sf" 
+        type="checkbox" 
+        name="open_filter"
+        hidden>
+
+<input  id="filter_by_local" 
+        type="checkbox" 
+        name="open_filter"
+        hidden>
+
+<!-- Write One input for each value -->
+
+{%- for typo in typologies -%}
+  <input  id="f-ty_{{loop.index}}" 
+          type="checkbox" 
+          name="f-ty"
+          hidden>
+{%- endfor -%}
+
+{%- for sf in collections.savoirFaire -%}
+  <input  id="f-sf_{{loop.index}}" 
+          type="checkbox" 
+          name="f-sf"
+          hidden>
+{%- endfor -%}
+
+{%- for equipe in collections.equipes -%}
+  <input  id="f-lo_{{loop.index}}" 
+          type="checkbox" 
+          name="f-lo"
+          hidden>
+{%- endfor -%}

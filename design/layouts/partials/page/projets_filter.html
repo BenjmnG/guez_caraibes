@@ -1,0 +1,65 @@
+
+<!-- Nav element -->
+
+<nav  id="filter"
+      aria-label="Filter les projets">
+
+  <ul>
+    <!-- Filter -->
+    <li role="none"
+        aria-label="Filtrer les projets par typologie">
+
+      <!-- Header -->
+      <label for="filter_by_typo">
+        <span>Typologie</span>
+        <span class="value"></span>
+      </label>
+
+      <!-- List of values -->
+      <ul aria-label="Liste des typologies">  
+
+        {%- for typo in typologies -%}
+          <li><label for="f-ty_{{ loop.index }}">{{ typo }}</label></li>
+        {%- endfor -%}
+
+      </ul>
+
+    </li>
+
+    <!-- Filter Savoir-Faire -->
+    <li aria-label="Filtrer les projets par Savoir-faire">
+
+      <!-- Header -->
+      <label for="filter_by_sf">
+        <span>Savoir-Faire</span>
+        <span class="value"></span>
+      </label>
+
+      <!-- List of values -->
+      <ul  aria-label="Liste des Savoir-faire">
+        {%- for sf in collections.savoirFaire -%}
+          <li><label for="f-sf_{{ loop.index }}">{{ sf.data.nom }}</label></li>
+        {%- endfor -%}
+      </ul>
+
+    </li>
+
+    <li aria-label="Filtrer les projets par localisation">
+
+      <!-- Header -->
+      <label for="filter_by_local">
+        <span>Localisation</span>
+        <span class="value"></span>
+      </label>
+
+      <!-- List of values -->
+      <ul aria-label="Liste des localistations">
+        {%- for equipe in collections.equipes -%}
+          <li><label for="f-lo_{{ loop.index }}">{{ equipe.data.nom }}</label></li>
+        {%- endfor -%}
+      </ul>
+
+    </li>
+
+  </ul>
+</nav>
