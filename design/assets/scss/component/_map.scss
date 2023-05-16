@@ -4,7 +4,7 @@ svg#main_map{
 
 	--tX: 0;
 	--tY: 0;
-	--r: 	1;
+	--r: 	1.25;
 
 	> g{
 		transform: translateX(var(--tX)) translateY(var(--tY)) scale(var(--r)) ;

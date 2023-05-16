@@ -61,8 +61,8 @@
         scale="15" xChannelSelector="R" xChannelSelector="G" yChannelSelector="B"/>
   </filter>	
 
-		<line x1="296" y1="0" x2="296" y2="595"  stroke="red"/>
-		<line x1="0" y1="296" x2="595" y2="296"  stroke="red"/>
+		<line x1="296" y1="0" x2="296" y2="595"  stroke="var(--cW)"/>
+		<line x1="0" y1="296" x2="595" y2="296"  stroke="var(--cW)"/>
 	<g vector-effect="non-scaling-stroke">
 
 
