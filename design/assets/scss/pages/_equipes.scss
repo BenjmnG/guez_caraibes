@@ -60,6 +60,7 @@ main[data-type="equipes"]{
 
 		> ul{
 			max-width: 70rem;
+			margin: auto;
 
 			li {
 
@@ -97,6 +98,26 @@ main[data-type="equipes"]{
 		}
 	}
 
+	#jobs{
+		max-width: 70rem;
+		margin: auto;
+
+		details{
+			margin: $baseline 0;
+			@include f1(1);
+			max-width: 50rem;
+
+			h2{
+				margin-bottom: $baseline
+			}
+		}
+
+		summary{
+			@include f1(2,0, $bold);
+			text-transform: capitalize;
+		}
+	}
+
 
 	@include for-size(desktop){
 		address {
@@ -104,6 +125,19 @@ main[data-type="equipes"]{
 			> ul{
 				display: flex;
 				gap: $baseline;
+			}
+		}
+
+		#jobs{
+			margin-top: $baseline*4;
+
+			details{
+				padding-left: calc(max(50%, 20rem));
+				summary{
+					position: absolute;
+					left: 0;
+					top: 0;
+				}
 			}
 		}
 	}
