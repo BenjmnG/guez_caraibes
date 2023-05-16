@@ -31,7 +31,7 @@
   --> 
 
   <g class="etiquette" 
-     id="pt-{{ projet.data.localité | getId }}"
+     id="pt-{{ projet.data.titre | getId }}"
      data-x="{{ x - r / 2}}"
      data-y="{{ y - r / 2}}"
      >

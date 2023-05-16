@@ -67,7 +67,7 @@ svg#main_map{
 	&:not(.noScale){}
 
 	// All but no Scale
-	&[class^="scale"]:not(.transition){
+	&[class^="scale"]{
 		 #Land path{
 			fill: #fff;
 		}

@@ -7,6 +7,8 @@
         data-sf="   {%- for sf in collections.savoirFaire -%}{% if projet.data.mission == sf.data.nom %}{{ loop.index }},{% endif %}{% endfor %}"
 
         data-lo="{%- for t in collections.equipes -%}{% if projet.data.ile == t.data.nom %}{{loop.index}},{% endif %}{% endfor %}"
+
+        data-map-point="pt-{{ projet.data.titre | getId }}"
       >
       <figure class="sample">
           <svg viewBox="0 0 200 150">

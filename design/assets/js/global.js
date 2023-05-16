@@ -1,6 +1,7 @@
 let body      = document.querySelector('body'),
     main      = document.querySelector('main'),
     url       = window.location.href,
+    sect_map  = document.querySelector("#map"),
     main_map  = document.querySelector("#main_map"),
     map_on    = 'pt-Guadeloupe' // Guadeloupe as first reference point for focus map
     ;
@@ -56,12 +57,15 @@ const map = () => ({
 
   init: () => {
 
-    document.querySelectorAll('#map .list_container button').forEach(el => {
-      let target = el.getAttribute("data-target")
-      el.addEventListener("mouseover", () => { map().focus(target)})
+    document.querySelectorAll('.list.projets [data-map-point]').forEach(el => {
+      let id_to_target = el.getAttribute('data-map-point')
+      el.addEventListener("mouseenter", () => { 
+        map().setZoomLevel('A')
+        map().focus(id_to_target)
+      })
     })
 
-    map().setZoomAbilities()
+    //map().setZoomAbilities()
 
   },
 
@@ -72,19 +76,14 @@ const map = () => ({
     return baseWidth / (baseIsland * 8)
   },
 
-  setZoomLevel: (state = 'A') => {
-
-    setTimeout(() => {
-      main_map.style.setProperty('--r', map().getPerfectRatio())
-      main_map.classList =`scale-${state} transition`
-      map().focus();
-      setTimeout(() => {
-        main_map.classList.remove('transition') 
-      }, 1000)
-    }, 250)
+  setZoomLevel: (state = 'A', id) => {
+      if(!main_map.classList.contains(`scale-${state}`)){
+        main_map.style.setProperty('--r', map().getPerfectRatio())
+        main_map.classList =`scale-${state}`
+      }
   },
 
-  setZoomAbilities: () => {
+  /*setZoomAbilities: () => {
     document.addEventListener("wheel", function(e) {  
       let ratio = getComputedStyle(main_map).getPropertyValue('--r'),
           computedRatio = ratio
@@ -100,20 +99,12 @@ const map = () => ({
       main_map.style.setProperty(`--r`, computedRatio)
       map().focus()
     });
-  },
+  },*/
 
-  focus: (id) => {
-
-    map_on = id !== undefined && id ? id : 'pt-Basse_Terre'
-
-    map().setZoomLevel('A')
+  focus: (id = '[id^="pt"]') => {
       
-    let el = document.querySelector(`#${map_on}`)
-
-    console.log(el)
-
+    let el = document.getElementById(id)
     let viewBox = main_map.getAttribute('viewBox').split(/\s+|,/)
-
                 
     let ratio = getComputedStyle(main_map).getPropertyValue('--r')
 
@@ -122,8 +113,8 @@ const map = () => ({
     let cY = parseInt(viewBox[3] / 2 )
 
     // Coordonée de l'élément à montrer
-    let _cX = (el.getAttribute('data-x'))
-    let _cY = (el.getAttribute('data-y'))
+    let _cX = el.getAttribute('data-x')
+    let _cY = el.getAttribute('data-y')
 
     main_map.style.setProperty('--tX', `${(cX - _cX) * ratio - 1}px`);
     main_map.style.setProperty('--tY', `${(cY - _cY) * ratio - 1}px`);
@@ -145,7 +136,7 @@ const event = () => ({
   },
 
   project: () => {
-    //map().init()
+    map().init()
 
     // Openers are three hidden input to open three list of item filter
     let openers = document.querySelectorAll('[name="open_filter"]')
@@ -157,6 +148,7 @@ const event = () => ({
       main.classList.remove('init')
       openers.forEach( opener => {
         opener.removeEventListener("change", removeInit, true)
+        sect_map.removeEventListener("change", removeInit, true)
       })
     }
 
@@ -216,9 +208,13 @@ const event = () => ({
     openers.forEach( opener => {
       opener.addEventListener('change', evt => checkboxAsRadio(evt.target))
       opener.addEventListener('change', removeInit, {once: true})
-
-
     })
+
+    if(main.classList.contains('init')){
+
+      sect_map.addEventListener('click', removeInit, {once: true})
+
+    }
 
   },
 
