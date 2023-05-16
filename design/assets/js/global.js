@@ -146,6 +146,80 @@ const event = () => ({
 
   project: () => {
     //map().init()
+
+    // Openers are three hidden input to open three list of item filter
+    let openers = document.querySelectorAll('[name="open_filter"]')
+
+    // This function remove init class on main
+    // Three openers can triggers it.
+    // Once called, we destroy the two other triggers.
+    const removeInit = () => {
+      main.classList.remove('init')
+      openers.forEach( opener => {
+        opener.removeEventListener("change", removeInit)
+      })
+    }
+
+    // This function uncheck Openers
+    const checkboxAsRadio = (justChanged) => {
+
+      // If we're a large screen
+      if(window.innerWidth >= 900 ){
+
+        // If Current input is checked
+        if(justChanged.checked == true){
+
+          // If initial Vue
+          if(main.classList.contains('init')){
+
+            // So uncheck All
+            openers.forEach( opener => opener.checked = false )
+
+          } else {
+
+            // If an Input was previously checked, Uncheck all
+            let alreadyChecked = false
+            openers.forEach(o => {
+              if(o.id != justChanged.id && o.checked == true){
+                alreadyChecked = true
+
+              }
+            })
+            
+            if(alreadyChecked){
+              openers.forEach( opener => {
+                opener.checked = false
+              } )
+            }
+
+          }
+        } else {
+          openers.forEach( opener => opener.checked = false )
+        }
+
+      // If we're a small screen
+      } else {
+
+         //If Current input is checked
+         if(justChanged.checked == true){ 
+
+          // Uncheck all Openers but Current 
+          openers.forEach( opener => {
+            if(opener.id != justChanged.id){
+              opener.checked = false
+            }
+          })
+        }
+      }
+    }
+
+    openers.forEach( opener => {
+      opener.addEventListener('change', evt => checkboxAsRadio(evt.target))
+      opener.addEventListener('change', removeInit, {once: true})
+
+
+    })
+
   },
 
   equipes: () => {

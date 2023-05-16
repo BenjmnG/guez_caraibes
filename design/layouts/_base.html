@@ -37,6 +37,9 @@
     <main 
       data-type="{{ layout | afterSlash }}" 
       aria-live="assertive"
+      {% if layout  == 'projets' %}
+        class="init"
+      {% endif %}
       >
       {% block input %}{% endblock %}
 

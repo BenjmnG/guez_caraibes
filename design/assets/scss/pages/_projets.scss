@@ -33,7 +33,7 @@ main[data-type="projets"]{
 	> h1{
 		@include f1(2);
 		text-transform: uppercase;
-		z-index: 2;
+		z-index: 6;
 	}
 
 	#filter{
@@ -86,7 +86,7 @@ main[data-type="projets"]{
 
 			figure{
 				background: $c3a;
-				aspect-ratio: 2/3;
+				aspect-ratio: 3/2;
 				width: 100%;
 				max-height: max(10rem, 20vh);
 				border-bottom: 1px solid currentColor;
@@ -107,7 +107,7 @@ main[data-type="projets"]{
 					padding: $base*2;
 					border-bottom: 1px solid currentColor;
 					@include f1(1);
-					padding-left: calc(max($u*10, 33.3%));
+					padding-left: calc(max($u*7, 33.3%));
 					&:before{
 						position: absolute;
 						content: attr(aria-label);
@@ -235,16 +235,6 @@ main[data-type="projets"]{
 			transition: padding $t ease-in-out;
 			transition: padding $t ease-in-out;
 
-			&:before{
-				content: "";
-				position: absolute;
-				left: calc(-100% - #{$u});
-				top: 0;
-				width: calc(100vw - #{$u*3});
-				height: 0;
-				background: white;
-			}
-
 			> ul{
 				display: grid;
 				grid-template-columns: repeat(6, 1fr);
@@ -266,11 +256,25 @@ main[data-type="projets"]{
 			}
 		}
 
-		input[name="open_filter"]:checked {
-			~ h1{
+		&.init {
+			#filter:before{
+				content: "";
+				position: absolute;
+				left: calc(-100% - #{$u});
+				top: 0;
+				width: calc(100vw - #{$u*3});
+				height: 0;
+				background: white;
+			}
+
+		}
+
+		input[name="open_filter"]:checked ~,
+		&.init{
+			h1{
 				padding-top: $base*4;
 			}
-			~ #filter{
+			#filter{
 				padding: $base*4 0;
 				&:before{
 					height: 100%;
@@ -286,7 +290,7 @@ main[data-type="projets"]{
 		ul.list.projets{
 			grid-column: 3 / span 4;
 			grid-row: 2;
-			padding: $baseline $u;
+			padding: $base*2 $u;
 
 			display: grid;
 			grid-template-columns: repeat(6, 1fr);

@@ -21,6 +21,7 @@
   <input  id="filter_by_typo" 
           type="checkbox" 
           name="open_filter"
+          checked
           hidden>
 
   <input  id="filter_by_sf" 
@@ -65,7 +66,7 @@
 
   <!-- Nav element -->
 
-  <nav id="filter"
+  <nav  id="filter"
         aria-label="Filter les projets">
 
     <ul>
@@ -168,7 +169,7 @@
             {{ projet.data.missions  | join(",", "&") }}
           </li>
 
-          <li aria-label="Montant des travaux">
+          <li aria-label="Montant">
             {{ projet.data.montant | devise }}
           </li>
 
@@ -177,9 +178,9 @@
           </li>
 
           <li aria-label="Dates">
-            {{ projet.data.debut | simpleDate}}
+            {{ projet.data.debut | simpleDate | title}}
             {% if projet.data.debut and projet.data.fin  %}&#8239;—&#8239;{% endif %}
-            {{ projet.data.fin | simpleDate}}
+            {{ projet.data.fin | simpleDate | title}}
           </li>
 
         </ul>
