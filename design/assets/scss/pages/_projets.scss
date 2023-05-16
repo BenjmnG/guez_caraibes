@@ -44,6 +44,7 @@ main[data-type="projets"]{
 		background: var(--cW);
 		width: 100%;
 		z-index: 5;
+
 		
 
 		label{
@@ -95,14 +96,12 @@ main[data-type="projets"]{
 				max-height: max(10rem, 20vh);
 				border-bottom: 1px solid currentColor;
 
-				&:before{
-					content: url("/assets/svg/guez_logo.svg#guez_sign"); //url('#guez_sign'); 
-					position: absolute;
-					top: 50%;
+				svg{
+					width: 25%;
 					left: 50%;
+					top: 50%;
 					transform: translateX(-50%) translateY(-50%);
-					width: $u*2;
-					opacity: .5;
+					fill: var(--cB);
 				}
 			}
 
