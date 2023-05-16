@@ -116,8 +116,10 @@ const map = () => ({
     let _cX = el.getAttribute('data-x')
     let _cY = el.getAttribute('data-y')
 
-    main_map.style.setProperty('--tX', `${(cX - _cX) * ratio - 1}px`);
-    main_map.style.setProperty('--tY', `${(cY - _cY) * ratio - 1}px`);
+    let pt_radius = 1 / 2;
+
+    main_map.style.setProperty('--tX', `${(cX - _cX + pt_radius) * ratio - 1}px`);
+    main_map.style.setProperty('--tY', `${(cY - _cY + pt_radius) * ratio - 1}px`);
 
     console.log({cX, cY, _cX, _cY, ratio})
 

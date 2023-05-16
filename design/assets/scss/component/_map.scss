@@ -87,14 +87,18 @@ svg#main_map{
 
 		.etiquette{
 
-			rect.bg{
-				width: $base*18;
+			circle{
+				fill: var(--cB);
+				stroke: none;
 			}
 
 			text{
 				display: inline-block;
-				fill: black;
-				transform: translateX($base*3) translateY($base*1.125);
+				fill: var(--cB);
+				font-family: "Dinish",sans-serif;
+				font-weight: 700;
+				font-size: .25rem;
+				transform: translateX(.5em) translateY(.25em);
 			}
 		}
 	}

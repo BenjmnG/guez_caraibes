@@ -17,7 +17,7 @@
   {% set y = lat | int | map(lat1, lat2, 0, svgH) %}
   {% set x = long | int | map(long1, long2, 0, svgW) %}
 
-  {% set r = 2 %}
+  {% set r = 1 %}
   
   {# (lat2 - lat1) | debug #}
   {# (long2 - long1) | debug #}
@@ -36,7 +36,7 @@
      data-y="{{ y - r / 2}}"
      >
     <a xlink:href="{{ projet.url }}">
-      <circle class="pt" x="{{ x - r / 2}}" y="{{ y - r / 2}}" radius="{{ r }}" />
+      <circle class="pt" cx="{{ x - r / 2}}" cy="{{ y - r / 2}}" r="{{ r }}" />
   	  <text x="{{ x - r / 2}}" y="{{ y - r / 2}}">{{ projet.data.localité | default(projet.data.localité) }}</text>
     </a>
   </g>
