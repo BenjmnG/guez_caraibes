@@ -8,7 +8,7 @@ async function imageShortcode(src, alt = "", widths, sizes) {
   let metadata = await Image(src, {
     widths: widths || ["auto"],
     formats: ["avif", "webp"],
-    outputDir: "./public/media/",
+    outputDir: "./public/_media/",
     urlPath: "./media/",
     filenameFormat: function (id, src, width, format, options) {
         const extension = path.extname(src)
