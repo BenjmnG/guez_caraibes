@@ -1,16 +1,17 @@
 const { EleventyI18nPlugin } 
-                      = require("@11ty/eleventy"),
-      yaml            = require("js-yaml"),
-      { Transform }   = require('readable-stream'),
+                            = require("@11ty/eleventy"),
+      yaml                  = require("js-yaml"),
+      { Transform }         = require('readable-stream'),
       { shuffle, 
         uniq, 
         to_charcode, 
-        map_range}    = require('./design/modules/_tools.js'),
-      videoShortcode  = require('./design/modules/video.js'),
-      imageShortcode  = require('./design/modules/image.js'),
-      markdownLibrary = require('./design/modules/markdownLibrary.js'),
-      minHTML         = require('./design/modules/minHTML.js'),
-      minJS           = require('./design/modules/minJS.js')
+        map_range}          = require('./design/modules/_tools.js'),
+      videoShortcode        = require('./design/modules/video.js'),
+      imageShortcode        = require('./design/modules/image.js'),
+      imageShortcodeAsync   = require('./design/modules/async_image.js'),
+      markdownLibrary       = require('./design/modules/markdownLibrary.js'),
+      minHTML               = require('./design/modules/minHTML.js'),
+      minJS                 = require('./design/modules/minJS.js')
 
 
 
@@ -36,7 +37,11 @@ module.exports = config => {
   
   config.setLibrary("md", markdownLibrary);
 
-  config.addShortcode("image", imageShortcode);
+  if(process.env.NODE_ENV  == 'production'){
+    config.addShortcode("image", imageShortcode);
+  } else {
+    config.addShortcode("image", imageShortcodeAsync);
+  }
   config.addShortcode("video", videoShortcode);
 
 

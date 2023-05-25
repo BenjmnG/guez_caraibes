@@ -9,10 +9,10 @@
     "build:eleventy": "npx @11ty/eleventy",
     "build:sass": "npx sass ./design/assets/scss/:./design/assets/css/ --style compressed",
     "build": "npm run build:eleventy & npm run build:sass",
-    "build:prod": "NODE_ENV=production npm run build",
+    "build:prod": "NODE_ENV=production DEBUG=Eleventy* npm run build",
     "push": "git add . && git commit -m '[OTO] Update' && git push origin main",
     "pull": "git pull origin master",
-    "dev": "NODE_ENV=development npm run watch:eleventy & npm run watch:sass",
+    "dev": "NODE_ENV=production npm run watch:eleventy & npm run watch:sass",
     "edit": "npx tinacms dev -c 'npm run dev'",
     "debug": "NODE_ENV=development DEBUG=Eleventy* npx @11ty/eleventy --serve & npm run watch:sass",
     "publish": "npm run build"

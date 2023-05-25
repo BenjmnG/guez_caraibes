@@ -4,7 +4,7 @@ const Image = require("@11ty/eleventy-img");
 function imageShortcode(src, alt = "", widths, sizes) {
 
   src = './contenu/_media/' + src
-  let baseURL = process.env.NODE_ENV  == 'production' ? '/guez_caraibes/' : ''
+  let baseURL = process.env.NODE_ENV  == 'production' ? 'https://benjmng.github.io/guez_caraibes/' : './'
   let metadata = Image.statsSync(src, {
     widths: widths || ["auto"],
     formats: ["avif", "webp"],
