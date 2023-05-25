@@ -9,6 +9,7 @@
     "build:eleventy": "npx @11ty/eleventy",
     "build:sass": "npx sass ./design/assets/scss/:./design/assets/css/ --style compressed",
     "build": "npm run build:eleventy & npm run build:sass",
+    "build:prod": "NODE_ENV=production npm run build",
     "push": "git add . && git commit -m '[OTO] Update' && git push origin main",
     "pull": "git pull origin master",
     "dev": "NODE_ENV=development npm run watch:eleventy & npm run watch:sass",

@@ -11,8 +11,8 @@
     <!--SEO-->
     <meta property="og:title" content='{% include "partials/title.html" %}'>
     <meta name="twitter:title" content='{% include "partials/title.html" %}'>
-    <meta property="og:url" content="{{website.url}}{{ page.url }}">
-    <meta name="twitter:url" content="{{website.url}}{{ page.url }}">
+    <meta property="og:url" content="{{site.url}}{{ page.url }}">
+    <meta name="twitter:url" content="{{site.url}}{{ page.url }}">
     <meta name="description" content="{% if website.in_short %}{{website.in_short}}{%else%}{{website.in_short}}{%endif%}">
     <meta property="og:description" content="{% if in_short %}{{in_short}}{%else%}{{website.in_short}}{%endif%}">    
     <meta name="twitter:description" content="{% if in_short %}{{in_short}}{%else%}{{website.in_short}}{%endif%}">    
@@ -23,8 +23,8 @@
     {% block SEO %}{% endblock %}
 
     <!--Style-->
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}" type="text/css" >
-    <link rel="stylesheet" href="{{ '/assets/font/stylesheet.css' | url }}" type="text/css" >
+    <link rel="stylesheet" href="{{site.url}}{{ 'assets/css/main.css' | url }}" type="text/css" >
+    <link rel="stylesheet" href="{{site.url}}{{ 'assets/font/stylesheet.css' | url }}" type="text/css" >
     {% block css %}{% endblock %}
 
     <meta name="robots" content="noindex">
@@ -66,8 +66,8 @@
     }, 500);
   </script>
 
-  <!--<script type="text/javascript" src="{{ '/assets/js/mini-spa.js' | url }}" async></script>-->
-  <script type="text/javascript" src="{{ '/assets/js/global.js' | url }}"></script>
+  <!--<script type="text/javascript" src="{{site.url}}{{ 'assets/js/mini-spa.js' | url }}" async></script>-->
+  <script type="text/javascript" src="{{site.url}}{{ 'assets/js/global.js' | url }}"></script>
   {% block script %}{% endblock %}
 
 </html>
