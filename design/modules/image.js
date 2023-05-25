@@ -25,7 +25,7 @@ async function imageShortcode(src, alt = "", widths, sizes) {
   };
 
   // You bet we throw an error on a missing alt (alt="" works okay)
-  return Image.generateHTML(metadata, imageAttributes);
+  return await Image.generateHTML(metadata, imageAttributes);
 };
 
 module.exports = imageShortcode

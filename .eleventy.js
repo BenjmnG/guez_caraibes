@@ -36,8 +36,8 @@ module.exports = config => {
   
   config.setLibrary("md", markdownLibrary);
 
-  config.addNunjucksAsyncShortcode("image", imageShortcode);
-  config.addNunjucksAsyncShortcode("video", videoShortcode);
+  config.addShortcode("image", imageShortcode);
+  config.addShortcode("video", videoShortcode);
 
 
   //
@@ -55,7 +55,7 @@ module.exports = config => {
 
   config.addCollection("jobs", function(collection) {
       let jobs = collection.getFilteredByGlob("contenu/jobs/*.md")
-      return jobs;
+      return jobs; 
   });
 
 
