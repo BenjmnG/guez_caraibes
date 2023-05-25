@@ -1,7 +1,7 @@
 const path = require("path");
 const Image = require("@11ty/eleventy-img");
 
-async function imageShortcode(src, alt = "", widths, sizes) {
+function imageShortcode(src, alt = "", widths, sizes) {
 
   src = './contenu/_media/' + src
   console.log(widths)
