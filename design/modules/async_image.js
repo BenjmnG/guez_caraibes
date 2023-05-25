@@ -9,7 +9,7 @@ async function imageShortcode(src, alt = "", widths, sizes) {
     widths: widths || ["auto"],
     formats: ["avif", "webp"],
     outputDir: "./public/_media/",
-    urlPath: "./media/",
+    urlPath: "./_media/",
     filenameFormat: function (id, src, width, format, options) {
         const extension = path.extname(src)
         const name = path.basename(src, extension)
