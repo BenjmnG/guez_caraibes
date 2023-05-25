@@ -1,7 +1,6 @@
 ---
 layout: index
 titre: Bureau d'ingénierie 
-permalink: /bam/index.html
 cover: 
   src: christian-lendl-ry2aaDsawPA-unsplash.jpg
   alt: Vue aérienne de la Martinique
