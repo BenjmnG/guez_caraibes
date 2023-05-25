@@ -2,7 +2,7 @@
 	<ul role="Topbar" role="none">
 		<li role="none" 
 				class="home">
-			<a 	href="{{ site.url }}"
+			<a 	href="{{ site.url }}/"
 					role="topbar Item"
 					title="Page d'accueil"
 					tabindex="-1"
@@ -22,7 +22,7 @@
 
 			<ul>
 				<li role="none" id="tb_savoir-faire">
-					<a 	href="/savoir-faire/"
+					<a 	href="{{ site.url }}/savoir-faire/"
 							role="topbar Item"
 							{% if page.url == '/savoir-faire/' %}aria-current="page"{% endif %}>
 						Savoir-faire
@@ -30,7 +30,7 @@
 				</li>
 				<li role="none" 
 						id="tb_projets">
-					<a 	href="/projets/"
+					<a 	href="{{ site.url }}/projets/"
 							role="topbar Item"
 							{% if page.url == '/projets/' %}aria-current="page"{% endif %}>
 						Projets
@@ -38,7 +38,7 @@
 				</li>
 				<li role="none" 
 						id="tb_equipes">
-					<a 	href="/equipes/"
+					<a 	href="{{ site.url }}/equipes/"
 							role="topbar Item"
 							{% if page.url == '/equipes/' %}aria-current="page"{% endif %}>		
 						Équipes

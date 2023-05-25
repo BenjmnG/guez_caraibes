@@ -4,11 +4,12 @@ const Image = require("@11ty/eleventy-img");
 function imageShortcode(src, alt = "", widths, sizes) {
 
   src = './contenu/_media/' + src
+  let baseURL = process.env.NODE_ENV  == 'production' ? '/guez_caraibes/' : ''
   let metadata = Image.statsSync(src, {
     widths: widths || ["auto"],
     formats: ["avif", "webp"],
     outputDir: "./public/_media/",
-    urlPath: "./media/",
+    urlPath: baseURL + "media/",
     filenameFormat: function (id, src, width, format, options) {
         const extension = path.extname(src)
         const name = path.basename(src, extension)
