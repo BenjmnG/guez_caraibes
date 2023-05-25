@@ -1,7 +1,6 @@
 ---
 # Workflow for building and deploying an Eleventy static site to GitHub Pages via an Action
 name: Deploy Eleventy with GitHub Pages dependencies preinstalled
-ACTIONS_STEP_DEBUG: true
 
 on:
   # Runs on pushes targeting the default branch
