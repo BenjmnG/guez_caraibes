@@ -80,6 +80,7 @@ module.exports = config => {
 
   // pass through !
   config.addPassthroughCopy({
+    './contenu/_media' : '_media',
     './design/assets/font/' : 'assets/font',
     './design/assets/svg/' : 'assets/svg',
     './design/assets/js/' : 'assets/js',

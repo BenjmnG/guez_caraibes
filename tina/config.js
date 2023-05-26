@@ -5,8 +5,8 @@ const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || "main";
 
 export default defineConfig({
   branch,
-  clientId: "aff26f19-d87f-4c5a-8fcc-09f05df808ad", // Get this from tina.io
-  token: "6f602b470c9431d1d78a8c48ad6b46571356b8ba", // Get this from tina.io
+  clientId: process.env.tinaID,
+  token: process.env.tinaToken,
 
   build: {
     outputFolder: "admin",
@@ -14,7 +14,7 @@ export default defineConfig({
   },
   media: {
     tina: {
-      mediaRoot: "_media",
+      mediaRoot: "/_media",
       publicFolder: "contenu",
     },
   },
@@ -294,7 +294,30 @@ export default defineConfig({
             name: "visible",
             label: "Visible ?",
             value: true
-          }
+          },
+          {
+            label: "Image",
+            name: "cover",
+            type: "object",
+            fields: [
+              {
+                type: 'image',
+                label: 'Image',
+                name: 'src',
+                  ui: {
+                  parse(value) {
+                    //remove leading slash if it exists
+                    return encodeURI(value.replace(/ /g, '_'));
+                  },
+                }
+              },
+              {
+                type: 'string',
+                label: "Description de l'image",
+                name: 'alt',
+              }
+            ]
+          }       
         ]
       },
 

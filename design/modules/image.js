@@ -3,7 +3,7 @@ const Image = require("@11ty/eleventy-img");
 
 function imageShortcode(src, alt = "", widths, sizes) {
   
-  src = './contenu/_media/' + src
+  src = './contenu/' + src
   let baseURL = process.env.NODE_ENV  == 'production' ? 'https://benjmng.github.io/guez_caraibes/' : './'
 
   let options = {
