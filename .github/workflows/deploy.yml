@@ -61,7 +61,12 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build  
+      ##- run: npm run build  
+      - name: Build TinaCMS
+        env:
+          TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+        run: npx tinacms build && npm run build
 
       - name: Sleep for 30 seconds
         run: sleep 30s
