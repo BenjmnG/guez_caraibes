@@ -4,17 +4,18 @@ const Image = require("@11ty/eleventy-img");
 async function imageShortcode(src, alt = "", widths, sizes) {
 
   src = './contenu/_media/' + src
-  console.log(widths)
+  let baseURL = process.env.NODE_ENV  == 'production' ? 'https://benjmng.github.io/guez_caraibes/' : './'
+
   let metadata = await Image(src, {
     widths: widths || ["auto"],
     formats: ["avif", "webp"],
     outputDir: "./public/_media/",
-    urlPath: "./_media/",
+    urlPath: baseURL + "_media/",
     filenameFormat: function (id, src, width, format, options) {
-        const extension = path.extname(src)
-        const name = path.basename(src, extension)
-        return `${name}-${width}w.${format}`
-      }
+      const extension = path.extname(src)
+      const name = path.basename(src, extension)
+      return `${name}-${width}w.${format}`
+    }
 
   });
 
@@ -24,8 +25,6 @@ async function imageShortcode(src, alt = "", widths, sizes) {
     loading: "lazy",
     decoding: "async",
   };
-
-  // You bet we throw an error on a missing alt (alt="" works okay)
   return Image.generateHTML(metadata, imageAttributes);
 };
 
