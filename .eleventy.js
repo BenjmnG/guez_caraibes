@@ -65,7 +65,7 @@ module.exports = config => {
 
 
   config.addCollection("equipes", function(collection) {
-      let équipes = collection.getFilteredByGlob("contenu/équipes/*.md")
+      let équipes = collection.getFilteredByGlob("contenu/equipes/*.md")
       return équipes.reverse();
   });
 
