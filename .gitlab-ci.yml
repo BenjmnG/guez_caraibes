@@ -1,4 +1,5 @@
-image: node:18.13.0 
+# The Docker image that will be used to build your app
+image: node:lts
 
 # Cache modules in between jobs
 cache:
@@ -6,21 +7,21 @@ cache:
   paths:
     - .npm/
 
+# Functions that should be executed before the build script is run
 before_script:
   - npm ci --cache .npm --prefer-offline
 
-# the 'pages' job will deploy and build your site to the 'public' path
 pages:
-  stage: deploy
-  interruptible: true
   script:
     - npm run build:prod
     - gzip -k -6 -r public
-    #- gzip -k -6 $(find public -type f)
   artifacts:
-    public: false
     paths:
+      # The folder that contains the files to be exposed at the Page URL
       - public
+    public: false
     expire_in: 10 minutes
-  only:
-    - main # this job will affect only the 'master' branch
+  rules:
+    # This ensures that only pushes to the default branch will trigger
+    # a pages deploy
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
