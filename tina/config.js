@@ -10,8 +10,7 @@ export default defineConfig({
 
   build: {
     outputFolder: "admin",
-    publicFolder: "contenu",
-    basePath: 'guez_caraibes'
+    publicFolder: "contenu"
   },
   media: {
     tina: {
