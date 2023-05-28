@@ -37,11 +37,11 @@ module.exports = config => {
   
   config.setLibrary("md", markdownLibrary);
 
-  if(process.env.NODE_ENV  == 'production'){
+  //if(process.env.NODE_ENV  == 'production'){
     config.addShortcode("image", imageShortcode);
-  } else {
-    config.addAsyncShortcode("image", imageShortcodeAsync);
-  }
+  //} else {
+    //config.addAsyncShortcode("image", imageShortcodeAsync);
+  //}
   config.addShortcode("video", videoShortcode);
 
 
