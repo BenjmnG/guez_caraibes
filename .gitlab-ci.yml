@@ -1,20 +1,23 @@
 # The Docker image that will be used to build your app
 image: node:18.13.0
 
+# Cache modules in between jobs
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - .npm/
+
 before_script:
   - npm ci
 
 pages:
   script:
     - npm run build:prod
-    # - gzip -k -6 -r public
+    - gzip -k -6 -r public
     
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
       - public
+    public: false
     expire_in: 10 minutes
-  rules:
-    # This ensures that only pushes to the default branch will trigger
-    # a pages deploy
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
