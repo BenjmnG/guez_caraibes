@@ -1,0 +1,57 @@
+fragment WebsiteParts on Website {
+  name
+  subname
+  colophon {
+    __typename
+    design
+  }
+  seo {
+    __typename
+    description
+  }
+  url
+  email
+}
+
+fragment ProjetsParts on Projets {
+  titre
+  maitre_ouvrage
+  typologie
+  mission
+  statut
+  etat
+  surface
+  ile
+  localite
+  coordonnees
+  debut
+  fin
+  visible
+  cover {
+    __typename
+    src
+    alt
+  }
+}
+
+fragment SavoirfaireParts on Savoirfaire {
+  nom
+  description
+}
+
+fragment JobsParts on Jobs {
+  titre
+  description
+}
+
+fragment EquipesParts on Equipes {
+  nom
+  coordonnees
+  adresse {
+    __typename
+    telephone
+    mail
+    postale
+  }
+  siege
+}
