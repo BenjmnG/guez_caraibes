@@ -1,19 +1,11 @@
 # The Docker image that will be used to build your app
 image: node:lts
 
-# Cache modules in between jobs
-cache:
-  key: $CI_COMMIT_REF_SLUG
-  paths:
-    - .npm/
-
-# Functions that should be executed before the build script is run
-before_script:
-  - npm ci --cache .npm --prefer-offline
-
 pages:
   script:
     - npm run build:prod
+    - gzip -k -6 -r public
+    
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
