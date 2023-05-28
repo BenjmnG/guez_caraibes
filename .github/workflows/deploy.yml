@@ -68,6 +68,8 @@ jobs:
           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
         run: npx tinacms build
 
+      - run: npm run build:sass
+        
       - run: npm run build:prod  
 
       - name: Upload artifact

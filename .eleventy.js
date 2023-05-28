@@ -37,11 +37,11 @@ module.exports = config => {
   
   config.setLibrary("md", markdownLibrary);
 
-  //if(process.env.NODE_ENV  == 'production'){
+  if(process.env.NODE_ENV  == 'production'){
     config.addShortcode("image", imageShortcode);
-  //} else {
-    //config.addAsyncShortcode("image", imageShortcodeAsync);
-  //}
+  } else {
+    config.addAsyncShortcode("image", imageShortcodeAsync);
+  }
   config.addShortcode("video", videoShortcode);
 
 
@@ -75,7 +75,7 @@ module.exports = config => {
   // Sass Watch
   // 
   // DEPRECATED IN MY USE ?
-  config.addWatchTarget("./design/assets/scss/");
+  //config.addWatchTarget("./design/assets/scss/");
   
 
   // pass through !
@@ -90,7 +90,6 @@ module.exports = config => {
     './design/assets/root/' : '/',
     './design/assets/*.htaccess' : '/'
   });
-
 
   // 
   // Passthrough & minify JS
