@@ -14,7 +14,6 @@ before_script:
 pages:
   script:
     - npm run build:prod
-    - gzip -k -6 -r public
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
