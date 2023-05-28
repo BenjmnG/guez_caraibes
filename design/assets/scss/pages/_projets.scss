@@ -102,6 +102,11 @@ main[data-type="projets"]{
 					height: 100%;
 				}
 
+				picture{
+					position: absolute;
+					z-index: 2;
+				}
+
 				img{
 					object-fit: cover;
 				}
