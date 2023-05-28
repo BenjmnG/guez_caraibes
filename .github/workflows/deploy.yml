@@ -71,7 +71,7 @@ jobs:
       - run: npm run build  
 
       - name: Sleep for 30 seconds
-        run: sleep 30s
+        run: sleep 45s
         shell: bash
 
       - name: Upload artifact
