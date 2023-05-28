@@ -17,8 +17,7 @@ pages:
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
-      - ./public
-    public: false
+      - public
     expire_in: 10 minutes
   rules:
     # This ensures that only pushes to the default branch will trigger
