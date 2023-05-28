@@ -1,0 +1,26 @@
+image: node:18.13.0 
+
+# Cache modules in between jobs
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - .npm/
+
+before_script:
+  - npm ci --cache .npm --prefer-offline
+
+# the 'pages' job will deploy and build your site to the 'public' path
+pages:
+  stage: deploy
+  interruptible: true
+  script:
+    - npm run build:prod
+    - gzip -k -6 -r public
+    #- gzip -k -6 $(find public -type f)
+  artifacts:
+    public: false
+    paths:
+      - public
+    expire_in: 10 minutes
+  only:
+    - main # this job will affect only the 'master' branch
