@@ -112,8 +112,8 @@ module.exports = config => {
     );
   }
 
-  config.on('eleventy.after', ({ dir, results, runMode, outputMode }) => {
-  })
+  /*config.on('eleventy.after', ({ dir, results, runMode, outputMode }) => {
+  })*/
 
   // 
   // Minify HTML

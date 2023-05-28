@@ -11,7 +11,7 @@
     "build:sass": "npx sass ./design/assets/scss/:./design/assets/css/ --style compressed",
     "build:prod": "NODE_ENV=production npm run build",
     "build:tina": "npx tinacms build && npm run build",
-    "build": "npm run build:eleventy & npm run build:sass",
+    "build": "npm run build:eleventy",
     "dev:tina": "npx tinacms dev -c 'npm run dev'",
     "dev:debug": "DEBUG=Eleventy* npm run dev",
     "dev": "NODE_ENV=development npm run watch:eleventy & npm run watch:sass"
