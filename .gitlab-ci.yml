@@ -1,11 +1,5 @@
 # The Docker image that will be used to build your app
-image: node:lts
-
-# Cache modules in between jobs
-cache:
-  key: $CI_COMMIT_REF_SLUG
-  paths:
-    - .npm/
+image: node:18.13.0
 
 before_script:
   - npm ci
