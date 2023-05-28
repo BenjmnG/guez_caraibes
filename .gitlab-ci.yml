@@ -4,7 +4,7 @@ image: node:lts
 pages:
   script:
     - npm run build:prod
-    - gzip -k -6 -r public
+    # - gzip -k -6 -r public
     
   artifacts:
     paths:
