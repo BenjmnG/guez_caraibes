@@ -70,10 +70,6 @@ jobs:
 
       - run: npm run build:prod  
 
-      - name: Sleep for 30 seconds
-        run: sleep 45s
-        shell: bash
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
