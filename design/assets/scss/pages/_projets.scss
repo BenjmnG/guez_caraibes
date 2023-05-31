@@ -192,7 +192,7 @@ main[data-type="projets"]{
 
 		}
 		
-		input#filter_by_typo:checked ~ #filter > ul > li:nth-of-type(1),
+		input#filter_by_ty:checked ~ #filter > ul > li:nth-of-type(1),
 		input#filter_by_sf:checked ~ #filter > ul > li:nth-of-type(2),
 		input#filter_by_local:checked ~ #filter > ul > li:nth-of-type(3){
 			ul{
@@ -265,26 +265,25 @@ main[data-type="projets"]{
 				background: white;
 			}
 
-		}
-
-
-		input[name="open_filter"]:checked ~,
-		&.init{
-			h1{
+			input[name="open_filter"]:checked ~ h1{
 				padding-top: $base*4;
 			}
-			#filter{
-				padding: $base*4 0;
-				&:before{
-					height: 100%;
-				}
-				> ul ul{
-						max-height: $baseline*10;
-						padding-top: $base*4;
-
-				} 
-			}
 		}
+
+
+		input[name="open_filter"]:checked ~ #filter,
+		&.init #filter{
+			padding: $base*4 0;
+			&:before{
+				height: 100%;
+			}
+			> ul ul{
+					max-height: $baseline*10;
+					padding-top: $base*4;
+
+			} 
+		}
+
 		ul.list.projets{
 			grid-column: 3 / span 4;
 			grid-row: 2;

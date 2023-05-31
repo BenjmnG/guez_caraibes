@@ -142,6 +142,7 @@ const event = () => ({
 
     // Openers are three hidden input to open three list of item filter
     let openers = document.querySelectorAll('[name="open_filter"]')
+    let items = document.querySelectorAll('[name^="f-"]')
 
     // This function remove init class on main
     // Three openers can triggers it.
@@ -152,6 +153,19 @@ const event = () => ({
         opener.removeEventListener("change", removeInit, true)
         sect_map.removeEventListener("change", removeInit, true)
       })
+    }
+
+    const updateValue = (e) => {
+      let name = e.getAttribute('name'),
+          similarInputs = document.querySelectorAll(`[name="${name}"]:checked`),
+          checkedValues = []
+
+      similarInputs.forEach(i => {
+        checkedValues.push(i.getAttribute("value"))
+      })
+
+      console.log(document.querySelector(`label[for="filter_by_${name.substring(2)}"] .value`))
+      document.querySelector(`label[for="filter_by_${name.substring(2)}"] .value`).innerHTML = checkedValues.join(',')
     }
 
     // This function uncheck Openers
@@ -212,10 +226,12 @@ const event = () => ({
       opener.addEventListener('change', removeInit, {once: true})
     })
 
+    items.forEach( item => {
+      item.addEventListener('change', evt => updateValue(evt.target))
+    })
+
     if(main.classList.contains('init')){
-
       sect_map.addEventListener('click', removeInit, {once: true})
-
     }
 
   },

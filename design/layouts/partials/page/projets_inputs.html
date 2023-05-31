@@ -1,6 +1,6 @@
 <!-- To Open Nav filter -->
 
-<input  id="filter_by_typo" 
+<input  id="filter_by_ty" 
         type="checkbox" 
         name="open_filter"
         checked
@@ -11,7 +11,7 @@
         name="open_filter"
         hidden>
 
-<input  id="filter_by_local" 
+<input  id="filter_by_lo" 
         type="checkbox" 
         name="open_filter"
         hidden>
@@ -22,6 +22,7 @@
   <input  id="f-ty_{{loop.index}}" 
           type="checkbox" 
           name="f-ty"
+          value="{{ typo }}"
           hidden>
 {%- endfor -%}
 
@@ -29,6 +30,7 @@
   <input  id="f-sf_{{loop.index}}" 
           type="checkbox" 
           name="f-sf"
+          value="{{ sf.data.nom }}"
           hidden>
 {%- endfor -%}
 
@@ -36,5 +38,6 @@
   <input  id="f-lo_{{loop.index}}" 
           type="checkbox" 
           name="f-lo"
+          value="{{ equipe.data.nom }}"
           hidden>
 {%- endfor -%}
