@@ -27,7 +27,6 @@
 	}
 
 	.home{
-		z-index: 5;
 		a{
 			display: inline-block;
 		}
@@ -37,6 +36,10 @@
 	}
 
 	.pages{
+		.artifact{
+			display: none;
+			a{padding: 0 !important;}
+		}
 		address{
 			display: none;
 		}
@@ -116,6 +119,16 @@
 					@include f1(3, -2, $bold);
 					text-transform: uppercase;
 
+				}
+
+				.artifact{
+					display: block;
+					position: absolute;
+					top: $base*4;
+					left: $u;
+					width: 15rem;
+					svg{
+					}
 				}
 
 				address{

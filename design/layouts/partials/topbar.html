@@ -7,7 +7,7 @@
 					title="Page d'accueil"
 					tabindex="-1"
 					{% if page.url == '/' %}aria-current="page"{% endif %}>
-				{% include "../../assets/svg/guez_logo.svg" %}
+				{% include "../../assets/svg/guez_logo+.svg" %}
 			</a>
 		</li>
 		<li role="none" 
@@ -21,6 +21,24 @@
 			</label>
 
 			<ul>
+
+				<li role="none" 
+						class="artifact"
+						aria-hidden="true">
+					<a 	href="{{ site.url }}/"
+							role="topbar Item"
+							title="Page d'accueil"
+							tabindex="-1"
+							aria-hidden="true"
+							{% if page.url == '/' %}aria-current="page"{% endif %}>
+							
+							<svg viewBox="0 0 734.3 163.35">  
+	              <use href="#_type"></use>
+	              <use href="#_sign_B"></use>
+	              <use href="#_sign_A"></use>
+	            </svg>
+					</a>
+				</li>
 				<li role="none" id="tb_savoir-faire">
 					<a 	href="{{ site.url }}/savoir-faire/"
 							role="topbar Item"

@@ -27,7 +27,7 @@ body[data-serve="index"]{
 	  background-color: var(--cW);
 	}
 
-	#topbar{
+	#topbar #guez_color{
 		.c1, .c2{fill: var(--cW)}
 	}
 
@@ -43,11 +43,9 @@ body[data-serve="savoir-faire"]{
 		background-color: var(--cR);
 	}
 
-	#topbar{
-		.c1{fill: var(--cB)}
-		.c2{fill: var(--cR)}
+	#topbar #guez_sign_A *{
+		color: var(--cR)
 	}
 }
 
-
-
+#icons svg [id^="guez"]{ fill: currentColor}
