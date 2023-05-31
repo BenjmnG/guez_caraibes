@@ -71,11 +71,8 @@ module.exports = config => {
 
 
 
-  // 
   // Sass Watch
-  // 
-  // DEPRECATED IN MY USE ?
-  //config.addWatchTarget("./design/assets/scss/");
+  config.addWatchTarget("./design/assets/scss/", "./design/assets/css/");
   
 
   // pass through !

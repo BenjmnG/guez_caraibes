@@ -202,7 +202,7 @@ main[data-type="projets"]{
 		}
 
 		ul.list.projets{
-			height: calc(100% - #{$baseline});
+			height: calc(100% - #{$base*12});
 			padding-bottom: $baseline*10;
 			box-sizing: border-box;
 
