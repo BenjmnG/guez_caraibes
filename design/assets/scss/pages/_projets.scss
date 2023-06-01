@@ -101,6 +101,8 @@ main[data-type="projets"]{
 
 			.cover{
 				background: $c3a;
+
+
 				aspect-ratio: 3/2;
 				width: 100%;
 				max-height: max(10rem, 20vh);
@@ -133,6 +135,13 @@ main[data-type="projets"]{
 					transform: translateX(-50%) translateY(-50%);
 					color: var(--cB);
 				}
+			}
+
+			&:nth-of-type(4n-1) .cover{
+				background: $c2a;
+			}
+			&:nth-of-type(4n-2) .cover{
+				background: $c4a;
 			}
 
 			ul.details{
