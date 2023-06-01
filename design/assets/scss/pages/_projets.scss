@@ -72,7 +72,7 @@ main[data-type="projets"]{
 					max-height: $baseline;
 					white-space: nowrap;
 					&:empty{
-						@include icon_valid;
+						//@include icon_valid;
 						transition: 0s ease-in-out;
 					}
 				}		
@@ -159,10 +159,14 @@ main[data-type="projets"]{
 	input[name="open_filter"]:not(:checked) ~ #filter .value{
 
 	}
-	input[name="open_filter"]:checked ~ #filter .value:not(:empty){
-		opacity: 0;
-		transition: none;
-	}
+	input[name="open_filter"]:checked ~,
+	&.init{
+		#filter .value:not(:empty){
+			opacity: 0;
+			transition: none;
+		}
+
+	} 
 
 	/* */
 	/* Responsive */ 
@@ -272,22 +276,11 @@ main[data-type="projets"]{
 			}
 		}
 
-		&.init {
-			#filter:before{
-				content: "";
-				position: absolute;
-				left: calc(-100% - #{$u});
-				top: 0;
-				width: calc(100vw - #{$u*3});
-				height: 0;
-				background: white;
-			}
-
+		&.init{
 			input[name="open_filter"]:checked ~ h1{
 				padding-top: $base*4;
 			}
 		}
-
 
 		input[name="open_filter"]:checked ~ #filter,
 		&.init #filter{
@@ -343,6 +336,21 @@ main[data-type="projets"]{
 
 		ul.list.projets{
 			grid-column: 4 / span 3;
+		}
+	}
+
+	@media (min-height: 800px){
+
+		&.init {
+			#filter:before{
+				content: "";
+				position: absolute;
+				left: calc(-100% - #{$u});
+				top: 0;
+				width: calc(100vw - #{$u*3});
+				height: 0;
+				background: white;
+			}
 		}
 	}
 }

@@ -155,17 +155,19 @@ const event = () => ({
       })
     }
 
-    const updateValue = (e) => {
-      let name = e.getAttribute('name'),
-          similarInputs = document.querySelectorAll(`[name="${name}"]:checked`),
+    const updateOpenersValues = (categorie) => {
+
+      console.log(categorie)
+
+      let similarInputs = document.querySelectorAll(`[name="${categorie}"]:checked`),
           checkedValues = []
 
       similarInputs.forEach(i => {
         checkedValues.push(i.getAttribute("value"))
       })
 
-      console.log(document.querySelector(`label[for="filter_by_${name.substring(2)}"] .value`))
-      document.querySelector(`label[for="filter_by_${name.substring(2)}"] .value`).innerHTML = checkedValues.join(', ')
+      console.log(document.querySelector(`label[for="filter_by_${categorie.substring(2)}"] .value`))
+      document.querySelector(`label[for="filter_by_${categorie.substring(2)}"] .value`).innerHTML = checkedValues.join(', ')
     }
 
     // This function uncheck Openers
@@ -224,10 +226,18 @@ const event = () => ({
     openers.forEach( opener => {
       opener.addEventListener('change', evt => checkboxAsRadio(evt.target))
       opener.addEventListener('change', removeInit, {once: true})
+
+      // Update value on opener when possible start checked items
+      let categorie = 'f-' + opener.id.slice(-2)
+      console.log(opener.id, categorie)
+      updateOpenersValues(categorie)
     })
 
     items.forEach( item => {
-      item.addEventListener('change', evt => updateValue(evt.target))
+      item.addEventListener('change', evt => {
+        let categorie = (evt.target).getAttribute('name')
+        updateOpenersValues(categorie)
+      })
     })
 
     if(main.classList.contains('init')){
