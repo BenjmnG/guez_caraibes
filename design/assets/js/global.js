@@ -153,6 +153,9 @@ const event = () => ({
         opener.removeEventListener("change", removeInit, true)
         sect_map.removeEventListener("change", removeInit, true)
       })
+      items.forEach( item => {
+        item.removeEventListener("change", removeInit, true)
+      })
     }
 
     const updateOpenersValues = (categorie) => {
@@ -238,6 +241,7 @@ const event = () => ({
         let categorie = (evt.target).getAttribute('name')
         updateOpenersValues(categorie)
       })
+      item.addEventListener('change', removeInit, {once: true})
     })
 
     if(main.classList.contains('init')){

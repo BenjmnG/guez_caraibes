@@ -45,8 +45,6 @@ main[data-type="projets"]{
 		width: 100%;
 		z-index: 5;
 
-		
-
 		label{
 			cursor: pointer;
 			width: 100%;
@@ -91,7 +89,9 @@ main[data-type="projets"]{
 
 		overflow: hidden auto;
 		scrollbar-width: none;
+
 		z-index: 2;
+		box-sizing: border-box;
 
 		::-webkit-scrollbar {
 		  display: none;
@@ -239,21 +239,25 @@ main[data-type="projets"]{
 		grid-template-columns: repeat(6, 1fr);
 		grid-template-rows: auto 1fr;
 		grid-gap: 0 $u;
+		justify-items: end;
 
 		> h1{
 			grid-column: 1 / 3;
 			grid-row: 1;
 			padding: $base 0 0 $u; 
 			transition: padding $t ease-in-out;
+			justify-self: start;
 		}
 
 		#filter{
 			grid-column: 3 / span 4;
 			grid-row: 1;
+			width: 100%;
 			height: auto;
 			padding: 0;
-			transition: padding $t ease-in-out;
-			transition: padding $t ease-in-out;
+			transition: padding $t ease-in-out,
+									width $t ease-in-out;
+
 
 			> ul{
 				display: grid;
@@ -304,7 +308,10 @@ main[data-type="projets"]{
 			grid-template-columns: repeat(6, 1fr);
 			grid-gap: $u;
 
-			transition: transform .25s ease-in-out;
+			width: 100%;
+
+			transition: transform .25s ease-in-out,
+									width .25s ease-in-out;
 			transform: translateX(100%);
 
 			> li{
@@ -337,20 +344,33 @@ main[data-type="projets"]{
 		ul.list.projets{
 			grid-column: 4 / span 3;
 		}
+
+		input[id^="f-"]:checked ~ #map:hover{
+
+			~ #filter,
+			~ ul.list.projets{
+				width: 75%;
+				//transform: translateX( 40rem) !important;
+			}
+		}
 	}
 
 	@media (min-height: 800px){
+		#filter:before{
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 0;
+			height: 0;
+			background: white;
+			transition: width $t ease-in-out,
+									left $t ease-in-out;
+		}
 
-		&.init {
-			#filter:before{
-				content: "";
-				position: absolute;
-				left: calc(-100% - #{$u});
-				top: 0;
-				width: calc(100vw - #{$u*3});
-				height: 0;
-				background: white;
-			}
+		&.init #filter:before{
+			left: calc(-100% - #{$u});
+			width: calc(100vw - #{$u*3});
 		}
 	}
 }
