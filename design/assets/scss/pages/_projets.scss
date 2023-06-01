@@ -393,6 +393,10 @@ main[data-type="projets"]{
 			left: calc(-100% - #{$u});
 			width: calc(100vw - #{$u*3});
 		}
+		&.init input[id^="f-"]:checked ~ #filter:before{
+			left: 0;
+			width: 0;
+		}
 	}
 }
 
