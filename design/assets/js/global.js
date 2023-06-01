@@ -232,10 +232,11 @@ const event = () => ({
     //
 
     // From Savoir-faire
-    let anchor = window.location.hash
-    if (anchor){
-      let input = document.querySelector(`[name="f-sf"][value="${anchor.slice(1)}"]`)
-      console.log(input)
+    let params = (new URL(document.location)).searchParams;
+    let name = params.get('sf');
+    if (name){
+      let input = document.querySelector(`[name="f-sf"][value="${name}"]`)
+      console.log(name, input)
       input.checked = true;
     }
 
