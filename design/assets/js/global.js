@@ -226,6 +226,19 @@ const event = () => ({
       }
     }
 
+
+    //
+    // on Init
+    //
+
+    // From Savoir-faire
+    let anchor = window.location.hash
+    if (anchor){
+      let input = document.querySelector(`[name="f-sf"][value="${anchor.slice(1)}"]`)
+      console.log(input)
+      input.checked = true;
+    }
+
     openers.forEach( opener => {
       opener.addEventListener('change', evt => checkboxAsRadio(evt.target))
       opener.addEventListener('change', removeInit, {once: true})
@@ -247,6 +260,7 @@ const event = () => ({
     if(main.classList.contains('init')){
       sect_map.addEventListener('click', removeInit, {once: true})
     }
+
 
   },
 
