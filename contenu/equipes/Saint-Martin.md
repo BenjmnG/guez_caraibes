@@ -1,5 +1,5 @@
 ---
-nom: Saint Martin
+nom: Saint-Martin
 adresse:
   postale: Hope Estate Grand-Case; 97150 Saint-Martin
   téléphone: 06 90 26 26 76

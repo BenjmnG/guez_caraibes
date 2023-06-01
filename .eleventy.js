@@ -84,7 +84,7 @@ module.exports = config => {
     './design/assets/lib/' : 'assets/lib',
     './design/assets/css/' : 'assets/css',
     './design/assets/social/' : 'assets/social',
-    /*'./design/assets/root/' : '/',*/
+    './design/assets/root/' : '/',
     /*'./design/assets/*.htaccess' : '/'*/
   });
 

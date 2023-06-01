@@ -60,12 +60,21 @@ main[data-type="projets"]{
 			> li > label{
 				font-weight: $bold;
 				cursor: pointer;
+				display: flex;
+				gap: $u*.5;
 				.value{
-					position: absolute;
-					right: 0;
-					top: 50%;
-					transform: translateY(-50%);
-					&:empty{@include icon_valid;}
+					flex-shrink: 2;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					font-weight: normal;
+					opacity: 1;
+					transition: .25s ease-in-out;
+					max-height: $baseline;
+					white-space: nowrap;
+					&:empty{
+						@include icon_valid;
+						transition: 0s ease-in-out;
+					}
 				}		
 			}
 
@@ -144,6 +153,15 @@ main[data-type="projets"]{
 				}
 			}
 		}
+	}
+
+	
+	input[name="open_filter"]:not(:checked) ~ #filter .value{
+
+	}
+	input[name="open_filter"]:checked ~ #filter .value:not(:empty){
+		opacity: 0;
+		transition: none;
 	}
 
 	/* */

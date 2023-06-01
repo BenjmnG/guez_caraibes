@@ -165,7 +165,7 @@ const event = () => ({
       })
 
       console.log(document.querySelector(`label[for="filter_by_${name.substring(2)}"] .value`))
-      document.querySelector(`label[for="filter_by_${name.substring(2)}"] .value`).innerHTML = checkedValues.join(',')
+      document.querySelector(`label[for="filter_by_${name.substring(2)}"] .value`).innerHTML = checkedValues.join(', ')
     }
 
     // This function uncheck Openers
