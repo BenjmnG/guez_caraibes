@@ -231,6 +231,12 @@ main[data-type="projets"]{
 			.cover{
 				margin-bottom: $base*4;
 			}
+
+
+			h1{
+				@include f1(2, 0, $bold);
+				margin-bottom: $base*2;
+			}
 		}
 	}
 
@@ -320,6 +326,12 @@ main[data-type="projets"]{
 
 			.cover{
 				margin-bottom: $baseline;
+			}
+
+
+			h1{
+				@include f1(3, 0, $bold);
+				margin-bottom: $base*4
 			}
 
 			header{
