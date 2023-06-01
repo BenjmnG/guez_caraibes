@@ -216,7 +216,7 @@ main[data-type="projets"]{
 		
 		input#filter_by_ty:checked ~ #filter > ul > li:nth-of-type(1),
 		input#filter_by_sf:checked ~ #filter > ul > li:nth-of-type(2),
-		input#filter_by_local:checked ~ #filter > ul > li:nth-of-type(3){
+		input#filter_by_lo:checked ~ #filter > ul > li:nth-of-type(3){
 			ul{
 				padding: $base*2 0;
 				max-height: 50vh;
