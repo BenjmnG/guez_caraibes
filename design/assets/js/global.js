@@ -3,8 +3,9 @@ let body      = document.querySelector('body'),
     url       = window.location.href,
     sect_map  = document.querySelector("#map"),
     main_map  = document.querySelector("#main_map"),
-    map_on    = 'pt-Guadeloupe' // Guadeloupe as first reference point for focus map
-    ;
+    map_on    = 'l-Martinique', // Guadeloupe as first reference point for focus map
+    tX        = 0,
+    tY        = 0;
 
 const isReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`) === true || window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
 
@@ -13,6 +14,10 @@ const isReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`) === true
 //
 // Function
 //
+
+function mapNumber(value, start1, stop1, start2, stop2) {
+    return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+}
 
 function obf(){
   let as = document.querySelectorAll(".obf")
@@ -65,16 +70,25 @@ const map = () => ({
       })
     })
 
-    //map().setZoomAbilities()
+    map().setZoomAbilities()
+    map().setDragAbilities()
 
   },
 
-  getPerfectRatio: (id = 'l-Guadeloupe') => {
+  getPerfectRatio: (id = 'l-Martinique') => {
     let baseIsland = document.querySelector(`#${id}`).getBoundingClientRect().width,
           baseWidth = window.innerWidth
 
     return baseWidth / (baseIsland * 8)
   },
+
+  checkMaxt: () => {
+      let max = 296
+      if(tX > max)      { tX = max }
+      else if(tX < -max){ tX = -max }
+      else if(tY > max) { tY = max }
+      else if(tY < -max){ tY = -max }
+    },
 
   setZoomLevel: (state = 'A', id) => {
       if(!main_map.classList.contains(`scale-${state}`)){
@@ -83,8 +97,43 @@ const map = () => ({
       }
   },
 
+  setDragAbilities: () => {
+    let mouseInX, mouseInY
+    let isMoving = false
+
+    sect_map.addEventListener("mousedown", function(e) {
+      mouseStartX = e.clientX
+      mouseStartY = e.clientY
+      isMoving = true
+    })
+
+    sect_map.addEventListener("mousemove", function(e) {
+      if (isMoving === true) {
+        let  mouseEndX = e.clientX,
+             mouseEndY = e.clientY
+
+        tX = tX + (mouseEndX - mouseStartX) //  * ratio - 1;
+        tY = tY + (mouseEndY - mouseStartY) //  * ratio - 1;
+
+        map().checkMaxt()
+        
+        main_map.style.setProperty('--tX', `${tX}px`);
+        main_map.style.setProperty('--tY', `${tY}px`);
+
+        mouseStartX = e.clientX 
+        mouseStartY = e.clientY
+      }
+    })
+            
+    sect_map.addEventListener("mouseup", function(e) {
+      isMoving = false
+    });
+  },
+
   setZoomAbilities: () => {
-    document.addEventListener("wheel", function(e) {  
+    sect_map.addEventListener("wheel", function(e) {  
+        e.preventDefault();
+        e.stopPropagation();
       let ratio = getComputedStyle(main_map).getPropertyValue('--r'),
           computedRatio = ratio
       
@@ -97,13 +146,12 @@ const map = () => ({
       if(computedRatio < 1){ computedRatio = 1}
       
       main_map.style.setProperty(`--r`, computedRatio)
-      map().focus()
+      map().focus([e.clientX, e.clientY])
     });
   },
 
-  focus: (id = '[id^="pt"]') => {
+  focus: (el = 'l-Martinique') => {
       
-    let el = document.getElementById(id)
     let viewBox = main_map.getAttribute('viewBox').split(/\s+|,/)
                 
     let ratio = getComputedStyle(main_map).getPropertyValue('--r')
@@ -113,15 +161,46 @@ const map = () => ({
     let cY = parseInt(viewBox[3] / 2 )
 
     // Coordonée de l'élément à montrer
-    let _cX = el.getAttribute('data-x')
-    let _cY = el.getAttribute('data-y')
+    if(typeof el == 'string'){
+      let id  = document.getElementById(el)
+      let _cX = id.getAttribute('data-x')
+      let _cY = id.getAttribute('data-y')
+  
+      let pt_radius = 1 / 2;
 
-    let pt_radius = 1 / 2;
+      tX = (cX - _cX + pt_radius) * ratio - 1;
+      tY = (cY - _cY + pt_radius) * ratio - 1;
+  
+    } else {
+  
+      let cursorCoordXOnMap = el[0] - sect_map.getBoundingClientRect().x
+      let cursorCoordYOnMap = el[1] - sect_map.getBoundingClientRect().y
+      let sectMapSize = Math.min(sect_map.getBoundingClientRect().width, sect_map.getBoundingClientRect().height)
+      let svgSquareSize = 595
 
-    main_map.style.setProperty('--tX', `${(cX - _cX + pt_radius) * ratio - 1}px`);
-    main_map.style.setProperty('--tY', `${(cY - _cY + pt_radius) * ratio - 1}px`);
 
-    console.log({cX, cY, _cX, _cY, ratio})
+      let mouseX = mapNumber(cursorCoordXOnMap, 0, sectMapSize, 0, svgSquareSize)
+      let mouseY = mapNumber(cursorCoordYOnMap, 0, sectMapSize, 0, svgSquareSize)
+      console.log(mouseX,mouseY)
+
+      // rel center of map
+
+
+      tX = cX - mouseX;
+      tY = cY - mouseY;
+
+      /*tX = (svgSquareSize / 2 - mouseX )
+      tY = (svgSquareSize / 2 - mouseY )
+      console.log(tX,tY)*/
+
+    }
+
+    map().checkMaxt()
+
+
+    main_map.style.setProperty('--tX', `${tX}px`);
+    main_map.style.setProperty('--tY', `${tY}px`);
+
 
   }
 })
