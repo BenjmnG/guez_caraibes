@@ -83,7 +83,7 @@ const map = () => ({
       }
   },
 
-  /*setZoomAbilities: () => {
+  setZoomAbilities: () => {
     document.addEventListener("wheel", function(e) {  
       let ratio = getComputedStyle(main_map).getPropertyValue('--r'),
           computedRatio = ratio
@@ -99,7 +99,7 @@ const map = () => ({
       main_map.style.setProperty(`--r`, computedRatio)
       map().focus()
     });
-  },*/
+  },
 
   focus: (id = '[id^="pt"]') => {
       
@@ -160,8 +160,6 @@ const event = () => ({
 
     const updateOpenersValues = (categorie) => {
 
-      console.log(categorie)
-
       let similarInputs = document.querySelectorAll(`[name="${categorie}"]:checked`),
           checkedValues = []
 
@@ -169,7 +167,6 @@ const event = () => ({
         checkedValues.push(i.getAttribute("value"))
       })
 
-      console.log(document.querySelector(`label[for="filter_by_${categorie.substring(2)}"] .value`))
       document.querySelector(`label[for="filter_by_${categorie.substring(2)}"] .value`).innerHTML = checkedValues.join(', ')
     }
 
@@ -236,7 +233,6 @@ const event = () => ({
     let name = params.get('sf');
     if (name){
       let input = document.querySelector(`[name="f-sf"][value="${name}"]`)
-      console.log(name, input)
       input.checked = true;
     }
 
@@ -246,7 +242,6 @@ const event = () => ({
 
       // Update value on opener when possible start checked items
       let categorie = 'f-' + opener.id.slice(-2)
-      console.log(opener.id, categorie)
       updateOpenersValues(categorie)
     })
 

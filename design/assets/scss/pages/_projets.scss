@@ -194,6 +194,17 @@ main[data-type="projets"]{
 			transition: padding $t ease-in-out;
 			border-top: 1px solid currentColor;
 
+			&:before{
+				content: "";
+				width: 100vw;
+				left: -$u;
+				height: $baseline*2;
+				background: linear-gradient(transparent, var(--cB));
+				opacity: .15;
+				top: $baseline*-2;
+				position: absolute;
+			}
+
 			>ul{
 				> li{
 					padding: $base 0;
@@ -352,6 +363,29 @@ main[data-type="projets"]{
 			transform: translateX(0%) !important;
 		}
 
+		@media (min-height: 800px){
+			#filter:before{
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 0;
+				height: 0;
+				background: white;
+				transition: width $t ease-in-out,
+										left $t ease-in-out;
+			}
+
+			&.init #filter:before{
+				left: calc(-100% - #{$u});
+				width: calc(100vw - #{$u*3});
+			}
+			&.init input[id^="f-"]:checked ~ #filter:before{
+				left: 0;
+				width: 0;
+			}
+		}
+
 	}
 
 	@include for-size(desktop-1800){
@@ -376,27 +410,5 @@ main[data-type="projets"]{
 		}
 	}
 
-	@media (min-height: 800px){
-		#filter:before{
-			content: "";
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 0;
-			height: 0;
-			background: white;
-			transition: width $t ease-in-out,
-									left $t ease-in-out;
-		}
-
-		&.init #filter:before{
-			left: calc(-100% - #{$u});
-			width: calc(100vw - #{$u*3});
-		}
-		&.init input[id^="f-"]:checked ~ #filter:before{
-			left: 0;
-			width: 0;
-		}
-	}
 }
 
