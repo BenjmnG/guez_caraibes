@@ -18,7 +18,7 @@ main[data-type="projets"]{
 	&, #map, .map_container, .map_container svg{
 		width: 100%;
 		height: calc(100vh - #{$tbHeight} - #{$baseline});
-		height: calc(100dvh - #{$tbHeight} - #{$baseline});
+		height: calc(100dvh - #{$tbHeight} - #{$base*6});
 	}
 
 	#map{
