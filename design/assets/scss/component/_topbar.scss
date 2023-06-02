@@ -59,20 +59,22 @@
 				height: $base*4;
 				cursor: pointer;
 				z-index: 5;
+				padding: $base*6 0 $base*6 $u;
 
 				&::before, &::after {
 				  content: '';
 				  position: absolute;
 				  width: $unite*2;
 				  height: 1px;
+				  height: .5px;
 				  transition: 0.25s;
 				  background: currentColor;
 				}
 				&::before {
-				  top: 1px;
+				  top: $base*6;
 				}
 				&::after {
-				  top: 100%;
+				  bottom: $base*6;
 				}
 			}
 			> input:checked + label{
@@ -82,7 +84,7 @@
 					transform: rotate(135deg);
 				}
 				&::after{
-					top: 50%;
+					bottom: 50%;
 					transform: rotate(225deg);
 				}
 			}
