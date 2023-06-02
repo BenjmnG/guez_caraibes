@@ -99,7 +99,7 @@
 				overflow: hidden scroll;
 				background: var(--cB);
 				color: var(--cW);
-				clip-path: circle(0% at calc(100% - 3rem) 3rem);
+				clip-path: circle(0% at calc(100% - #{$u*2}) #{$u*3});
 				transition: height 0s .25s,
 										width 0s .25s,
 										clip-path .25s 0s ease-in-out;
@@ -109,7 +109,7 @@
 				//justify-content: end;
 
 				display: grid;
-				grid-template-rows: calc(100vh - #{$baseline} - #{$base*13} * 3) #{$base*13} auto;
+				grid-template-rows: calc(100vh - #{$base*17} - #{$base*13} * 3 - 1px) #{$base*13} auto;
 				grid-template-columns: 1fr;
 				grid-gap: $base*4;
 				align-items: end;
@@ -125,7 +125,7 @@
 
 				.artifact{
 					display: block;
-					position: absolute;
+					position: fixed;
 					top: $base*4;
 					left: $u;
 					width: 15rem;
@@ -136,6 +136,8 @@
 				address{
 					display: block;
 					font-style: normal;
+					border-top: 1px solid currentColor;
+					margin-top: $base*6;
 
 					@include f1(1);
 
@@ -168,7 +170,7 @@
 				transition: height 0s 0s,
 										width 0s 0s,
 										clip-path .75s 0s ease-in-out;
-				clip-path: circle(110vh at calc(100% - 3rem) 3rem);
+				clip-path: circle(110vh at calc(100% - #{$u*2}) #{$u*3});
 
 				//> * { display: inline-block;}
 

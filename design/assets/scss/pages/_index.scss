@@ -3,7 +3,8 @@ body[data-serve="index"]{
 	background: var(--cB);
 
 	main{
-		$minH: calc(100vh - (#{$tbHeight}));
+		$minH: calc(100dvh - (#{$tbHeight} - #{$base*2}));
+		min-height: calc(100vh - #{$tbHeight}); // falllback
 		min-height: $minH;
 		padding: $baseline 0;
 		box-sizing: border-box;
