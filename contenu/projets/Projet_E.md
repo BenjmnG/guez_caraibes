@@ -5,7 +5,8 @@ typologie: Hôtels
 mission: MOE Fluides
 etat: ESQ
 ile: Martinique
-coordonnées: 14.624761211676082, -61.0132691743709
+localité: Basse-Terre
+coordonnées: 15.991071, -61.720961
 debut: 2023-03-26T22:00:00.000Z
 fin: 2023-05-02T22:00:00.000Z
 visible: true

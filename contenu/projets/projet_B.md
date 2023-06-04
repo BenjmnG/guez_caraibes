@@ -10,8 +10,8 @@ montant: 1000000
 
 # localisation 
 ile: Guadeloupe
-localité: Basse-Terre
-coordonnées: 16.011868282518552, -61.7302383674222
+localité: Vieux-Habitants
+coordonnées: 16.057545, -61.761202
 
 # date
 debut: 2022-06-01

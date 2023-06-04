@@ -6,10 +6,17 @@ svg#main_map{
 	--tY: 0;
 	--r: 	1.25;
 
+	cursor: move;
+
+	&:active{
+		cursor: grabbing;
+	}
+
 	> g{
 		transform: translateX(var(--tX)) translateY(var(--tY)) scale(var(--r)) ;
-		transform-origin: center;
-		transition: transform 1s cubic-bezier(.46,.03,.52,.96);
+		transform-origin: 50% 50%;
+		transition: transform 1s cubic-bezier(.46,.03,.52,.96),
+								transform-origin 1s cubic-bezier(.46,.03,.52,.96);
 	}
 
 

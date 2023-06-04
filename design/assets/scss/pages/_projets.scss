@@ -15,10 +15,20 @@ main[data-type="projets"]{
 	border-bottom: 1px solid var(--cB);
 	margin-bottom: $baseline;
 
-	&, #map, .map_container, .map_container svg{
+	&, #map, {
 		width: 100%;
 		height: calc(100vh - #{$tbHeight} - #{$baseline});
 		height: calc(100dvh - #{$tbHeight} - #{$base*6});
+	}
+
+	.map_container, .map_container svg{
+		height: 100%;
+		width: 100%;
+	}
+
+	.map_container svg{
+		min-width: calc(100vh - #{$tbHeight} - #{$baseline});
+		min-width: calc(100dvh - #{$tbHeight} - #{$base*6});
 	}
 
 	#map{
@@ -31,6 +41,10 @@ main[data-type="projets"]{
 
 		.map_container{
 			overflow: hidden;
+		}
+
+		#cursor{
+			transition: .25s ease;
 		}
 	}
 
@@ -105,7 +119,7 @@ main[data-type="projets"]{
 
 				aspect-ratio: 3/2;
 				width: 100%;
-				max-height: max(10rem, 20vh);
+				//max-height: max(10rem, 20vh);
 				border-bottom: 1px solid currentColor;
 
 				figure, picture, img{

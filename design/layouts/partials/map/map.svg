@@ -62,7 +62,7 @@
 
 		<!--<line x1="296" y1="0" x2="296" y2="595"  stroke="var(--cW)"/>-->
 		<!--<line x1="0" y1="296" x2="595" y2="296"  stroke="var(--cW)"/>-->
-		<circle cx="296" cy="296" r="1" fill="var(--cW)"/>
+		<circle id="cursor" cx="296" cy="296" r="1" fill="var(--cW)"/>
 	<g vector-effect="non-scaling-stroke">
 
 

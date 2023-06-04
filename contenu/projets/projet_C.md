@@ -11,7 +11,7 @@ montant: 1000000
 # localisation 
 ile: Guadeloupe
 localité: Basse-Terre
-coordonnées: 16.011868282518552, -61.7302383674222
+coordonnées: 16.005146, -61.721120
 
 # date
 debut: 2022-06-01
