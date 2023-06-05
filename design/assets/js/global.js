@@ -160,8 +160,8 @@ const map = () => ({
       let island_to_target = el.getAttribute('data-island')
 
       //Temp
-      map().getPerfectRatio('l-Martinique')
-      map().setFocusPoint(208, 156)
+      //map().getPerfectRatio('l-Martinique')
+      //map().setFocusPoint(208, 156)
 
       el.addEventListener("mouseenter", () => { 
         map().getPerfectRatio(island_to_target)
@@ -281,7 +281,7 @@ const event = () => ({
   },
 
   project: () => {
-    
+
     window._map = {
 
       section: {
