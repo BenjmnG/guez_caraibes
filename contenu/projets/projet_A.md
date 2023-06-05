@@ -8,7 +8,7 @@ surface: 10000
 montant: 1000000
 ile: Martinique
 localité: Ile-Ville
-coordonnées: '14.624761211676082, -61.0132691743709'
+coordonnées: 14.624761211676082, -61.0132691743709
 debut: 2022-06-01T00:00:00.000Z
 fin: 2023-12-01T00:00:00.000Z
 visible: true

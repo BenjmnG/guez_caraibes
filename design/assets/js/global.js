@@ -185,32 +185,39 @@ const map = () => ({
         map().setFocusPoint(coord[0], coord[1])
       })
     })
+
+    const setVueMode = (single, id) => {
+      main.setAttribute('data-vue', single == true ?  'single' : 'list')
+
+      document.querySelector(`.list.projets [data-map-point="${id}"]`)
+        .setAttribute('data-active', single == true ? true : false)
+    }
+
     document.querySelectorAll('.etiquette').forEach(el => {
       el.addEventListener("click", () => {
-
-        const setVueMode = (single) => {
-          document.querySelector('.list.projets')
-            .setAttribute('data-vue', single == true ?  'single' : 'list')
-
-          document.querySelector(`.list.projets [data-map-point="${el.id}"]`)
-            .setAttribute('data-active', single == true ? true : false)
-        }
 
         let alreadyActive = document.querySelector(`.list.projets [data-active="true"]`)
         if(alreadyActive && alreadyActive.getAttribute('data-map-point') == el.id){
           // Project is already in Single Mode. Time to shut it down
-          setVueMode(false)
+          setVueMode(false, el.id)
         } else if(alreadyActive) {
           // A project is already open and there is a new project to see
           alreadyActive.setAttribute('data-active', false)
-          setVueMode(true)
+          setVueMode(true, el.id)
         } else {
           // No project is open and there is a project to see
-          setVueMode(true)
+          setVueMode(true, el.id)
         }
         
- })
+      })
     })
+
+    document.querySelector('#filter > button')
+      .addEventListener("click", () => {
+        let id = document.querySelector('[data-active="true"]')
+          .getAttribute('data-map-point')
+        setVueMode(false, id)
+      } )
 
     //
     // UI Map 
