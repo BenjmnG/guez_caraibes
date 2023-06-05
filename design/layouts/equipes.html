@@ -43,19 +43,24 @@
     </address>
   </section>
 
-  <section id="jobs">
-    <h1>Nous rejoindre</h1>
-    <ul>
-    {%- for job in collections.jobs -%}
-      <li>
-        <details>
-          <summary>{{ job.data.titre }}</summary>
-            {{ job.content | safe }}
-        </details>
+  {% if (collections.jobs | length) > 0 %}
+    <section id="jobs">
+      <h1>Nous rejoindre</h1>
+      <p>
+        Nous recherchons constamment des nouveaux...
+      </p>
+      <ul>
+      {%- for job in collections.jobs -%}
+        <li>
+          <details>
+            <summary>{{ job.data.titre }}</summary>
+              {{ job.content | safe }}
+          </details>
 
-      </li>
-    {%- endfor -%}
-  </section>
+        </li>
+      {%- endfor -%}
+    </section>
+  {% endif %}
 {% endblock %}
 
 {% block script %}<script type="text/javascript">event().equipes()</script>{% endblock %}

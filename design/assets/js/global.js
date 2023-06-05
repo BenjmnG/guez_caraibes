@@ -6,21 +6,7 @@ let body      = document.querySelector('body'),
     initR     = 2,
     r         = initR
 
-let _map = {
 
-  section: {
-    el:     document.querySelector("#map"),
-    width:  document.querySelector("#map").getBoundingClientRect().width,
-    height: document.querySelector("#map").getBoundingClientRect().height
-  },
-
-  on: 'l-Martinique',
-  
-  svg: {
-    el: document.querySelector("#main_map"),
-    viewbox: 595
-  } 
-}
 
 const isReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`) === true || window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
 
@@ -295,6 +281,23 @@ const event = () => ({
   },
 
   project: () => {
+    
+    window._map = {
+
+      section: {
+        el:     document.querySelector("#map"),
+        width:  document.querySelector("#map").getBoundingClientRect().width,
+        height: document.querySelector("#map").getBoundingClientRect().height
+      },
+
+      on: 'l-Martinique',
+      
+      svg: {
+        el: document.querySelector("#main_map"),
+        viewbox: 595
+      } 
+    }
+
     map().init()
 
     // Openers are three hidden input to open three list of item filter
