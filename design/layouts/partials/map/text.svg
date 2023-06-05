@@ -36,7 +36,7 @@
      data-y="{{ y - r / 2}}"
      >
     <circle class="pt" cx="{{ x - r / 2}}" cy="{{ y - r / 2}}" r="{{ r }}" />
-  	<text x="{{ x - r / 2}}" y="{{ y - r / 2}}">{{ projet.data.localité | default(projet.data.localité) }}</text>
+  	<!--<text x="{{ x - r / 2}}" y="{{ y - r / 2}}">{{ projet.data.localité | default(projet.data.localité) }}</text>-->
   </g>
 
 {%- endfor -%}

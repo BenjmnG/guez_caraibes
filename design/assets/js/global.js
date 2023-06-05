@@ -1,15 +1,26 @@
 let body      = document.querySelector('body'),
     main      = document.querySelector('main'),
     url       = window.location.href,
-    sect_map  = document.querySelector("#map"),
-    main_map  = document.querySelector("#main_map"),
-    map_on    = 'l-Martinique', // Guadeloupe as first reference point for focus map
     tX        = 0,
     tY        = 0,
-    r         = 1.25,
-    svgG      = document.querySelector('#main_map > g'),
-    sectMapSize,
-    svgSquareSize = 595
+    initR     = 2,
+    r         = initR
+
+let _map = {
+
+  section: {
+    el:     document.querySelector("#map"),
+    width:  document.querySelector("#map").getBoundingClientRect().width,
+    height: document.querySelector("#map").getBoundingClientRect().height
+  },
+
+  on: 'l-Martinique',
+  
+  svg: {
+    el: document.querySelector("#main_map"),
+    viewbox: 595
+  } 
+}
 
 const isReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`) === true || window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
 
@@ -75,166 +86,192 @@ const project = () => ({
 
 const map = () => ({
 
-  init: () => {
+  validMinr: () => {
+    if(r < initR){
+      r = initR
+    } else if(r <= initR + 2 ){
+      _map.svg.el.classList = `no-scale`
+    } else if(r > initR + 6){
+      _map.svg.el.classList = `scale-B`
+    } else if(r > initR + 2 ){
+      _map.svg.el.classList = `scale-A`
+    }
+  },
 
-    document.querySelectorAll('.list.projets [data-map-point]').forEach(el => {
-      let id_to_target = el.getAttribute('data-map-point')
-      el.addEventListener("mouseenter", () => { 
-        map().setZoomLevel('A')
-        map().focus(id_to_target)
-      })
-    })
+  validMaxt: () => {
+    if(tX > 0){ tX = 0 }
 
-    map().setZoomAbilities()
-    map().setDragAbilities()
+    let max = _map.section.height * (1 -  r)
+
+    if(tY < max ){ tY = max }
+  },
+
+  getPerfectRatio: (id = null) => {
+    let baseIsland = 13
+    if(id == 'l-Martinique'){
+      baseIsland = 13
+    } else if (id == 'l-Guadeloupe'){
+      baseIsland = 25
+    } else if (id == 'l-Saint-Martin'){
+      baseIsland = 3
+    } else {
+      baseIsland = 13
+    }
+
+    r = _map.section.width  / (baseIsland * 5)
+
+    map().validMinr()
 
   },
 
-  getPerfectRatio: (id = 'l-Martinique') => {
-    let baseIsland = document.querySelector(`#${id}`).getBoundingClientRect().width,
-          baseWidth = window.innerWidth
+  getCoord: (el) => {
 
-    r = baseWidth / (baseIsland * 8)
+    if(typeof el == 'string'){
+      let id  = document.getElementById(el)
+      let x = id.getAttribute('data-x')
+      let y = id.getAttribute('data-y')
 
-    return r
-  },
-
-  checkMaxt: () => {
-      let max = 296
-      if(tX > max * r)      { tX = max  * r }
-      else if(tX < -max * r){ tX = -max * r }
-      else if(tY > max * r) { tY = max  * r }
-      else if(tY < -max * r){ tY = -max * r }
-    },
-
-  setZoomLevel: (state = 'A', id) => {
-      if(!main_map.classList.contains(`scale-${state}`)){
-        main_map.style.setProperty('--r', map().getPerfectRatio())
-        main_map.classList =`scale-${state}`
-      }
+      return [x, y]
+    }
   },
 
   setTransform: () => {
-    svgG.style.transform = "translate(" + tX + "px, " + tY + "px) scale(" + r + ")";
-  }
+    _map.svg.el.style.setProperty('--tX', `${tX}px`);
+    _map.svg.el.style.setProperty('--tY', `${tY}px`);
+    _map.svg.el.style.setProperty('--r', r);
+  },
 
-  updateCursor: (x, y) => {
-    let cursor = document.querySelector('#cursor')
+  setFocusPoint: (x, y) => {
 
-    // Update container size if resize
-    sectMapSize = sect_map.getBoundingClientRect().height
 
-    x-= sect_map.getBoundingClientRect().left
-    y-= sect_map.getBoundingClientRect().top
+    let pt_radius = 1 / 2;
 
-    let _px = mapNumber(x, 0, sectMapSize, 0, 1 )
-    let _py = mapNumber(y, 0, sectMapSize, 0, 1 )
-     
-    cursor.setAttribute('cx', _px * svgSquareSize )
-    cursor.setAttribute('cy', _py * svgSquareSize )
+    // Deform Ratio is the relation between SVG viewbox and container (1.5/1 on 1080 pixel screen)
+    let deformRatio = _map.section.width / _map.svg.viewbox
 
-    return [_px, _py]
+    let centerWidth   = _map.section.width  / 2 
+        centerHeight  = _map.section.height / 2
+
+    // Ratio Increase by de
+    let factor = r * deformRatio * -1
+
+    tX = (x - pt_radius) * (-r * deformRatio) + centerWidth;
+    tY = (y - pt_radius) * (-r * deformRatio) + centerHeight;
+
+    map().validMaxt()
+    map().setTransform();
+
+
   },
 
 
+  init: () => {
 
-  setDragAbilities: () => {
-    let mouseInX, mouseInY
-    let isMoving = false
+    //
+    // UI Project List
+    document.querySelectorAll('.list.projets [data-map-point]').forEach(el => {
+      let id_to_target     = el.getAttribute('data-map-point')
+      let island_to_target = el.getAttribute('data-island')
+
+      //Temp
+      map().getPerfectRatio('l-Martinique')
+      map().setFocusPoint(208, 156)
+
+      el.addEventListener("mouseenter", () => { 
+        map().getPerfectRatio(island_to_target)
+        map().setTransform()
+        
+        let coord = map().getCoord(id_to_target)
+        map().setFocusPoint(coord[0], coord[1])
+      })
+    })
+    document.querySelectorAll('.etiquette').forEach(el => {
+      el.addEventListener("click", () => {
+
+        const setVueMode = (single) => {
+          document.querySelector('.list.projets')
+            .setAttribute('data-vue', single == true ?  'single' : 'list')
+
+          document.querySelector(`.list.projets [data-map-point="${el.id}"]`)
+            .setAttribute('data-active', single == true ? true : false)
+        }
+
+        let alreadyActive = document.querySelector(`.list.projets [data-active="true"]`)
+        if(alreadyActive && alreadyActive.getAttribute('data-map-point') == el.id){
+          // Project is already in Single Mode. Time to shut it down
+          setVueMode(false)
+        } else if(alreadyActive) {
+          // A project is already open and there is a new project to see
+          alreadyActive.setAttribute('data-active', false)
+          setVueMode(true)
+        } else {
+          // No project is open and there is a project to see
+          setVueMode(true)
+        }
+        
+ })
+    })
+
+    //
+    // UI Map 
+
+    // setInteractionAbilities
+    // https://codepen.io/stack-getover/pen/VwPgQQr
+    let start = { x: 0, y: 0 }
+    let panning = false
     let cursor = document.querySelector('#cursor')
 
-    sect_map.addEventListener("mouseover", function(e) {
-      //map().updateCursor(e.clientX, e.clientY)
-    })
-    sect_map.addEventListener("mousedown", function(e) {
-      mouseStartX = e.clientX
-      mouseStartY = e.clientY
-      isMoving = true
+    //_map.section.el.addEventListener("mouseover", function(e) {})
 
+    _map.section.el.addEventListener("mousedown", function(e) {
+      start = { x: e.clientX, y: e.clientY };
+      panning = true
       project().closeInit()
-
-      
-      map().focus(map().updateCursor(e.clientX, e.clientY))
     })
 
-    sect_map.addEventListener("mousemove", function(e) {
-      if (isMoving === true) {
-        let  mouseEndX = e.clientX,
-             mouseEndY = e.clientY
+    _map.section.el.addEventListener("mousemove", function(e) {
+      if (panning === true) {
 
-        tX = tX + (mouseEndX - mouseStartX) //  * ratio - 1;
-        tY = tY + (mouseEndY - mouseStartY) //  * ratio - 1;
+        tX = tX + (e.clientX - start.x) //  * ratio - 1;
+        tY = tY + (e.clientY - start.y) //  * ratio - 1;
 
-        map().checkMaxt()
+        map().validMaxt()
 
-        main_map.style.setProperty('--tX', `${tX}px`);
-        main_map.style.setProperty('--tY', `${tY}px`);
+        _map.svg.el.style.setProperty('--tX', `${tX}px`);
+        _map.svg.el.style.setProperty('--tY', `${tY}px`);
 
-        mouseStartX = e.clientX 
-        mouseStartY = e.clientY
-
-        //map().updateCursor(e.clientX, e.clientY)
+        start.x = e.clientX 
+        start.y = e.clientY
         
       }
     })
             
-    sect_map.addEventListener("mouseup", function(e) {
-      isMoving = false
+    _map.section.el.addEventListener("mouseup", function(e) {
+      panning = false
     });
-  },
 
-  setZoomAbilities: () => {
-    sect_map.addEventListener("wheel", function(e) {  
-        e.preventDefault();
-        e.stopPropagation();
+
+    _map.section.el.addEventListener("wheel", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
       project().closeInit()
 
-      r = e.deltaY < 0 ? r * 1.25 : Math.max(r * .75, 1.25)
+      var   xs    = (e.clientX - tX) / r,
+            ys    = (e.clientY - tY) / r,
+            delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+      (delta > 0) ? (r *= 1.2) : (r /= 1.2);
       
-      r = Math.round(r)
+      map().validMinr()
 
-      main_map.style.setProperty(`--r`, r)
-      map().focus(map().updateCursor(e.clientX, e.clientY))
-    });
-  },
+      let originCenter = _map.svg.viewbox / 2 
+      tX = (e.clientX - xs * r);
+      tY = (e.clientY - ys * r);
 
-  focus: (el = 'l-Martinique') => {
-      
-    let viewBox = main_map.getAttribute('viewBox').split(/\s+|,/)
-                
-    // Coordonnée du point central du svg
-    let cX = parseInt(viewBox[2] / 2 )
-    let cY = parseInt(viewBox[3] / 2 )
+      map().validMaxt()
 
-    // Coordonée de l'élément à montrer
-    if(typeof el == 'string'){
-      let id  = document.getElementById(el)
-      let _cX = id.getAttribute('data-x')
-      let _cY = id.getAttribute('data-y')
-  
-      let pt_radius = 1 / 2;
-
-      tX = (cX - _cX + pt_radius) * r - 1;
-      tY = (cY - _cY + pt_radius) * r - 1;
-  
-      main_map.style.setProperty('--tX', `${tX}px`);
-      main_map.style.setProperty('--tY', `${tY}px`);
-
-
-      map().setTransform()
-
-    } else {
-      let deformRatio =  svgSquareSize / sectMapSize,
-          vue,
-          offset = (svgSquareSize * r - svgSquareSize) / 2
-      console.log(offset, deformRatio)
-
-
-    }
-
-    //map().checkMaxt()
-
+      map().setTransform();      
+    })
 
   }
 })
@@ -261,14 +298,16 @@ const event = () => ({
     // Three openers can triggers it.
     // Once called, we destroy the two other triggers.
     const removeInit = () => {
-      main.classList.remove('init')
-      openers.forEach( opener => {
-        opener.removeEventListener("change", removeInit, true)
-        sect_map.removeEventListener("change", removeInit, true)
-      })
-      items.forEach( item => {
-        item.removeEventListener("change", removeInit, true)
-      })
+      if(main.classList.contains('init')){
+        main.classList.remove('init')
+        openers.forEach( opener => {
+          opener.removeEventListener("change", removeInit, true)
+          _map.section.el.removeEventListener("change", removeInit, true)
+        })
+        items.forEach( item => {
+          item.removeEventListener("change", removeInit, true)
+        })
+      }
     }
 
     const updateOpenersValues = (categorie) => {
@@ -367,7 +406,7 @@ const event = () => ({
     })
 
     if(main.classList.contains('init')){
-      sect_map.addEventListener('click', removeInit, {once: true})
+      _map.section.el.addEventListener('click', removeInit, {once: true})
     }
 
 

@@ -9,6 +9,8 @@
         data-lo="{%- for t in collections.equipes -%}{% if projet.data.ile == t.data.nom %}{{loop.index}},{% endif %}{% endfor %}"
 
         data-map-point="pt-{{ projet.data.titre | getId }}"
+
+        data-island="l-{{ projet.data.ile }}"
       >
 
       <div class="cover">

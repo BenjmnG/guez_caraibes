@@ -11,7 +11,7 @@ montant: 1000000
 # localisation 
 ile: Guadeloupe
 localité: Vieux-Habitants
-coordonnées: 16.057545, -61.761202
+coordonnées: 16.057560507138824, -61.761181582844074
 
 # date
 debut: 2022-06-01
