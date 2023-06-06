@@ -5,6 +5,10 @@ body[data-serve="equipes"]{
 
 main[data-type="equipes"]{
 
+	#equipes{
+		margin-bottom: $baseline*2;
+	}
+
 	header{
 	    text-align: center;
 		h1{
@@ -99,25 +103,112 @@ main[data-type="equipes"]{
 	}
 
 	#jobs{
-		max-width: 70rem;
+		display: inline-block;
+		width: 100%;
 		margin: auto;
 
-		details{
-			margin: $baseline 0;
-			@include f1(1);
-			max-width: 50rem;
+		h1{
+			@include f1(2);
+			text-transform: uppercase;
+			width: 100%;
+			padding-bottom: $base*2;
+		}
 
-			h2{
-				margin-bottom: $baseline
+		.intro{
+			margin-bottom: $baseline;
+			p{
+				@include f1(1);
+				max-width: 25rem;
 			}
 		}
 
-		summary{
-			@include f1(2,0, $bold);
-			text-transform: capitalize;
+		details{
+			padding-bottom: $base*4;
+			margin-bottom: $base*4;
+			border-bottom: 1px solid currentColor;
+			@include f1(1);
+
+
+			&[open]{
+				border-color: currentColor;
+				summary{
+					padding-left: 0;
+					padding-bottom: $base*4;
+				}
+			}
+
+			.button{
+				padding: $base $u*.5;
+				border: 1px solid var(--cB);
+				border-radius: $baseline;
+				transition: all .25s ease-in-out, opacity .25s ease-in-out;
+				opacity: 0;
+				@include f1(1);
+				//text-transform: none;
+
+				&:hover{
+					background: var(--cB);
+					color: var(--cW);
+
+				}
+			}
+
+			&[open], &:hover{
+				.button{
+					transition: all .25s ease-in-out, opacity .5s .25s ease-in-out;
+					opacity: 1;
+				}
+			}
+	
+			summary{
+				width: 100%;
+				text-transform: uppercase;
+				cursor: pointer;
+				box-sizing: border-box;
+				
+				&::marker{content: none;}
+
+				*{@include f1(2,-3);}
+
+				svg{
+					display: none;
+				}
+
+				h2{font-weight: $bold;}
+
+				span{
+					font-size: 1em;
+					display: block;
+				}
+			}
+
+			> *:not(summary){
+				max-width: 40rem;
+				margin-bottom: $base*4;
+			}
+			> h3 {
+				@include f1(1, 0, $bold);
+			}
 		}
+
 	}
 
+
+	@include for-size(phone){
+
+		details{
+
+			&:not([open]) .button{
+				display: none;
+			}
+			.button{
+				display: inline-block;
+				margin: $base*4 auto $base*2 auto;
+				left: $u*-.5;
+			}
+		}
+
+	}
 
 	@include for-size(desktop){
 		address {
@@ -128,15 +219,42 @@ main[data-type="equipes"]{
 			}
 		}
 
+		#equipes{
+			margin-bottom: $baseline*6;
+		}
 		#jobs{
-			margin-top: $baseline*4;
+			margin: 0 auto $baseline*10 auto;
+
+			> * {
+				max-width: 70rem;
+				margin-left: auto;
+				margin-right: auto;
+			}
 
 			details{
-				padding-left: calc(max(50%, 20rem));
+
+				.button{
+					  position: absolute;
+					  top: .5rem;
+					  right: 0;
+				}
 				summary{
-					position: absolute;
-					left: 0;
-					top: 0;
+					transition: .25s ease-in-out;
+					overflow: hidden;
+
+					svg{
+						display: inline-block;
+						width: $u;
+						position: absolute;
+						transform: translateX(#{$u*-1.75}) translateY(-135%) rotate(-90deg);
+						transition: .25s .1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+					}
+				}
+				&:not([open]) summary:hover{
+					padding-left: $u * 2;
+					svg{
+						transform: translateX(#{$u*-1.75}) translateY(135%) rotate(-90deg);
+					}
 				}
 			}
 		}

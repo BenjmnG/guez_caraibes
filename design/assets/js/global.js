@@ -23,19 +23,20 @@ function mapNumber(value, start1, stop1, start2, stop2) {
 function obf(){
   let as = document.querySelectorAll(".obf")
   as.forEach( a => {
-    let value = a.getAttribute('data-href'),
-        protocol = a.getAttribute('data-protocol')
+    let value     = a.getAttribute('data-href'),
+        protocol  = a.getAttribute('data-protocol'),
+        subject   = a.getAttribute('data-subject') ? `?subject=${a.getAttribute('data-subject')}` : null
 
     if(protocol == "mail"){protocol = "mailto:"}
     else if(protocol == "phone"){protocol = "tel:"}
       
     value = value.split("").reverse().join("");
-    a.setAttribute("href", protocol + value)
+    a.setAttribute("href", protocol + value + subject)
 
 
-    //if(!a.classList.contains('humanize')){
-      a.innerHTML = value // else let inner as it is
-    //}
+    if(a.innerHTML.length == 0){
+      a.innerHTML = value 
+    }
 
     a.removeAttribute('data-href')
     a.removeAttribute('data-protocol')
@@ -160,8 +161,8 @@ const map = () => ({
       let island_to_target = el.getAttribute('data-island')
 
       //Temp
-      //map().getPerfectRatio('l-Martinique')
-      //map().setFocusPoint(208, 156)
+      map().getPerfectRatio('l-Martinique')
+      map().setFocusPoint(208, 156)
 
       el.addEventListener("mouseenter", () => { 
         map().getPerfectRatio(island_to_target)
@@ -281,7 +282,7 @@ const event = () => ({
   },
 
   project: () => {
-
+    
     window._map = {
 
       section: {

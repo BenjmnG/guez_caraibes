@@ -1,5 +1,7 @@
 ---
 titre: "recherche élécticien"
+contrat: CDI
+temps: Temps plein
 ---
 
 

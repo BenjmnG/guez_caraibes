@@ -1,7 +1,7 @@
 {% extends "_base.html" %}
 
 {% block main %}
-  <section>
+  <section id="equipes">
     <header>
       <h1>{{ slogan | markdown | escaP | safe }}</h1>
       <div class="description">
@@ -26,13 +26,11 @@
                  data-href="{{ mail }}"
                  data-protocol="mail"
                  role="Email de l'équipe {{ equipe.data.nom }}">
-                {{ mail }}
               </a>
             <a class="obf" 
                data-href="{{ phone }}"
                data-protocol="phone"
                  role="Téléphone de l'équipe {{ equipe.data.nom }}">
-              {{ phone }}
             </a>
 
             <p>{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
@@ -46,15 +44,43 @@
   {% if (collections.jobs | length) > 0 %}
     <section id="jobs">
       <h1>Nous rejoindre</h1>
-      <p>
-        Nous recherchons constamment des nouveaux...
-      </p>
+      
+      <div class="intro">
+        <p>
+          Nous recherchons constamment des nouveaux... Lorem ipsum nulla aliquip ex exercitation sit aliqua occaecat et aliquip non labore ex consequat pariatur in mollit eu proident exercitation et enim ut nostrud.
+        </p>
+      </div>
+
       <ul>
       {%- for job in collections.jobs -%}
         <li>
           <details>
-            <summary>{{ job.data.titre }}</summary>
-              {{ job.content | safe }}
+            <summary>
+
+              <svg viewbox="0 0 20 20"><use href="#icon-arrow"></use></svg>
+
+              <h2>{{ job.data.titre }}</h2>
+              <span>
+                {% if job.data.temps %}{{ job.data.temps }}{% endif %}
+                {% if job.data.temps and job.data.contrat %},{% endif %}
+                {% if job.data.contrat %}{{ job.data.contrat }}{% endif %}
+              </span>
+
+              <a class="obf button" 
+                 data-href="{{ website.email_job | reverse}}"
+                 data-protocol="mail"
+                 data-subject='Candidature : "{{ job.data.titre }}"'
+                 role="Postuler par mail">
+                Candidater par Mail
+              </a>
+
+            </summary>
+
+              {{ job.content 
+                | replace('h2', 'h3') 
+                | replace('h1', 'h2') 
+                | safe 
+              }}
           </details>
 
         </li>
