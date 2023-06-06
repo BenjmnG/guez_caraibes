@@ -322,6 +322,7 @@ main[data-type="projets"]{
 				padding: $base*2 $u;
 				opacity: 1;
 				transition: opacity .25s ease-in-out;
+				z-index: 1;
 
 				> li{
 					grid-column: span 2;
@@ -345,6 +346,7 @@ main[data-type="projets"]{
 				left: 1rem;
 				transition: opacity .25s ease-in-out;
 				@include f1(1);
+				z-index: -1;
 
 				.close{
 					display: inline-block;
@@ -410,10 +412,14 @@ main[data-type="projets"]{
 			grid-gap: $u;
 
 			width: 100%;
+			border-top: 1px solid white;
 
 			transition: transform .25s ease-in-out,
-									width .25s ease-in-out;
-			transform: translateX(100%);
+									width .25s ease-in-out,
+									border .5s ease-in,
+									padding .5s ease-in;
+			transform: translateX(calc(100% + #{$u*2}));
+
 
 			> li{
 				grid-column: span 3;
@@ -445,10 +451,12 @@ main[data-type="projets"]{
 			#filter{
 				> ul{
 					opacity: 0;
+					z-index: -1;
 				}
 
 				> button {
 					opacity: 1;
+					z-index: 1;
 				}
 			}
 		}
@@ -464,6 +472,12 @@ main[data-type="projets"]{
 				span.back{ display: inline-block;}
 			}
 		}
+
+		&:not([data-vue="single"]) input[name="open_filter"]:checked ~ ul.list.projets{
+			border-top-color: currentColor;
+			padding-top: $base*6; 
+		}
+
 
 		&[data-vue="single"] ul.list.projets [data-active="true"]{
 			display: block;

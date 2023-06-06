@@ -1,6 +1,7 @@
 footer{
 	min-height: 15rem;
 	color: var(--cW);
+	z-index: 5;
 
 	::selection{
 	  color: var(--cR) !important;
