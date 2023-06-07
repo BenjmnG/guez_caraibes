@@ -245,6 +245,7 @@ main[data-type="equipes"]{
 					svg{
 						display: inline-block;
 						width: $u;
+						stroke-width: 2;
 						position: absolute;
 						transform: translateX(#{$u*-1.75}) translateY(-135%) rotate(-90deg);
 						transition: .25s .1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
