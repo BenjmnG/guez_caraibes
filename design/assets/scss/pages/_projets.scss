@@ -45,6 +45,7 @@ main[data-type="projets"]{
 		@include f1(2);
 		text-transform: uppercase;
 		z-index: 6;
+		user-select: none;
 	}
 
 	#filter{
