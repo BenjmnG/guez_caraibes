@@ -399,7 +399,7 @@ main[data-type="projets"]{
 			overflow-x: visible;
 
 			.map_container{
-				width: calc(100vw - #{$u*3} - 2px);
+				width: calc(100vw - #{$u*2} - 2px);
 			}
 		}
 
