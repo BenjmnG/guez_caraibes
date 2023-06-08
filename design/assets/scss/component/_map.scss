@@ -63,7 +63,11 @@ svg#main_map{
 		fill: var(--cW);
 		stroke: var(--cB);
 		stroke-width: 1;
-		transition: .75s ease-in-out;
+		transition: .75s ease-in-out, 
+					0s stroke-width;
+		stroke-width: 0.35px;
+		stroke-width: calc(max(.1px, calc(.35px - .05px*var(--r))));
+	    //vector-effect: non-scaling-stroke;
 	}
 
 	#M200, #M1000, #M3000{
@@ -114,11 +118,19 @@ svg#main_map{
 
 
 	&.scale-A{
+
+		#Land path{
+			//stroke-width: 0.25px;
+		}
 	}
 
 
 
 	&.scale-B{
+
+		#Land path{
+			//stroke-width: 0.15px;
+		}
 
 		circle{
 			r: .75px;
