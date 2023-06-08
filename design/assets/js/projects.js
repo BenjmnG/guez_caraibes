@@ -2,6 +2,12 @@
 let openers = document.querySelectorAll('[name="open_filter"]')
 let items   = document.querySelectorAll('[name^="f-"]')
 
+let tX        = 0,
+    tY        = 0,
+    minR     = 4,
+    maxR     = 80,
+    r         = minR
+
 let _map = {
 
   section: {
@@ -16,6 +22,14 @@ let _map = {
     el: document.querySelector("#main_map"),
     viewbox: 495
   } 
+
+  // PREFERENCE ????
+  tX        = 0,
+  tY        = 0,
+  minR     = 4,
+  maxR     = 80,
+  r         = minR
+
 }
 
 
@@ -206,23 +220,27 @@ const project_list = () => ({
 const project_map = () => ({
 
   validMinr: () => {
-    if(r < initR){
-      r = initR
-    } else if(r <= initR + 2 ){
+    if(r < minR){
+      r = minR
+    } else if(r <= minR + 2 ){
       _map.svg.el.classList = `no-scale`
-    } else if(r > initR + 6){
+    } else if(r > minR + 6){
       _map.svg.el.classList = `scale-B`
-    } else if(r > initR + 2 ){
+
+      if(r > maxR) { r = maxR }
+
+    } else if(r > minR + 2 ){
       _map.svg.el.classList = `scale-A`
     }
   },
 
   validMaxt: () => {
-    if(tX > 0){ tX = 0 }
-
-    let max = _map.section.height * (1 -  r)
-
-    if(tY < max ){ tY = max }
+    offset = 100 // Far west isn't a friendly world
+    let maxX = offset * -r,
+        maxY = _map.section.height * (1 -  r)
+    
+    if(tX > maxX){  tX = maxX   }
+    if(tY < maxY ){ tY = maxY }
   },
 
   getPerfectRatio: (id = null) => {

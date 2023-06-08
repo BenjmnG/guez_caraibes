@@ -1,19 +1,14 @@
 let body      = document.querySelector('body'),
     main      = document.querySelector('main'),
-    url       = window.location.href,
-    tX        = 0,
-    tY        = 0,
-    initR     = 2,
-    r         = initR
+    url       = window.location.href
 
 
 
 const isReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`) === true || window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
 
 
-
 //
-// Function
+// Tools
 //
 
 function mapNumber(value, start1, stop1, start2, stop2) {
