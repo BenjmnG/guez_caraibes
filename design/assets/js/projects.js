@@ -21,7 +21,8 @@ let _map = {
   tY:      0,
   minR:    4,
   maxR:    80,
-  ratio:   4
+  ratio:   4,
+  focusOn: null
 }
 
 const project_list = () => ({
@@ -160,21 +161,22 @@ const project_list = () => ({
 
     watchProjectListInteractions: () => {
 
-      window.focusOn = null
-
       // This set abilities to focus map on project implentation based on lat/long coord
       document.querySelectorAll('.list.projets [data-map-point]').forEach(el => {
         let id_to_target     = el.getAttribute('data-map-point')
         let island_to_target = el.getAttribute('data-island')
 
-        el.addEventListener("mouseenter", () => { 
+        el.addEventListener("mouseenter", () => {
+
+          if(main.getAttribute('data-vue') == 'single'){return}
+
           project_map().getPerfectRatio(island_to_target)
           _map.ratio +=5
           project_map().setTransform()
 
           let coord = project_map().getCoord(id_to_target)
           project_map().focusOnPoint(coord[0], coord[1])
-          focusOn = coord;
+          _map.focusOn = coord;
 
           _map.section.el.querySelector(`#${id_to_target}`).classList.add('focus')
 
@@ -189,12 +191,12 @@ const project_list = () => ({
       })
 
       document.querySelector('.list.projets').addEventListener('mouseleave', () => {
-        if(focusOn != null){
+        if(_map.focusOn != null && main.getAttribute('data-vue') != 'single'){
           _map.ratio /= 4
           project_map().validMinR()
           project_map().setTransform()
-          project_map().focusOnPoint(focusOn[0], focusOn[1])
-          focusOn = null
+          project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
+          _map.focusOn = null
         }
       })
     },
@@ -204,6 +206,13 @@ const project_list = () => ({
       document.querySelector('#filter > button').addEventListener("click", () => {
           let id = document.querySelector('[data-active="true"]').getAttribute('data-map-point')
           project_map().setVueMode(false, id)
+          
+          _map.ratio /= 4
+          project_map().validMinR()
+          
+          project_map().setTransform()
+          project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
+          _map.focusOn = null
       })
     }
   }),
@@ -281,6 +290,7 @@ const project_map = () => ({
   },
 
   setTransform: () => {
+    console.log('transform')
     _map.svg.el.style.setProperty('--tX', `${_map.tX}px`);
     _map.svg.el.style.setProperty('--tY', `${_map.tY}px`);
     _map.svg.el.style.setProperty('--r', _map.ratio);
@@ -397,15 +407,34 @@ const project_map = () => ({
             if(alreadyActive && alreadyActive.getAttribute('data-map-point') == el.id){
               // Project is already in Single Mode. Time to shut it down
               project_map().setVueMode(false, el.id)
-            } else if(alreadyActive) {
-              // A project is already open and there is a new project to see
-              alreadyActive.setAttribute('data-active', false)
-              project_map().setVueMode(true, el.id)
+
+              // Zoom out
+              _map.ratio /= 4
+
             } else {
-              // No project is open and there is a project to see
-              project_map().setVueMode(true, el.id)
-            }
-            
+                if(alreadyActive) {
+                // A project is already open and there is a new project to see
+                alreadyActive.setAttribute('data-active', false)
+                project_map().setVueMode(true, el.id)
+              } else {
+                // No project is open and there is a project to see
+                project_map().setVueMode(true, el.id)
+              }
+
+              project_map().getPerfectRatio()
+              _map.ratio +=5
+              
+              _map.focusOn = [
+                parseFloat(el.getAttribute('data-x')),
+                parseFloat(el.getAttribute('data-y'))
+              ]
+
+            }            
+
+            // Update tranform because of ratio update
+            project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
+            project_map().validMinR()
+            project_map().setTransform()
           })
         })
       },
