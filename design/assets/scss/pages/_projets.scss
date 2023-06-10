@@ -74,6 +74,9 @@ main[data-type="projets"]{
 				cursor: pointer;
 				display: flex;
 				gap: $u*.5;
+
+				span:first-child{flex-shrink: 0;}
+
 				.value{
 					flex-shrink: 2;
 					overflow: hidden;
@@ -93,6 +96,7 @@ main[data-type="projets"]{
 			ul > li{
 				label{
 					@include icon_valid;
+					padding-left: calc( #{$u} * ( var(--sc) * .75 ) );
 				}
 			}
 		}
