@@ -32,7 +32,7 @@ main[data-type="projets"]{
 		z-index:  1;
 
 
-		
+
 		&:after, &:before{content: "";position: absolute;z-index: 99; }
 		&:after{left: 50%; top: 0; height: 100%; width: 1px; background: white;  }
 		&:before{left: 0; top: 50%; height: 1px; width: 100%; background: white;  }
@@ -405,7 +405,7 @@ main[data-type="projets"]{
 			overflow-x: visible;
 
 			.map_container{
-				width: calc(100vw - #{$u*2} - 2px);
+				width: calc(100vw - #{$u*3} - 2px);
 			}
 		}
 
