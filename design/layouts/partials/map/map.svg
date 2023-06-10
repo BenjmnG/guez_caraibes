@@ -36,7 +36,6 @@
 						style="stroke: none; fill: #ffffff"/>
 	  </pattern>
 
-
 	  <pattern id='cross1' 
 	  				 patternUnits='userSpaceOnUse' 
 	  				 width='20' 
@@ -48,7 +47,6 @@
 
 	  	<path  d='M3.25 10h13.5M10 3.25v13.5' 
 	  		style="stroke: #ffff; stroke-width='1px' fill: none"/>
-
 	  </pattern>
 
 	</defs>
@@ -60,11 +58,7 @@
         scale="15" xChannelSelector="R" xChannelSelector="G" yChannelSelector="B"/>
   </filter>	
 
-		<!--<line x1="296" y1="0" x2="296" y2="595"  stroke="var(--cW)"/>-->
-		<!--<line x1="0" y1="296" x2="595" y2="296"  stroke="var(--cW)"/>-->
-		<circle id="cursor" cx="296" cy="296" r="1" fill="var(--cW)"/>
 	<g >
-
 
 		<g id="M3000" class="st0">
 			<g>
@@ -778,8 +772,8 @@
 			</g>
 		</g>
 
-
 		{% include "partials/map/text.svg" %}
 
+		<!--<circle id="cursor" cx="296" cy="296" r="1" style="fill: red !important"/>-->
 	</g>
 </svg>

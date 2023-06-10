@@ -2,12 +2,6 @@
 let openers = document.querySelectorAll('[name="open_filter"]')
 let items   = document.querySelectorAll('[name^="f-"]')
 
-let tX        = 0,
-    tY        = 0,
-    minR     = 4,
-    maxR     = 80,
-    r         = minR
-
 let _map = {
 
   section: {
@@ -21,24 +15,18 @@ let _map = {
   svg: {
     el: document.querySelector("#main_map"),
     viewbox: 495
-  } 
+  },
 
-  // PREFERENCE ????
-  tX        = 0,
-  tY        = 0,
-  minR     = 4,
-  maxR     = 80,
-  r         = minR
-
+  tX:      0,
+  tY:      0,
+  minR:    4,
+  maxR:    80,
+  ratio:   4
 }
-
-
 
 const project_list = () => ({
 
-  // This function remove init class on main
-  // Three openers can triggers it.
-  // Once called, we destroy the two other triggers.
+  // This function remove init class on main. Three openers can triggers it. Once called, we destroy the two other triggers.
   removeInit: () => {
     if(main.classList.contains('init')){
       main.classList.remove('init')
@@ -136,7 +124,6 @@ const project_list = () => ({
     }
   },
 
-
   events: () => ({
 
     watchCategorie: () => {
@@ -173,27 +160,42 @@ const project_list = () => ({
 
     watchProjectListInteractions: () => {
 
+      window.focusOn = null
+
       // This set abilities to focus map on project implentation based on lat/long coord
       document.querySelectorAll('.list.projets [data-map-point]').forEach(el => {
         let id_to_target     = el.getAttribute('data-map-point')
         let island_to_target = el.getAttribute('data-island')
 
-                  //Temp
-                  //Temp
-                  //Temp
-                  project_map().getPerfectRatio('l-Martinique')
-                  project_map().setFocusPoint(108, 156)
-                  //Temp
-                  //Temp
-
         el.addEventListener("mouseenter", () => { 
           project_map().getPerfectRatio(island_to_target)
+          _map.ratio +=5
           project_map().setTransform()
-          
+
           let coord = project_map().getCoord(id_to_target)
-          project_map().setFocusPoint(coord[0], coord[1])
+          project_map().focusOnPoint(coord[0], coord[1])
+          focusOn = coord;
+
+          _map.section.el.querySelector(`#${id_to_target}`).classList.add('focus')
+
+          el.addEventListener("mouseleave", () => {
+            let focusedPoint = document.querySelector('.etiquette.focus')
+            if(focusedPoint){
+              focusedPoint.classList.remove('focus')
+            }
+          })
 
         })
+      })
+
+      document.querySelector('.list.projets').addEventListener('mouseleave', () => {
+        if(focusOn != null){
+          _map.ratio /= 4
+          project_map().validMinR()
+          project_map().setTransform()
+          project_map().focusOnPoint(focusOn[0], focusOn[1])
+          focusOn = null
+        }
       })
     },
 
@@ -201,7 +203,7 @@ const project_list = () => ({
       // This hide Single Vue Mode on user clic 
       document.querySelector('#filter > button').addEventListener("click", () => {
           let id = document.querySelector('[data-active="true"]').getAttribute('data-map-point')
-          project_list().setVueMode(false, id)
+          project_map().setVueMode(false, id)
       })
     }
   }),
@@ -219,45 +221,51 @@ const project_list = () => ({
 
 const project_map = () => ({
 
-  validMinr: () => {
-    if(r < minR){
-      r = minR
-    } else if(r <= minR + 2 ){
+  validMinR: () => {
+    if(_map.ratio < _map.minR){
+      _map.ratio = _map.minR
+    } else if(_map.ratio <= _map.minR+ 2 ){
       _map.svg.el.classList = `no-scale`
-    } else if(r > minR + 6){
+    } else if(_map.ratio > _map.minR+ 6){
       _map.svg.el.classList = `scale-B`
 
-      if(r > maxR) { r = maxR }
+      if(_map.ratio > _map.maxR) { _map.ratio = _map.maxR}
 
-    } else if(r > minR + 2 ){
+    } else if(_map.ratio > _map.minR + 2 ){
       _map.svg.el.classList = `scale-A`
     }
   },
 
   validMaxt: () => {
     offset = 100 // Far west isn't a friendly world
-    let maxX = offset * -r,
-        maxY = _map.section.height * (1 -  r)
+    let minX = offset * -_map.ratio,
+        maxX = _map.section.width * -_map.ratio/4
+        minY = _map.section.height / 2,
+        maxY = _map.section.height * -_map.ratio/4
     
-    if(tX > maxX){  tX = maxX   }
-    if(tY < maxY ){ tY = maxY }
+    if(_map.tX > minX){ _map.tX = minX
+    } else if(_map.tX < maxX){ _map.tX = maxX }
+    if(_map.tY > minY){ _map.tY = minY
+    } else if(_map.tY < maxY ){ _map.tY = maxY }
+
   },
 
   getPerfectRatio: (id = null) => {
+
     let baseIsland = 13
     if(id == 'l-Martinique'){
       baseIsland = 13
     } else if (id == 'l-Guadeloupe'){
-      baseIsland = 25
+      baseIsland = 13
     } else if (id == 'l-Saint-Martin'){
       baseIsland = 3
     } else {
       baseIsland = 13
     }
 
-    r = _map.section.width  / (baseIsland * 5)
+    _map.ratio = _map.section.width  / (baseIsland * 3)
 
-    project_map().validMinr()
+    project_map().validMinR()
 
   },
 
@@ -273,13 +281,21 @@ const project_map = () => ({
   },
 
   setTransform: () => {
-    _map.svg.el.style.setProperty('--tX', `${tX}px`);
-    _map.svg.el.style.setProperty('--tY', `${tY}px`);
-    _map.svg.el.style.setProperty('--r', r);
+    _map.svg.el.style.setProperty('--tX', `${_map.tX}px`);
+    _map.svg.el.style.setProperty('--tY', `${_map.tY}px`);
+    _map.svg.el.style.setProperty('--r', _map.ratio);
   },
 
-  setFocusPoint: (x, y) => {
+  setVueMode: (single, id) => {
+    main.setAttribute('data-vue', single == true ?  'single' : 'list')
 
+    document.querySelector(`.list.projets [data-map-point="${id}"]`)
+      .setAttribute('data-active', single == true ? true : false)
+  },
+
+  focusOnPoint: (x, y) => {
+
+    console.log('go to : ', x, y)
 
     let pt_radius = 1 / 2;
 
@@ -290,22 +306,14 @@ const project_map = () => ({
         centerHeight  = _map.section.height / 2
 
     // Ratio Increase by de
-    let factor = r * deformRatio * -1
+    let factor = _map.ratio * deformRatio * -1
 
-    tX = (x - pt_radius) * (-r * deformRatio) + centerWidth;
-    tY = (y - pt_radius) * (-r * deformRatio) + centerHeight;
+    _map.tX = x * (_map.ratio * -1) + centerWidth;
+    _map.tY = y * (_map.ratio * -1) + centerHeight;
 
     project_map().validMaxt()
     project_map().setTransform();
 
-
-  },
-
-  setVueMode: (single, id) => {
-    main.setAttribute('data-vue', single == true ?  'single' : 'list')
-
-    document.querySelector(`.list.projets [data-map-point="${id}"]`)
-      .setAttribute('data-active', single == true ? true : false)
   },
 
   events: () => {
@@ -332,13 +340,13 @@ const project_map = () => ({
         _map.section.el.addEventListener("mousemove", function(e) {
           if (panning === true) {
 
-            tX = tX + (e.clientX - start.x) //  * ratio - 1;
-            tY = tY + (e.clientY - start.y) //  * ratio - 1;
+            _map.tX = _map.tX + (e.clientX - start.x) //  * ratio - 1;
+            _map.tY = _map.tY + (e.clientY - start.y) //  * ratio - 1;
 
             project_map().validMaxt()
 
-            _map.svg.el.style.setProperty('--tX', `${tX}px`);
-            _map.svg.el.style.setProperty('--tY', `${tY}px`);
+            _map.svg.el.style.setProperty('--tX', `${_map.tX}px`);
+            _map.svg.el.style.setProperty('--tY', `${_map.tY}px`);
 
             start.x = e.clientX 
             start.y = e.clientY
@@ -363,15 +371,15 @@ const project_map = () => ({
 
           project_list().removeInitCLass()
 
-          var   xs    = (e.clientX - tX) / r,
-                ys    = (e.clientY - tY) / r,
+          var   xs    = (e.clientX - _map.tX) / _map.ratio,
+                ys    = (e.clientY - _map.tY) / _map.ratio,
                 delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
-          (delta > 0) ? (r *= 1.2) : (r /= 1.2);
+          (delta > 0) ? (_map.ratio *= 1.2) : (_map.ratio /= 1.2);
           
-          project_map().validMinr()
+          project_map().validMinR()
 
-          tX = (e.clientX - xs * r);
-          tY = (e.clientY - ys * r);
+          _map.tX = (e.clientX - xs * _map.ratio);
+          _map.tY = (e.clientY - ys * _map.ratio);
 
           project_map().validMaxt()
 
@@ -388,18 +396,26 @@ const project_map = () => ({
             let alreadyActive = document.querySelector(`.list.projets [data-active="true"]`)
             if(alreadyActive && alreadyActive.getAttribute('data-map-point') == el.id){
               // Project is already in Single Mode. Time to shut it down
-              project_list().setVueMode(false, el.id)
+              project_map().setVueMode(false, el.id)
             } else if(alreadyActive) {
               // A project is already open and there is a new project to see
               alreadyActive.setAttribute('data-active', false)
-              project_list().setVueMode(true, el.id)
+              project_map().setVueMode(true, el.id)
             } else {
               // No project is open and there is a project to see
-              project_list().setVueMode(true, el.id)
+              project_map().setVueMode(true, el.id)
             }
             
           })
         })
+      },
+
+      watchScreenResize: () => {
+        onresize = (event) => {
+          _map.section.width  = _map.section.el.getBoundingClientRect().width
+          _map.section.height = _map.section.el.getBoundingClientRect().height
+        };
+
       }
     }
   },
@@ -411,6 +427,14 @@ const project_map = () => ({
     project_map().events().watchMouseUp()
     project_map().events().watchWheel()
     project_map().events().watchPointInteraction()
+    project_map().events().watchScreenResize()
 
   }
 })
+
+
+
+//Temp
+
+project_map().focusOnPoint(108, 156)
+

@@ -103,6 +103,11 @@ svg#main_map{
 				stroke: none;
 			}
 
+			&.focus{
+				circle{
+					fill: var(--cR)
+				}
+			}
 			/*text{
 				display: inline-block;
 				fill: var(--cB);
