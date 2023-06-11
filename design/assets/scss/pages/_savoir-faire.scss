@@ -120,8 +120,55 @@ main[data-type="savoir-faire"]{
 			align-items: strech;
 			padding: $base*4 0;
 
+			transform: translateX(0);
+			transition: transform .25s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+
+
 			&:before{
 				align-self: end;
+			}
+
+			&:hover{
+				transform: translateX(calc( clamp(#{$u*5}, 20vw, #{$u*20}) + #{$u*2} ));
+			}
+
+			a{ 
+				position: absolute;
+				height: 100%;
+				left: calc( clamp(#{$u*-22}, -20vw, #{$u*-7}) - #{$u*2});//calc(100% + #{$u});
+				//background: var(--cB);
+				color: var(--cW);
+				width: calc( clamp(#{$u*5}, 20vw, #{$u*20}) + #{$u*3});
+
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-transform: uppercase;
+				padding-right: $u;
+
+				//clip-path: circle(150% at 9% 50%);
+				//clip-path: polygon(-3rem 0, 100% 0, calc(100% - 2rem) 100%, -3rem 100%);
+				transform: translate(0);
+				transition: transform .35s ease;
+
+				&:after, &:before{
+					content: "";
+					position: absolute;
+					top: 0;
+					left: $u*-3;
+					width: calc(100% + #{$u*2});
+					height: 100%;
+
+				}
+				&:before{
+					background: var(--cB);
+					z-index: -1;
+				}
+				&:after{
+					background: linear-gradient(90deg, rgba(0,0,0,0) 90%, rgb(0, 0, 0) 100%);
+					mix-blend-mode: multiply;
+					opacity: 0.15;
+				}
 			}
 
 			p{
