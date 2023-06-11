@@ -120,11 +120,21 @@ main[data-type="projets"]{
 			.cover{
 				background: $c3a;
 
-
 				aspect-ratio: 3/2;
 				width: 100%;
 				//max-height: max(10rem, 20vh);
 				border-bottom: 1px solid currentColor;
+
+				&.temporary{
+					picture{
+						filter: grayscale(1);
+						mix-blend-mode: overlay;
+					}
+
+					picture + figure{
+						display: none;
+					}
+				}
 
 				figure, picture, img{
 					width: 100%;

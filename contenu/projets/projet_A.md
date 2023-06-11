@@ -15,6 +15,7 @@ visible: true
 cover:
   src: /_media/sample.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
+  temporary: true
 ---
 
 

@@ -13,7 +13,7 @@
         data-island="l-{{ projet.data.ile }}"
       >
 
-      <div class="cover">
+      <div class="cover {% if projet.data.cover.temporary %}temporary{% endif %}">
         {% if projet.data.cover.src %}
           {% set alt = projet.data.cover.alt | default("Photographie du batiment") %}
           {% image 
@@ -24,7 +24,7 @@
               (min-width: 901px) 1400w"
            %}
         {% endif %}
-        <figure class="sample" aria-hidden="true">
+        <figure class="sample " aria-hidden="true">
             <svg viewBox="0 0 200 150">  
               <use href="#_sign_B"></use>
               <use href="#_sign_A"></use>
