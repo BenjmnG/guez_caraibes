@@ -59,6 +59,9 @@
         {% if projet.data.typologie %}
           <li aria-label="Typologie">
             {{ projet.data.typologie }}
+              {% if projet.data.type_de_travaux %}
+              &nbsp;({{ projet.data.type_de_travaux}})
+              {% endif %}            
           </li>
         {% endif %}
 
@@ -69,7 +72,7 @@
         {% endif %}
 
         {% if projet.data.mission %}
-          <li aria-label="Mission">
+          <li aria-label="Missions">
             {% if projet.data.mission |isArr %}
               {{ projet.data.mission  | join(", ", "&") }}
             {% else %}
@@ -79,7 +82,7 @@
         {% endif %}
 
         {% if projet.data.montant %}
-          <li aria-label="Montant">
+          <li aria-label="Montant de travaux">
             {{ projet.data.montant | devise }}
           </li>
         {% endif %}
@@ -91,7 +94,7 @@
         {% endif %}
 
         {% if projet.data.debut %}
-          <li aria-label="Dates">
+          <li aria-label="Date">
             {{ projet.data.debut | simpleDate | title}}
             {% if projet.data.debut and projet.data.fin  %}&#8239;—&#8239;{% endif %}
             {{ projet.data.fin | simpleDate | title}}
