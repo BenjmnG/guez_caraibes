@@ -19,7 +19,7 @@ main[data-type="savoir-faire"]{
 	}
 
 	p{
-		max-width: 30rem;
+		max-width: 15rem;
 		@include f1(1);
 	}
 
@@ -42,6 +42,10 @@ main[data-type="savoir-faire"]{
 
 			&:nth-child(-n+9):before {
 			    content: "0"counter(items) "/"
+			}
+
+			&:last-of-type{
+				margin-bottom: $base*8;
 			}
 
 		}
@@ -110,14 +114,24 @@ main[data-type="savoir-faire"]{
 
 		li{
 			display: grid;
-			grid-template-columns: .25fr 3.75fr 2fr;
+			grid-template-columns: $u*2 auto 1fr;//2fr 2fr	;
 			grid-template-rows: auto auto;
 			grid-gap: 0 $unite;
-			align-items: end;
+			align-items: strech;
 			padding: $base*4 0;
 
 			&:before{
 				align-self: end;
+			}
+
+			p{
+				padding-top: $base*6;
+				display: flex;
+				flex-wrap: wrap;
+				flex-direction: column;
+				justify-content: space-between;
+
+				.toProject{display: none !important}
 			}
 		}
 
@@ -126,7 +140,7 @@ main[data-type="savoir-faire"]{
 		}
 
 		h2{
-			@include f1(6, 0, $bold);
+			@include f1(6, -.17, $bold);
 		}
 	}
 
