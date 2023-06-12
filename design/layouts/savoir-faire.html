@@ -6,10 +6,10 @@
       aria-label="Liste des savoir-faire">
     {%- for sf in collections.savoirFaire -%}
        <li role="none">
-          <a href="/projets/?sf={{ sf.data.nom | urlencode  }}"
-             aria-label="Voir les projets relatifs à la mission {{ sf.data.nom }}">Voir les projets</a>
           <h2>{{ sf.data.nom }}</h2>
           <p>{{ sf.content | markdown | escaP | safe }}</p>
+          <a href="/projets/?sf={{ sf.data.nom | urlencode  }}"
+             aria-label="Voir les projets relatifs à la mission {{ sf.data.nom }}">Voir les projets</a>
         </li>
     {%- endfor -%}
   </ul>

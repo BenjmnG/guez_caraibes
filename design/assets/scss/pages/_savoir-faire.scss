@@ -19,7 +19,6 @@ main[data-type="savoir-faire"]{
 	}
 
 	p{
-		max-width: 15rem;
 		@include f1(1);
 	}
 
@@ -53,13 +52,11 @@ main[data-type="savoir-faire"]{
 
 
 	@include for-size(phone){
-		li{
-			padding: $base*2 0;
-		}
+
 		h2{
 			@include f1(3, 0, $bold);
 			padding-top: $base*2;
-			padding-bottom: $base*2;
+			//padding-bottom: $base*2;
 			cursor: pointer;
 			display: inline-block;
 			padding-left: $unite*.5;
@@ -68,7 +65,7 @@ main[data-type="savoir-faire"]{
 			width: calc(100% - 2rem);
 
 
-			&:after{
+			/* &:after{
 				content: "En savoir plus";
 				@include f1(0);
 				position: absolute;
@@ -77,23 +74,50 @@ main[data-type="savoir-faire"]{
 				width: $u*8;
 				bottom: $base*3;
 				right: calc(min(#{$u*2}, 10vw));
-			}
+			} */
 		}
 		
-		li:hover:not(.open) h2:after{
-			opacity: 1;
-		}
+		// li:hover:not(.open) h2:after{
+		// 	opacity: 1;
+		// }
 
-		p{
-			padding-right: $unite*2;
-		}
 
 		li{
+			padding: $base*2 0;
+
 			*:not(h2){
 				overflow: hidden;
 			}
+	
+			p{
+				padding-left: $unite*2;
+				@include f1(0);
+				margin-bottom: $base*2;
+				padding-right: $u*2;
 
-			&.close.init *:not(h2){
+				br{display: none;}
+			}
+
+			a{
+				display: inline-block;
+				overflow: hidden;
+				position: absolute;
+				top: $base*5;
+				right: 0;
+				width: 100%;
+				box-sizing: border-box;
+				padding: $base*4 0;
+				text-indent: -9999px;
+
+				&:before{
+					content: "→";
+					content: url("data:image/svg+xml,%3Csvg width='24px' height='24px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline fill='none' points='8.5 5 15.5 12 8.5 19' stroke='%23004D9B' stroke-linecap='round' stroke-width='1'/%3E%3C/svg%3E");
+					text-indent: 0;
+					float: right;
+				}
+			}
+
+			/*&.close.init *:not(h2){
 				transition: none
 			}
 			&.close *:not(h2){
@@ -106,11 +130,19 @@ main[data-type="savoir-faire"]{
 				max-height: 20rem;
 				transition: max-height .5s ease-in-out,
 										margin .25s ease-in-out;
-			}
+			}*/
 		}
 	}
 
 	@include for-size(desktop){
+
+		h1{
+			padding-left: calc((100% / 6) * .25 + #{$unite} + .5vw);
+		}
+
+		h2{
+			@include f1(6, -.17, $bold);
+		}
 
 		li{
 			display: grid;
@@ -121,7 +153,7 @@ main[data-type="savoir-faire"]{
 			padding: $base*4 0;
 
 			transform: translateX(0);
-			transition: transform .25s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+			transition: transform .35s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
 
 
 			&:before{
@@ -129,16 +161,16 @@ main[data-type="savoir-faire"]{
 			}
 
 			&:hover{
-				transform: translateX(calc( clamp(#{$u*5}, 20vw, #{$u*20}) + #{$u*2} ));
+				transform: translateX(calc( clamp(#{$u*5}, 20vw, #{$u*10}) + #{$u*2} ));
 			}
 
 			a{ 
 				position: absolute;
 				height: 100%;
-				left: calc( clamp(#{$u*-22}, -20vw, #{$u*-7}) - #{$u*2});//calc(100% + #{$u});
+				left: calc( clamp(#{$u*-12}, -20vw, #{$u*-7}) - #{$u*2});//calc(100% + #{$u});
 				//background: var(--cB);
 				color: var(--cW);
-				width: calc( clamp(#{$u*5}, 20vw, #{$u*20}) + #{$u*3});
+				width: calc( clamp(#{$u*5}, 20vw, #{$u*10}) + #{$u*3});
 
 				display: flex;
 				align-items: center;
@@ -150,6 +182,11 @@ main[data-type="savoir-faire"]{
 				//clip-path: polygon(-3rem 0, 100% 0, calc(100% - 2rem) 100%, -3rem 100%);
 				transform: translate(0);
 				transition: transform .35s ease;
+
+				font-size: 2em;
+				font-weight: bold;
+				text-align: center;
+				line-height: .75em;
 
 				&:after, &:before{
 					content: "";
@@ -163,11 +200,16 @@ main[data-type="savoir-faire"]{
 				&:before{
 					background: var(--cB);
 					z-index: -1;
+					transition: background .5s linear;
 				}
 				&:after{
 					background: linear-gradient(90deg, rgba(0,0,0,0) 90%, rgb(0, 0, 0) 100%);
 					mix-blend-mode: multiply;
 					opacity: 0.15;
+				}
+
+				&:hover:before{
+					background: var(--cR);
 				}
 			}
 
@@ -177,17 +219,8 @@ main[data-type="savoir-faire"]{
 				flex-wrap: wrap;
 				flex-direction: column;
 				justify-content: space-between;
-
-				.toProject{display: none !important}
+				max-width: 15rem;
 			}
-		}
-
-		h1{
-			padding-left: calc((100% / 6) * .25 + #{$unite} + .5vw);
-		}
-
-		h2{
-			@include f1(6, -.17, $bold);
 		}
 	}
 
