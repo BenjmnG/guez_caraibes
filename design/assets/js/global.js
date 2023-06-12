@@ -69,9 +69,6 @@ const event = () => ({
   
   project: () => {
 
-    if (/Android|iPhone/i.test(navigator.userAgent)) {
-      document.querySelector('[name="open_filter"]:checked').checked = false
-    }
     // JS for this page is verbose. 
     // Calling  function in a spécéfic project.js file
     project_list().onLoad()
