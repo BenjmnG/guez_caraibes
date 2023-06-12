@@ -1,6 +1,4 @@
-body[data-serve="savoir-faire"]{
-
-}
+body[data-serve="savoir-faire"]{}
 
 main[data-type="savoir-faire"]{
 
@@ -63,24 +61,7 @@ main[data-type="savoir-faire"]{
 			vertical-align: baseline;
 			word-break: break-all;
 			width: calc(100% - 2rem);
-
-
-			/* &:after{
-				content: "En savoir plus";
-				@include f1(0);
-				position: absolute;
-				opacity: 0;
-				transition: .5s 0s ease-in-out;
-				width: $u*8;
-				bottom: $base*3;
-				right: calc(min(#{$u*2}, 10vw));
-			} */
 		}
-		
-		// li:hover:not(.open) h2:after{
-		// 	opacity: 1;
-		// }
-
 
 		li{
 			padding: $base*2 0;
@@ -116,21 +97,6 @@ main[data-type="savoir-faire"]{
 					float: right;
 				}
 			}
-
-			/*&.close.init *:not(h2){
-				transition: none
-			}
-			&.close *:not(h2){
-				transition: max-height .25s ease-in-out,
-										margin .125s ease-in-out;
-				max-height: 0;
-				margin: 0;
-			}
-			&.open *:not(h2){
-				max-height: 20rem;
-				transition: max-height .5s ease-in-out,
-										margin .25s ease-in-out;
-			}*/
 		}
 	}
 
