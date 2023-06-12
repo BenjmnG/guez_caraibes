@@ -16,7 +16,7 @@
 	<header>
 
 
-		 <h1>{{ titre | replace (' ', '<br>') | safe}}</h1>
+		 <h1><span>{{ titre | replace (' ', '</span><span>') | safe}}</span></h1>
 
 		 <p class="description"
 		 		aria-label="Description de l'entreprise">

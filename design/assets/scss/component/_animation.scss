@@ -1,0 +1,87 @@
+@keyframes showTopText {
+	from { transform: translate3d(0, 100%, 0); opacity: 0;}
+	to { transform: translate3d(0, 0, 0); opacity: 1}
+}
+
+@keyframes clipText {
+	from {clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);}
+	to {clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);}
+}
+@keyframes moveCursor {
+	from{ left: -10px; opacity: 1}
+	99.99999%{ left: 100%; opacity: 1;}
+	to{ left: 100%; opacity: 0;}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+
+	body[data-serve="index"] main{
+
+		@supports (transform: translate3d(0, 100%, 0)) {
+			.localisation{
+				li{
+					transform: translate3d(0, 100%, 0); 
+					opacity: 0;
+					animation: showTopText .5s forwards;
+
+					&:nth-of-type(1){animation-delay: .7s}
+					&:nth-of-type(2){animation-delay: .8s}
+					&:nth-of-type(3){animation-delay: .9s}
+				}
+			}
+		}
+
+
+		@supports ((width: min-content) and (clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%))){
+			h1{
+
+				/*clip-path: 
+					polygon(10% 50%, 
+									15% 50%, 
+									15% 100%, 
+									0px 100%, 
+									0px 0px, 
+									10% 0px);*/
+
+				span{
+					display: block;
+					width: min-content;
+					padding-right: 0;
+					clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+					animation: clipText .75s forwards;
+
+					&:before{
+						content: "";
+						height: 1em;
+						left: 0;
+						width: 2px;
+						border-left: 2px solid var(--cW);
+						position: absolute;
+						transform: translateX(-2px);
+
+						animation: moveCursor .75s forwards;
+
+					}
+					&:before{
+						top: 0.15em;
+					}
+					&:nth-of-type(2){
+						animation-delay: .2s;
+						&:before{
+							animation-delay: .2s;
+						}
+					}
+				}
+
+
+			}
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*{
+		transition: none !important;
+	}
+}
