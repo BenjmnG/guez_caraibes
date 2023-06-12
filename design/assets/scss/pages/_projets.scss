@@ -494,7 +494,6 @@ main[data-type="projets"]{
 			#filter, ul.list.projets{width: calc((100% - #{$u*3}) / 4 * 3)}
 			//#map{grid-column: 1 / span 4;}		
 		}
-
 		@media (min-height: 800px){
 			#filter:before{
 				content: "";
@@ -575,7 +574,42 @@ main[data-type="projets"]{
 			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter:hover{
 				@include deployFilter();
 			}
-		}			
+		}
+
 	}
+
+	@media (max-height: 800px) and (min-width: 900px) and (max-width: 1400px){
+		#filter, ul.list.projets{grid-column: 4/span 3;}
+		
+		ul.list.projets{
+			> li{
+				grid-column: span 6;
+
+				.cover{
+					height: 33vh;
+				}
+
+				header{
+					padding-left: $u/2;
+					position: absolute;
+					top: 33vh;
+					left: 0;
+					z-index: 5;
+					transform: translateY(-100%);
+					//text-shadow: -1px 1px 7px #fff;
+					background: var(--cW);
+					padding: $base $u/2 $base 0;
+					border-top: 1px solid currentColor;
+					//border-right: 1px solid currentColor;
+
+					h1{
+						@include f1(3,0, $bold);
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
+
 }
 
