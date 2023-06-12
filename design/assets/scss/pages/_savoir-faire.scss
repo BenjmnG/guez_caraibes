@@ -65,16 +65,36 @@ main[data-type="savoir-faire"]{
 
 		li{
 			padding: $base*2 0;
+			transition: background .25s ease-in-out,
+									color .25s  ease-in-out;
 
 			*:not(h2){
 				overflow: hidden;
+			}
+
+			&:after{
+				content: "";
+				position: absolute;
+				left: -$u;
+				top: -1px;
+				width: calc(100% + #{$u*2});
+				height: calc(100% + 1px);
+				background: var(--cW);
+				transition: background .25s ease-in-out;
+				z-index: -1;
+			}
+
+			&:hover{
+				color: var(--cW);
+				&:after{background: var(--cB);}
+				a:before{mix-blend-mode: exclusion}
 			}
 	
 			p{
 				padding-left: $unite*2;
 				@include f1(0);
-				margin-bottom: $base*2;
-				padding-right: $u*2;
+				//margin-bottom: $base*2;
+				padding-right: $u*4;
 
 				br{display: none;}
 			}
