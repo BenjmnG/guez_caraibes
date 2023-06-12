@@ -61,6 +61,9 @@
 				z-index: 5;
 				padding: $base*6 0 $base*6 $u;
 
+
+
+
 				&::before, &::after {
 				  content: '';
 				  position: absolute;
@@ -79,6 +82,11 @@
 			}
 			> input:checked + label{
 				color: var(--cW);
+
+				position: fixed;
+				top: $base*4;
+				right: $u;
+
 				&::before{
 					top: 50%;
 					transform: rotate(135deg);
@@ -109,7 +117,8 @@
 				//justify-content: end;
 
 				display: grid;
-				grid-template-rows: calc(100vh - #{$base*17} - #{$base*8} * 3 - 1px) #{$base*13} auto;
+				grid-template-rows: calc(100vh - #{$base*17} - #{$base*8} * 3 - #{$baseline}- 1px) #{$base*13} auto;
+				grid-template-rows: calc(100dvh - #{$base*17} - #{$base*8} * 3 - 1px) #{$base*13} auto;
 				grid-template-columns: 1fr;
 				grid-gap: 0;//$base*4;
 				align-items: end;
