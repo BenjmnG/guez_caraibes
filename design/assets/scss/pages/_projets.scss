@@ -33,9 +33,9 @@ main[data-type="projets"]{
 
 
 
-		&:after, &:before{content: "";position: absolute;z-index: 99; }
-		&:after{left: 50%; top: 0; height: 100%; width: 1px; background: white;  }
-		&:before{left: 0; top: 50%; height: 1px; width: 100%; background: white;  }
+		// &:after, &:before{content: "";position: absolute;z-index: 99; }
+		// &:after{left: 50%; top: 0; height: 100%; width: 1px; background: white;  }
+		// &:before{left: 0; top: 50%; height: 1px; width: 100%; background: white;  }
 
 		.map_container{
 			overflow: hidden;
@@ -600,6 +600,7 @@ main[data-type="projets"]{
 					background: var(--cW);
 					padding: $base $u/2 $base 0;
 					border-top: 1px solid currentColor;
+					max-width: 75%;
 					//border-right: 1px solid currentColor;
 
 					h1{
