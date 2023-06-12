@@ -215,6 +215,7 @@ main[data-type="equipes"]{
 			margin-top: $baseline;
 			> ul{
 				display: flex;
+				justify-content: center;
 				gap: $baseline;
 			}
 		}
