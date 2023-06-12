@@ -165,28 +165,36 @@ const project_list = () => ({
       document.querySelectorAll('.list.projets [data-map-point]').forEach(el => {
         let id_to_target     = el.getAttribute('data-map-point')
         let island_to_target = el.getAttribute('data-island')
+        let delayEvent 
 
         el.addEventListener("mouseenter", () => {
 
           if(main.getAttribute('data-vue') == 'single'){return}
 
-          project_map().getPerfectRatio(island_to_target)
-          _map.ratio +=5
-          project_map().setTransform()
+          clearTimeout(delayEvent);
+          
 
-          let coord = project_map().getCoord(id_to_target)
-          project_map().focusOnPoint(coord[0], coord[1])
-          _map.focusOn = coord;
+          // FUnction will run in delay unless another elemnt trigg it
+          delayEvent = setTimeout(function() {
 
-          _map.section.el.querySelector(`#${id_to_target}`).classList.add('focus')
+            project_map().getPerfectRatio(island_to_target)
+            _map.ratio +=5
+            project_map().setTransform()
 
-          el.addEventListener("mouseleave", () => {
-            let focusedPoint = document.querySelector('.etiquette.focus')
-            if(focusedPoint){
-              focusedPoint.classList.remove('focus')
-            }
-          })
+            let coord = project_map().getCoord(id_to_target)
+            project_map().focusOnPoint(coord[0], coord[1])
+            _map.focusOn = coord;
 
+            _map.section.el.querySelector(`#${id_to_target}`).classList.add('focus')
+
+            el.addEventListener("mouseleave", () => {
+              let focusedPoint = document.querySelector('.etiquette.focus')
+              if(focusedPoint){
+                focusedPoint.classList.remove('focus')
+              }
+            })
+
+          }, 200);
         })
       })
 
@@ -248,14 +256,19 @@ const project_map = () => ({
   validMaxt: () => {
     offset = 100 // Far west isn't a friendly world
     let minX = offset * -_map.ratio,
-        maxX = _map.section.width * -_map.ratio/4
+        maxX = (_map.section.width * -_map.ratio) + (_map.section.width)
         minY = _map.section.height / 2,
-        maxY = _map.section.height * -_map.ratio/4
+        maxY = (_map.section.height * -_map.ratio) + (_map.section.height)
     
-    if(_map.tX > minX){ _map.tX = minX
-    } else if(_map.tX < maxX){ _map.tX = maxX }
-    if(_map.tY > minY){ _map.tY = minY
-    } else if(_map.tY < maxY ){ _map.tY = maxY }
+    if( _map.tX > minX ){ 
+      _map.tX = minX
+    } else if( _map.tX < maxX ){ 
+      _map.tX = maxX }
+    if( _map.tY > minY ){ 
+      _map.tY = minY
+    } else if(_map.tY < maxY ){ 
+      _map.tY = maxY 
+    }
 
   },
 
