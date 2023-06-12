@@ -290,7 +290,6 @@ const project_map = () => ({
   },
 
   setTransform: () => {
-    console.log('transform')
     _map.svg.el.style.setProperty('--tX', `${_map.tX}px`);
     _map.svg.el.style.setProperty('--tY', `${_map.tY}px`);
     _map.svg.el.style.setProperty('--r', _map.ratio);
@@ -305,7 +304,7 @@ const project_map = () => ({
 
   focusOnPoint: (x, y) => {
 
-    console.log('go to : ', x, y)
+    //console.log('go to : ', x, y)
 
     let pt_radius = 1 / 2;
 
