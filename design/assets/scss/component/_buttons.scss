@@ -20,8 +20,8 @@
 }
 
 
-#topbar .pages > ul:not(:hover) > li a[aria-current="page"],
-#topbar .pages > ul:hover > li a:hover,
+#topbar .pages > ul:not(:hover) > li > a[aria-current="page"],
+#topbar .pages > ul:hover > li > a:hover,
 [data-type="projets"] #filter label:not([for^="filter_by"]):hover{
 	padding-left: $u*.75;
 	&:before{

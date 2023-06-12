@@ -115,7 +115,7 @@ main[data-type="savoir-faire"]{
 			grid-template-columns: $u*2 auto 1fr;//2fr 2fr	;
 			grid-template-rows: auto auto;
 			grid-gap: 0 $unite;
-			align-items: strech;
+			align-items: stretch;
 			padding: $base*4 0;
 
 			transform: translateX(0);
@@ -180,7 +180,7 @@ main[data-type="savoir-faire"]{
 			}
 
 			p{
-				padding-top: $base*6;
+				padding-top: .75em;
 				display: flex;
 				flex-wrap: wrap;
 				flex-direction: column;

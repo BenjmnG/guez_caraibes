@@ -117,7 +117,8 @@
 				padding: $baseline $unite;
 				box-sizing: border-box;
 
-				&:hover li a:hover{
+				&:hover > li > a:hover,
+				&:not(:hover) > li > a[aria-current="page"]{
 					padding-left: $u*1.25 !important;
 					&:before{
 						left: $u*.25;
