@@ -109,13 +109,22 @@
 				//justify-content: end;
 
 				display: grid;
-				grid-template-rows: calc(100vh - #{$base*17} - #{$base*13} * 3 - 1px) #{$base*13} auto;
+				grid-template-rows: calc(100vh - #{$base*17} - #{$base*8} * 3 - 1px) #{$base*13} auto;
 				grid-template-columns: 1fr;
-				grid-gap: $base*4;
+				grid-gap: 0;//$base*4;
 				align-items: end;
 
 				padding: $baseline $unite;
 				box-sizing: border-box;
+
+				&:hover li a:hover{
+					padding-left: $u*1.25 !important;
+					&:before{
+						left: $u*.25;
+						width: $u*.5;
+						height: $u*.5;
+					}
+				}
 
 				> li{
 					@include f1(3, -2, $bold);
@@ -137,7 +146,7 @@
 					display: block;
 					font-style: normal;
 					border-top: 1px solid currentColor;
-					margin-top: $base*6;
+					margin-top: $base*4;
 
 					@include f1(1);
 
@@ -147,7 +156,7 @@
 					}
 
 					li{
-						margin-top: $baseline
+						margin-top: $base*4
 					}
 
 
