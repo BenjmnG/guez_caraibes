@@ -1,8 +1,8 @@
 ---
 titre: Tri bagage Deporte
-maître_ouvrage: Societe Aeroportuaire Guadeloupe Pôle Caraïbes
+maître_ouvrage: Societe Aéroportuaire Guadeloupe Pôle Caraïbes
 typologie: Transport
-type_de_travaux: Construction
+type_de_travaux: Construction neuve
 mission: MOE
 statut: Marché privé
 ile: Guadeloupe

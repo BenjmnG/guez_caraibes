@@ -2,7 +2,7 @@
 titre: Cité administrative et judiciaire
 maître_ouvrage: Apij
 typologie: Institution
-type_de_travaux: Construction
+type_de_travaux: Construction neuve
 mission: AMO
 statut: Marché public
 ile: Saint-Martin

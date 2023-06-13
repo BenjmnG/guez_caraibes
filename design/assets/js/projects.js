@@ -165,7 +165,14 @@ const project_list = () => ({
           project_list().updateOpenersValues(categorie)
           project_list().checkIfListIsEmpty()
         })
-        item.addEventListener('change', project_list().removeInit, {once: true})
+        item.addEventListener('change', e => {
+          if(main.classList.contains('init')){
+            let category = e.target.getAttribute('name').slice(-2);
+            document.getElementById('filter_by_' + category).checked = true
+            project_list().removeInit()
+          }
+        }
+        , {once: true})
       })
     },
 
