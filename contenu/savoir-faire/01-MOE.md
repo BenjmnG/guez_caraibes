@@ -3,5 +3,5 @@ nom: MOE
 ---
 
 Maîtrise&nbsp;   
-d’Œuvre tout corps&nbsp;    
-d’État
+d’Œuvre tous corps&nbsp;    
+d’état
