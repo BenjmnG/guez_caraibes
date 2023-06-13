@@ -505,4 +505,7 @@ const project_map = () => ({
 //Temp
 
 project_map().focusOnPoint(108, 156)
+items.forEach( item => item.checked = false)
+
+
 
