@@ -63,10 +63,16 @@ module.exports = config => {
       return jobs; 
   });
 
-
   config.addCollection("equipes", function(collection) {
       let équipes = collection.getFilteredByGlob("contenu/equipes/*.md")
       return équipes;
+  });
+
+  config.addCollection("localisations", function(collection) {
+      let localisations = collection.getFilteredByGlob("contenu/equipes/*.md")
+      let stBart = { data: { nom: 'Saint-Barthélemy'} }
+      localisations.push(stBart)
+      return localisations;
   });
 
 

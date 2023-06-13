@@ -54,7 +54,7 @@
 
       <!-- List of values -->
       <ul aria-label="Liste des localistations">
-        {%- for equipe in collections.equipes -%}
+        {%- for equipe in collections.localisations -%}
           <li><label for="f-lo_{{ loop.index }}">{{ equipe.data.nom }}</label></li>
         {%- endfor -%}
       </ul>
