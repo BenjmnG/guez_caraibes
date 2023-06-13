@@ -1,6 +1,7 @@
-let body      = document.querySelector('body'),
-    main      = document.querySelector('main'),
-    url       = window.location.href
+let body       = document.querySelector('body'),
+    main       = document.querySelector('main'),
+    url        = window.location.href,
+    menuMobile = document.querySelector('#mobileMenu')
 
 
 
@@ -62,11 +63,26 @@ function isDarkMode(){
 
 const event = () => ({
 
+  all: () => {
+    /*menuMobile.addEventListener('change', evt => {
+      if(menuMobile.checked){
+        window.onscroll = function() {
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'instant'
+            });
+        };
+      } else {
+        window.onscroll = function() {};
+      }
+    })*/
+  },  
+
   index: () => {
 
   },
 
-  
   project: () => {
 
     // JS for this page is verbose. 
@@ -103,7 +119,9 @@ const event = () => ({
 //
 
 obf()
-document.querySelector('#mobileMenu').checked = false 
+menuMobile.checked = false 
+
+
 
 // That's all for me. Thank you !
 // console.log("%cDesign + Code: \nhttps://bnjm.eu", "font-family: monospace; font-size: 1.5em;")

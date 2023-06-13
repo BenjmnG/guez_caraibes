@@ -1,7 +1,3 @@
-$ty_len: 10;
-$sf_len: 11;
-$lo_len: 3;
-
 body[data-serve="projets"]{
 
 }
@@ -216,7 +212,6 @@ main[data-type="projets"]{
 		#filter{
 			position: absolute;
 			bottom: -$baseline;
-			padding: 0;
 			transition: padding $t ease-in-out;
 			border-top: 1px solid currentColor;
 
@@ -232,16 +227,24 @@ main[data-type="projets"]{
 			}
 
 			>ul{
+				z-index: 2;
+				background: var(--cW);
+				padding: 0;
+				transition: padding $t ease-in-out;
+
 				> li{
 					padding: $base 0;
 
 					&:not(:last-child){
 						border-bottom: 1px solid currentColor;
 					}
+
+
 				}
 				ul{
 	 				overflow: hidden;
 	 				max-height: 0;
+	 				padding: 0;
 	 				padding: 0;
 					transition: max-height $t ease-in-out,
 											padding $t ease-in-out;
@@ -252,15 +255,44 @@ main[data-type="projets"]{
 				}
 			}
 
-			> button{
-				display: none;
+			#closeAllFilters{
+				background: var(--cW);
+				width: $u*6;
+				height: $base*8;
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateY(0%) translateX(-50%);
+				border-radius: $u $u 0 0;
+				color: var(--cB);
+				border: 1px solid currentColor;
+				cursor: pointer;
+				transition: transform .25s 0s ease-in-out;
+
+				&:before{
+  				content: "\00d7";
+  				content: "Fermer";
+  				text-transform: uppercase;
+  				@include f1(0)					
+				}
+
+				&:hover{
+					background: var(--cB);
+					&:before{color: var(--cW)} 
+				}
 			}
+			#closeProject{display: none;}
 		}
 
 		input[name="open_filter"]:checked ~ #filter{
-			padding: $base*2 0;
-			> ul ul{
+			
+			> ul{
+				padding: $base*2 0;
 			}
+			
+			#closeAllFilters{
+				transform: translateY(-100%) translateX(-50%);
+				transition-delay: .2s }
 
 		}
 		
@@ -342,6 +374,7 @@ main[data-type="projets"]{
 			transition: padding $t ease-in-out,
 									width $t ease-in-out;
 
+			#closeAllFilters{display: none;}
 
 			> ul{
 				display: grid;
@@ -366,7 +399,7 @@ main[data-type="projets"]{
 
 			}
 
-			> button{
+			#closeProject{
 				background: none;
 				opacity: 0;
 				top: $base*2;
@@ -468,7 +501,7 @@ main[data-type="projets"]{
 					z-index: -1;
 				}
 
-				> button {
+				#closeProject{
 					opacity: 1;
 					z-index: 1;
 				}
@@ -481,7 +514,7 @@ main[data-type="projets"]{
 		}
 
 		input[id^="f-"]:checked ~ #filter{
-			> button{
+			#closeProject{
 				span.close{  display: none;}
 				span.back{ display: inline-block;}
 			}
@@ -541,16 +574,6 @@ main[data-type="projets"]{
 	}
 
 	@include for-size(desktop-1800){
-
-
-		/* input[id^="f-"]:checked ~ #map:hover{
-
-			~ #filter,
-			~ ul.list.projets{
-				width: 75%;
-				//transform: translateX( 40rem) !important;
-			}
-		} */
 	}
 	
 	@mixin deployFilter(){
@@ -595,7 +618,7 @@ main[data-type="projets"]{
 				}
 
 				header{
-					padding-left: $u/2;
+					padding-left: $u*.5;
 					position: absolute;
 					top: 33vh;
 					left: 0;
@@ -603,7 +626,7 @@ main[data-type="projets"]{
 					transform: translateY(-100%);
 					//text-shadow: -1px 1px 7px #fff;
 					background: var(--cW);
-					padding: $base $u/2 $base 0;
+					padding: $base $u*.5 $base 0;
 					border-top: 1px solid currentColor;
 					max-width: 75%;
 					//border-right: 1px solid currentColor;

@@ -209,9 +209,17 @@ const project_list = () => ({
       })
     },
 
+    watchCloseAllFiltersInteraction: () => {
+
+      document.querySelector('#closeAllFilters').addEventListener('click', e => {
+        openers.forEach( opener => {
+          opener.checked = false
+        } )
+      })
+    },
     disableSingleMode: () => {
       // This hide Single Vue Mode on user clic 
-      document.querySelector('#filter > button').addEventListener("click", () => {
+      document.querySelector('#filter #closeProject').addEventListener("click", () => {
           let id = document.querySelector('[data-active="true"]').getAttribute('data-map-point')
           project_map().setVueMode(false, id)
           
@@ -232,6 +240,7 @@ const project_list = () => ({
     project_list().events().watchSubCategorie()
     project_list().events().watchFirstInteraction()
     project_list().events().watchProjectListInteractions()
+    project_list().events().watchCloseAllFiltersInteraction()
     project_list().events().disableSingleMode()
   }
 })
