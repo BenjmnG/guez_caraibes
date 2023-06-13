@@ -5,12 +5,7 @@ body[data-serve="equipes"]{
 
 main[data-type="equipes"]{
 
-	#equipes{
-		margin-bottom: $baseline*2;
-	}
-
 	header{
-	    text-align: center;
 		h1{
 
 			font-family: $font-1;
@@ -19,10 +14,11 @@ main[data-type="equipes"]{
 	    font-size: $font-size*1;
 	    margin-bottom: $baseline;
 	    padding-bottom: $baseline;
+	    text-align: center;
 
 			strong{
 				display: block;
-	    	font-size: $font-size*2;
+	    	font-size: $base*16;
 	    	line-height: 1em;
 	    	margin-bottom: $base*2;
 			}
@@ -70,13 +66,24 @@ main[data-type="equipes"]{
 
 				margin-bottom: $base*4;
 
+				&:before{
+					content: "";
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					height: calc(100% - min(33vh,32rem) - #{$baseline});
+					width: 1px;
+					border-left: 1px solid currentColor;
+					display: inline-block;
+
+				}
+
 				> *{
 					display: block;
 					@include f1(1,-1);
 				}
 				> *:not(img){
 					padding-left: $u;
-					border-left: 1px solid currentColor;
 				}
 				> *:not(:last-child){
 					text-transform: uppercase;
@@ -105,20 +112,24 @@ main[data-type="equipes"]{
 	#jobs{
 		display: inline-block;
 		width: 100%;
-		margin: auto;
+		margin-left: auto;
+		margin-right: auto;
 
 		h1{
-			@include f1(2);
+			@include f1(3, 0, $bold);
 			text-transform: uppercase;
 			width: 100%;
-			padding-bottom: $base*2;
+			margin-bottom: $base*4;
+			text-align: center;
 		}
 
 		.intro{
 			margin-bottom: $baseline;
+			text-align: center;
 			p{
 				@include f1(1);
 				max-width: 25rem;
+				margin: auto;
 			}
 		}
 
@@ -174,11 +185,15 @@ main[data-type="equipes"]{
 					display: none;
 				}
 
-				h2{font-weight: $bold;}
+				h2{
+					font-weight: $bold;
+					display: block;
+				}
 
 				span{
 					font-size: 1em;
-					display: block;
+					display: inline-block;
+					margin-right: $u;
 				}
 			}
 
@@ -196,14 +211,26 @@ main[data-type="equipes"]{
 
 	@include for-size(phone){
 
+		#equipes{
+			margin-bottom: $baseline*4;
+		}
+		#jobs{
+			margin-bottom: $baseline*2;
+			h1{
+				max-width: 17rem;
+				margin: 0 auto $base*4 auto;
+				line-height: .9em;
+			}
+		}
+
 		details{
 
 			&:not([open]) .button{
 				display: none;
 			}
 			.button{
-				display: inline-block;
-				margin: $base*4 auto $base*2 auto;
+				display: table;
+				margin: $base*8 auto $base*4 auto;
 				left: $u*-.5;
 			}
 		}
@@ -221,7 +248,10 @@ main[data-type="equipes"]{
 		}
 
 		#equipes{
-			margin-bottom: $baseline*6;
+			margin-bottom: $baseline*8;
+			.description{
+				text-align: center;
+			}
 		}
 		#jobs{
 			margin: 0 auto $baseline*10 auto;

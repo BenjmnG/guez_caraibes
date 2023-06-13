@@ -47,7 +47,7 @@
       
       <div class="intro">
         <p>
-          Nous recherchons constamment des nouveaux... Lorem ipsum nulla aliquip ex exercitation sit aliqua occaecat et aliquip non labore ex consequat pariatur in mollit eu proident exercitation et enim ut nostrud.
+          Dans l’optique de compléter nos équipes, nous sommes actuellement à la recherche de&thinsp;:
         </p>
       </div>
 
@@ -60,11 +60,18 @@
               <svg viewbox="0 0 20 20"><use href="#icon-arrow"></use></svg>
 
               <h2>{{ job.data.titre }}</h2>
-              <span>
-                {% if job.data.temps %}{{ job.data.temps }}{% endif %}
-                {% if job.data.temps and job.data.contrat %},{% endif %}
-                {% if job.data.contrat %}{{ job.data.contrat }}{% endif %}
-              </span>
+
+              {% if job.data.contrat %}
+                <span>{{ job.data.contrat }}</span>
+              {% endif %}
+              
+              {% if job.data.temps %}
+                <span>{{ job.data.temps }}</span>
+              {% endif %}
+
+              {% if job.data.ile %}
+                <span>{{ job.data.ile }}</span>
+              {% endif %}
 
               <a class="obf button" 
                  data-href="{{ website.email_job | reverse}}"

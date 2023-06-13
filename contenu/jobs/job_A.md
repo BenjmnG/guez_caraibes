@@ -1,7 +1,8 @@
 ---
-titre: "recherche élécticien"
+titre: Spécialiste Fluides
 contrat: CDI
 temps: Temps plein
+ile: Guadeloupe
 ---
 
 
@@ -40,3 +41,4 @@ Lorem ipsum nulla nostrud dolore laboris magna voluptate proident reprehenderit 
 - A
 - B
 - C
+
