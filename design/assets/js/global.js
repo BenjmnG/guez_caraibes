@@ -103,6 +103,7 @@ const event = () => ({
 //
 
 obf()
+document.querySelector('#mobileMenu').checked = false 
 
 // That's all for me. Thank you !
 // console.log("%cDesign + Code: \nhttps://bnjm.eu", "font-family: monospace; font-size: 1.5em;")

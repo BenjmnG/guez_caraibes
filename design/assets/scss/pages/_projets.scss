@@ -286,10 +286,15 @@ main[data-type="projets"]{
 				margin-bottom: $base*4;
 			}
 
-
 			h1{
 				@include f1(2, 0, $bold);
 				margin-bottom: $base*2;
+			}
+
+			> li{
+				margin-bottom: $baseline*1.5;
+				border-top: 1px solid currentColor;
+				ul.details li:last-child{border-bottom: none;}
 			}
 		}
 
