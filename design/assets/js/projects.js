@@ -1,6 +1,7 @@
 // Openers are three hidden input to open three list of item filter
-let openers = document.querySelectorAll('[name="open_filter"]')
-let items   = document.querySelectorAll('[name^="f-"]')
+let openers  = document.querySelectorAll('[name="open_filter"]'),
+    items    = document.querySelectorAll('[name^="f-"]'),
+    projects = document.querySelectorAll('[data-map-point]')
 
 let _map = {
 
@@ -125,6 +126,22 @@ const project_list = () => ({
     }
   },
 
+  checkIfListIsEmpty: () =>{
+    let visible = 0;
+    document.querySelector('.list.projets').classList.remove('empty')
+    
+    projects.forEach( project => {
+      if(window.getComputedStyle(project).display === "block"){
+        visible++
+        return
+      }
+    })
+
+    if(visible == 0){
+      document.querySelector('.list.projets').classList.add('empty')
+    }
+  },
+
   events: () => ({
 
     watchCategorie: () => {
@@ -146,6 +163,7 @@ const project_list = () => ({
         item.addEventListener('change', evt => {
           let categorie = (evt.target).getAttribute('name')
           project_list().updateOpenersValues(categorie)
+          project_list().checkIfListIsEmpty()
         })
         item.addEventListener('change', project_list().removeInit, {once: true})
       })

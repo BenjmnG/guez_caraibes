@@ -111,6 +111,19 @@ main[data-type="projets"]{
 		  display: none;
 		}
 
+		&.empty{
+			&:before{
+				content: "⦰\A Aucun projets ne correspond à votre recherche";
+				white-space: pre; 
+				@include f1(1);
+				position: absolute;
+				text-align: center;
+				left: 50%;
+				top: 50%;
+				transform: translateX(-50%) translateY(-50%)
+			}
+		}
+
 		li{
 
 			.cover{
