@@ -2,8 +2,11 @@
 titre: Projet A
 maître_ouvrage: Basile
 typologie: Centres commerciaux et Commerces
+typologie_travaux: Construction neuve
 mission: MOE
-statut: Privé
+statut: Marché Public
+statut_phase: Phase PRO
+
 surface: 10000
 montant: 1000000
 ile: Martinique

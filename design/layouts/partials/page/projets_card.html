@@ -41,11 +41,9 @@
         
         {% if projet.data.localité or projet.data.ile %}
           <li aria-label="Localisation">
+            {% if projet.data.ile %}{{ projet.data.ile }}{% endif %}{% if projet.data.ile and projet.data.localité %},{% endif %} 
             {% if projet.data.localité %}
-              {{ projet.data.localité }},
-            {% endif %}
-            {% if projet.data.ile %}
-              {{ projet.data.ile }}
+              {{ projet.data.localité }}
             {% endif %}
           </li>
         {% endif %}
@@ -59,15 +57,18 @@
         {% if projet.data.typologie %}
           <li aria-label="Typologie">
             {{ projet.data.typologie }}
-              {% if projet.data.type_de_travaux %}
-              &nbsp;({{ projet.data.type_de_travaux}})
-              {% endif %}            
+            {% if projet.data.typologie_travaux %}
+            <em>{{ projet.data.typologie_travaux}}</em>
+            {% endif %}            
           </li>
         {% endif %}
 
         {% if projet.data.statut %}
           <li aria-label="Statut">
             {{ projet.data.statut }}
+            {% if projet.data.statut_phase %}
+            <em>{{ projet.data.statut_phase}}</em>
+            {% endif %}
           </li>
         {% endif %}
 

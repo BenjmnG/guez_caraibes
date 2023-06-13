@@ -12,8 +12,8 @@
   font-weight: 400;
   font-style: italic;
   font-display: swap;
-  src:  url('Dinish/Italic.woff') format('woff'),
-        url('Dinish/Italic.woff2') format('woff2');
+  src:  url('Dinish/Dinish-Italic.woff') format('woff'),
+        url('Dinish/Dinish-Italic.woff2') format('woff2');
 }
 
 @font-face {
