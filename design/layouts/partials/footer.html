@@ -18,8 +18,8 @@
 			<p aria-label="Certification">Agrément n° 09 02 2045</p>
 		</li>
 		<li role="none">
-			AB Certification
-			<p aria-label="Certification">Certification ISO 9001:2008</p>
+			{% include "../../assets/svg/abi.svg" %}
+			<p aria-label="Certification" hidden>Certification ISO 9001:2015</p>
 		</li>
 	</ul>
 
@@ -28,27 +28,40 @@
 			{%- for equipe in collections.equipes -%}
         <li role="none"
         >
-          <p aria-label="Localisation">
+          <h3 aria-label="Localisation">
           	{{ equipe.data.nom }}
-          </p>
+          </h3>
           
           {% set mail = equipe.data.adresse.mail | reverse %}
           {% set phone = equipe.data.adresse.téléphone | reverse %}
-	          <a class="obf" 
-	          	 data-href="{{ mail }}"
-	          	 data-protocol="mail"
-	          	 role="Email de l'équipe {{ equipe.data.nom }}">
-	          </a>
-          <a class="obf" 
-          	 data-href="{{ phone }}"
-          	 data-protocol="phone"
-	          	 role="Téléphone de l'équipe {{ equipe.data.nom }}">
+          <a class="obf"
+          	 aria-label="Mail"
+          	 data-icon="M&thinsp;"
+          	 data-href="{{ mail }}"
+          	 data-protocol="mail"
+          	 role="Email de l'équipe {{ equipe.data.nom }}">
           </a>
-
-          <p>{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
-
+        	<a class="obf" 
+          	 aria-label="Phone"
+          	 data-icon="T&thinsp;"
+        	 	 data-href="{{ phone }}"
+        	   data-protocol="phone"
+          	 role="Téléphone de l'équipe {{ equipe.data.nom }}">
+        	</a>
+        	<p aria-label="Adresse"
+        		 data-icon="A&thinsp;"
+        	>
+        		{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}
+        	</p>
         </li>
       {%- endfor -%}
 		</ul>
 	</address>
+
+	<ul id="mentions_legales">
+		<li>{{ site.currentYear() }} — {{website.name}}</li>
+		<li><a href="/mentions_legales">Mentions légales</a></li>
+		<li>Design & Code: <a href="https://bnjm.eu" target="_blank">bnjm.eu</a></li>
+	</ul>
+
 </footer>
