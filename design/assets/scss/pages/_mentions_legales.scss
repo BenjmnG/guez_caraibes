@@ -1,0 +1,31 @@
+main[data-type="mentions_legales"]{
+
+	max-width: 40rem;
+	margin-bottom: $baseline*4;
+
+	h1{
+		@include f1(2);
+		text-transform: uppercase;
+
+		//width: 100%;
+
+		padding-bottom: $base*2;
+		border-bottom: 1px solid currentColor;
+		margin-bottom: $base*12;
+	}
+
+	h2{
+		@include f1(1, 0, $bold)
+	}
+
+	p{
+		margin-bottom: $base*4;
+	}
+	p + h2{
+		margin-top: $baseline
+	}
+
+	a{
+		text-decoration: underline;
+	}
+}
