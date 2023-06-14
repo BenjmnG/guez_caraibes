@@ -100,7 +100,8 @@ footer{
 					content: attr(data-icon)':';
 					top: .3em;
 					left: 0;
-					@include f1(0)
+					@include f1(0);
+					font-size: .6rem;
 				}
 			}
 
