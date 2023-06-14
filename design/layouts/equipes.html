@@ -22,18 +22,25 @@
             
             {% set mail = equipe.data.adresse.mail | reverse %}
             {% set phone = equipe.data.adresse.téléphone | reverse %}
-              <a class="obf" 
-                 data-href="{{ mail }}"
-                 data-protocol="mail"
-                 role="Email de l'équipe {{ equipe.data.nom }}">
-              </a>
+            <a class="obf"
+               aria-label="Mail"
+               data-icon="M&thinsp;"
+               data-href="{{ mail }}"
+               data-protocol="mail"
+               role="Email de l'équipe {{ equipe.data.nom }}">
+            </a>
             <a class="obf" 
+               aria-label="Phone"
+               data-icon="T&thinsp;"
                data-href="{{ phone }}"
                data-protocol="phone"
-                 role="Téléphone de l'équipe {{ equipe.data.nom }}">
+               role="Téléphone de l'équipe {{ equipe.data.nom }}">
             </a>
-
-            <p>{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
+            <p aria-label="Adresse"
+               data-icon="A&thinsp;"
+            >
+              {{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}
+            </p>
 
           </li>
         {%- endfor -%}
@@ -53,44 +60,53 @@
 
       <ul>
       {%- for job in collections.jobs -%}
-        <li>
-          <details>
-            <summary>
+        {%- if not job.data.date_limite or (job.data.date_limite and job.data.date_limite | isDateNotPast)-%}
+          <li>
+            <details>
+              <summary>
 
-              <svg viewbox="0 0 20 20"><use href="#icon-arrow"></use></svg>
+                <svg viewbox="0 0 20 20"><use href="#icon-arrow"></use></svg>
 
-              <h2>{{ job.data.titre }}</h2>
+                <h2>{{ job.data.titre }}</h2>
 
-              {% if job.data.contrat %}
-                <span>{{ job.data.contrat }}</span>
-              {% endif %}
-              
-              {% if job.data.temps %}
-                <span>{{ job.data.temps }}</span>
-              {% endif %}
+                {% if job.data.contrat %}
+                  <span>{{ job.data.contrat }}</span>
+                {% endif %}
+                
+                {% if job.data.temps %}
+                  <span>{{ job.data.temps }}</span>
+                {% endif %}
 
-              {% if job.data.ile %}
-                <span>{{ job.data.ile }}</span>
-              {% endif %}
+                {% if job.data.ile %}
+                  <span>{{ job.data.ile }}</span>
+                {% endif %}
 
-              <a class="obf button" 
-                 data-href="{{ website.email_job | reverse}}"
-                 data-protocol="mail"
-                 data-subject='Candidature : "{{ job.data.titre }}"'
-                 role="Postuler par mail">
-                Candidater par Mail
-              </a>
+                {% set email = website.email %}
+                {%- for equipe in collections.equipes -%}
+                  {% if job.data.ile == equipe.data.nom %}
+                    {% set email = equipe.data.adresse.mail %}
+                  {%- endif -%}
+                {%- endfor -%}
 
-            </summary>
+                <a class="obf button" 
+                   data-href="{{ email | reverse}}"
+                   data-protocol="mail"
+                   data-subject='Candidature : "{{ job.data.titre }}"'
+                   role="Postuler par mail">
+                  Candidater par Mail
+                </a>
 
-              {{ job.content 
-                | replace('h2', 'h3') 
-                | replace('h1', 'h2') 
-                | safe 
-              }}
-          </details>
+              </summary>
 
-        </li>
+                {{ job.content 
+                  | replace('h2', 'h3') 
+                  | replace('h1', 'h2') 
+                  | safe 
+                }}
+            </details>
+
+          </li>
+        {% endif %}
       {%- endfor -%}
     </section>
   {% endif %}

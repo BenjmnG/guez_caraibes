@@ -13,7 +13,7 @@ main[data-type="equipes"]{
 			text-transform: uppercase;
 	    font-size: $font-size*1;
 	    margin-bottom: $baseline;
-	    padding-bottom: $baseline;
+	    //padding-bottom: $baseline;
 	    text-align: center;
 
 			strong{
@@ -21,6 +21,14 @@ main[data-type="equipes"]{
 	    	font-size: $base*16;
 	    	line-height: 1em;
 	    	margin-bottom: $base*2;
+			}
+
+			em{
+				font-style: normal;
+				font-weight: $normal;
+				font-size: 1rem;
+				line-height: $base*16;
+				letter-spacing: .025em;
 			}
 
 			&:after{
@@ -65,8 +73,9 @@ main[data-type="equipes"]{
 			li {
 
 				margin-bottom: $base*4;
+				width: 100%;
 
-				&:before{
+				/*&:before{
 					content: "";
 					position: absolute;
 					left: 0;
@@ -76,22 +85,30 @@ main[data-type="equipes"]{
 					border-left: 1px solid currentColor;
 					display: inline-block;
 
-				}
+				}*/
 
 				> *{
 					display: block;
 					@include f1(1,-1);
 				}
-				> *:not(img){
-					padding-left: $u;
+
+				> *:not(h2):not(img){
+					padding-left: $u*1.5;
+					&:before{
+						position: absolute;
+						content: attr(data-icon)':';
+						top: .3em;
+						left: 0;
+						@include f1(0);
+						font-size: .6rem;
+					}
 				}
-				> *:not(:last-child){
-					text-transform: uppercase;
-				}
+				a{letter-spacing: .015em;}
 			}
 
 			img{
-				height: min(33vh,  $baseline*20);
+				//height: min(33vh,  $baseline*20);
+				aspect-ratio: 3/4;
 				width: 100%;
 				margin-bottom: $baseline;
 			}
@@ -213,6 +230,9 @@ main[data-type="equipes"]{
 
 		#equipes{
 			margin-bottom: $baseline*4;
+			header{margin-bottom: $baseline*2;}
+
+			address li{margin-bottom: $baseline*2;}
 		}
 		#jobs{
 			margin-bottom: $baseline*2;
@@ -238,19 +258,36 @@ main[data-type="equipes"]{
 	}
 
 	@include for-size(desktop){
-		address {
-			margin-top: $baseline;
-			> ul{
-				display: flex;
-				justify-content: center;
-				gap: $baseline;
-			}
-		}
 
 		#equipes{
 			margin-bottom: $baseline*8;
+			header{margin-bottom: $baseline*4;}
 			.description{
 				text-align: center;
+			}
+			address {
+				margin-top: $baseline;
+				margin-bottom: $baseline*10;
+				> ul{
+					display: flex;
+					justify-content: center;
+					gap: $baseline;
+
+					li{
+						flex-grow: 1;
+						//top: 50%;
+						//transform: translateY(-50%);
+						transition: width .25s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+												transform .25s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+						/* &:hover{
+							flex-grow: 2;
+							width: 110%;
+						} */
+
+						img{
+						}
+					}
+				}
 			}
 		}
 		#jobs{

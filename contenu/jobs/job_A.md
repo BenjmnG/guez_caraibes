@@ -3,6 +3,7 @@ titre: Spécialiste Fluides
 contrat: CDI
 temps: Temps plein
 ile: Guadeloupe
+date_limite: 2025-06-15
 ---
 
 

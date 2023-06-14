@@ -32,6 +32,7 @@ module.exports = config => {
   config.addFilter("toCharCode", value => to_charcode(value));
   config.addFilter("reverse", value => value ? [...value].reverse().join("") : value);
   config.addFilter("simpleDate", date => { let d = new Date(date); return new Intl.DateTimeFormat("fr", { month: 'long', year: 'numeric' }).format(date)});
+  config.addFilter("isDateNotPast", date => { if(Date.parse(date) - Date.parse(new Date()) > 0){ return true } });
   config.addFilter("devise", number => { return new Intl.NumberFormat('fr', { style: 'currency', currency: 'EUR' }).format(number)})
   config.addDataExtension("yaml", contents => yaml.load(contents));
   

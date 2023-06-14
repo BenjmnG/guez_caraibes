@@ -2,6 +2,8 @@
 titre: "recherche assistant AMO"
 contrat: CDD
 temps: Temps partiel
+ile: Saint-Martin
+date_limite: 2024-02-01
 ---
 
 

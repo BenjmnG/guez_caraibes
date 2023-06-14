@@ -21,7 +21,7 @@ function obf(){
   as.forEach( a => {
     let value     = a.getAttribute('data-href'),
         protocol  = a.getAttribute('data-protocol'),
-        subject   = a.getAttribute('data-subject') ? `?subject=${a.getAttribute('data-subject')}` : null
+        subject   = a.getAttribute('data-subject') ? `?subject=${a.getAttribute('data-subject')}` : ''
 
     if(protocol == "mail"){protocol = "mailto:"}
     else if(protocol == "phone"){protocol = "tel:"}
