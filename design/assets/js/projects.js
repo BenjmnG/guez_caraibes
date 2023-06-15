@@ -247,7 +247,8 @@ const project_list = () => ({
 
             el.addEventListener("mouseleave", () => {
               let focusedPoint = document.querySelector('.etiquette.focus')
-              if(focusedPoint){ focusedPoint.classList.remove('focus') }
+              if(focusedPoint){ focusedPoint.classList.remove('focus') } 
+
             })
 
           }, 200);
@@ -270,6 +271,12 @@ const project_list = () => ({
           let coord = project_map().getCoord('l-Guadeloupe')
           project_map().focusOnPoint(coord[0], coord[1])
           _map.focusOn = null
+
+          let focusedPoint = document.querySelectorAll('.etiquette.focus')
+          if(focusedPoint){ 
+            focusedPoint.forEach(f => f.classList.remove('focus') )
+          }
+
         }
       })
     },
@@ -335,7 +342,7 @@ const project_map = () => ({
   },
 
   validMaxt: () => {
-    offset = 100 // Far west isn't a friendly world
+    offset = 50 // Far west isn't a friendly world
     let minX = offset * -_map.ratio,
         maxX = (_map.section.width * -_map.ratio) + (_map.section.width)
         minY = _map.section.height / 2,
