@@ -27,20 +27,32 @@ svg#main_map{
 
 	.etiquette{
 
-		$base : .2rem;
-
-		rect.pt{
-			width: $base*1.5;
-			height: $base*1.5;  
-			fill: var(--cB);
-			transform: translateY($base*-.25);
-		}
+		cursor: pointer;
+		display: inline-block;
 
 		text{
 			fill: transparent;
 			font-size: $base*2;
 			font-family: $font-1;
 			transition: fill .25s .75s ease-in;
+		}
+
+		circle{
+			fill: none;
+			stroke-width: 1px;
+			stroke: var(--cB);
+			z-index: 1;
+			transition: stroke .25s ease,
+									stroke-width .5s ease;
+		}
+		&.focus	circle{
+			stroke-width: 3px;
+			stroke: var(--cR);
+			z-index: 5;
+		}
+
+		&:hover circle{
+			stroke: var(--cR);
 		}
 	}
 
@@ -52,8 +64,7 @@ svg#main_map{
 		}
 	}
 
-	.etiquette circle{
-		transition: .5s ease;
+	.etiquette{
 	}
 
 
@@ -94,30 +105,6 @@ svg#main_map{
 		#M1000{ transition-delay: .4s; }
 		#M3000{ transition-delay: .2s; }
 
-		.etiquette{
-			cursor: pointer;
-			display: inline-block;
-
-			circle{
-				fill: var(--cB);
-				stroke: none;
-			}
-
-			&.focus{
-				circle{
-					fill: var(--cR)
-				}
-			}
-			/*text{
-				display: inline-block;
-				fill: var(--cB);
-				font-family: "Dinish",sans-serif;
-				font-weight: 700;
-				font-size: .25rem;
-				transform: translateX(.5em) translateY(.25em);
-				display: none;
-			}*/
-		}
 	}
 
 
@@ -131,13 +118,5 @@ svg#main_map{
 
 
 	&.scale-B{
-
-		#Land path{
-			//stroke-width: 0.15px;
-		}
-
-		circle{
-			r: .75px;
-		}
 	}
 }

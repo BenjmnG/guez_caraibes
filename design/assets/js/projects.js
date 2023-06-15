@@ -22,6 +22,8 @@ let _map = {
   tY:      0,
   minR:    4,
   maxR:    80,
+  avgR:    4,
+  focusR:  20,
   ratio:   4,
   focusOn: null
 }
@@ -198,12 +200,12 @@ const project_list = () => ({
 
           clearTimeout(delayEvent);
           
-
           // FUnction will run in delay unless another elemnt trigg it
           delayEvent = setTimeout(function() {
 
-            project_map().getPerfectRatio(island_to_target)
-            _map.ratio +=5
+            //project_map().getPerfectRatio(island_to_target)
+            //_map.ratio +=5
+            //_map.ratio = _map.focusR
             project_map().setTransform()
 
             let coord = project_map().getCoord(id_to_target)
@@ -214,21 +216,26 @@ const project_list = () => ({
 
             el.addEventListener("mouseleave", () => {
               let focusedPoint = document.querySelector('.etiquette.focus')
-              if(focusedPoint){
-                focusedPoint.classList.remove('focus')
-              }
+              if(focusedPoint){ focusedPoint.classList.remove('focus') }
             })
 
           }, 200);
+        })
+        el.addEventListener("click", () => {
+          _map.ratio = _map.focusR
+          project_map().setTransform()
+          let coord = project_map().getCoord(id_to_target)
+          project_map().focusOnPoint(coord[0], coord[1])
+          _map.focusOn = coord;
         })
       })
 
       document.querySelector('.list.projets').addEventListener('mouseleave', () => {
         if(_map.focusOn != null && main.getAttribute('data-vue') != 'single'){
-          _map.ratio /= 4
-          project_map().validMinR()
+          _map.ratio = _map.avgR
           project_map().setTransform()
-          project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
+          let coord = project_map().getCoord('l-Guadeloupe')
+          project_map().focusOnPoint(coord[0], coord[1])
           _map.focusOn = null
         }
       })
@@ -247,12 +254,17 @@ const project_list = () => ({
       document.querySelector('#filter #closeProject').addEventListener("click", () => {
           let id = document.querySelector('[data-active="true"]').getAttribute('data-map-point')
           project_map().setVueMode(false, id)
+
           
-          _map.ratio /= 4
+          _map.ratio = _map.avgR
           project_map().validMinR()
           
           project_map().setTransform()
           project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
+
+          let focusedPoint = document.querySelector('.etiquette.focus')
+          if(focusedPoint){ focusedPoint.classList.remove('focus') }  
+
           _map.focusOn = null
       })
     }
@@ -460,22 +472,29 @@ const project_map = () => ({
             } else {
                 if(alreadyActive) {
                 // A project is already open and there is a new project to see
+
+                let focusedPoint = document.querySelector('.etiquette.focus')
+                if(focusedPoint){ focusedPoint.classList.remove('focus') }  
+
                 alreadyActive.setAttribute('data-active', false)
                 project_map().setVueMode(true, el.id)
+                
               } else {
                 // No project is open and there is a project to see
                 project_map().setVueMode(true, el.id)
               }
 
               project_map().getPerfectRatio()
-              _map.ratio +=5
+              _map.ratio = _map.focusR
               
               _map.focusOn = [
                 parseFloat(el.getAttribute('data-x')),
                 parseFloat(el.getAttribute('data-y'))
               ]
 
-            }            
+            } 
+
+            el.classList.add('focus')
 
             // Update tranform because of ratio update
             project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
