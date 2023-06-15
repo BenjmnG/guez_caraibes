@@ -134,7 +134,7 @@ footer{
 
 	@include for-size(desktop){
 
-		padding: $base*4 0 $base*12 0;
+		padding: $base*4 0 $base*4 0;
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
 		grid-template-rows: $baseline*3 $baseline*8 auto auto;

@@ -62,12 +62,12 @@ svg#main_map{
 	#Land path{
 		fill: var(--cW);
 		stroke: var(--cB);
-		stroke-width: 1;
 		transition: .75s ease-in-out, 
-					0s stroke-width;
-		stroke-width: 0.35px;
-		stroke-width: calc(max(.1px, calc(.35px - .05px*var(--r))));
-	    //vector-effect: non-scaling-stroke;
+								.25s .25s stroke-width;
+		stroke-width: 0.2px;
+		// 4 < ratio < 80   	&&   .05px < stroke-width < .2px	
+		stroke-width: calc(max(.05px, .2px - .001875px * ( var(--r) - 4) ));
+
 	}
 
 	#M200, #M1000, #M3000{
