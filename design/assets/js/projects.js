@@ -223,35 +223,42 @@ const project_list = () => ({
       document.querySelectorAll('.list.projets [data-map-point]').forEach(el => {
         let id_to_target     = el.getAttribute('data-map-point')
         let island_to_target = el.getAttribute('data-island')
-        let delayEvent 
+        let el_target = _map.section.el.querySelector(`#${id_to_target}`)
+        //let delayEvent 
 
         el.addEventListener("mouseenter", () => {
 
+          
           if(main.getAttribute('data-vue') == 'single'){return}
 
-          clearTimeout(delayEvent);
+          //clearTimeout(delayEvent);
           
           // FUnction will run in delay unless another elemnt trigg it
-          delayEvent = setTimeout(function() {
+          //delayEvent = setTimeout(function() {
 
             //project_map().getPerfectRatio(island_to_target)
             //_map.ratio +=5
             //_map.ratio = _map.focusR
-            project_map().setTransform()
+            //project_map().setTransform()
 
+            // Don't center map if we're already on focus ratio
             let coord = project_map().getCoord(id_to_target)
-            project_map().focusOnPoint(coord[0], coord[1])
             _map.focusOn = coord;
+            if(_map.active_island.length != 1){
+              project_map().focusOnPoint(coord[0], coord[1])
+            }
 
-            _map.section.el.querySelector(`#${id_to_target}`).classList.add('focus')
+            // zindex like
+            //el_target.parentNode.appendChild(el_target)
+            el_target.classList.add('focus')
+            
 
             el.addEventListener("mouseleave", () => {
-              let focusedPoint = document.querySelector('.etiquette.focus')
-              if(focusedPoint){ focusedPoint.classList.remove('focus') } 
-
+              let focusedPoint = document.querySelectorAll('.etiquette.focus')
+              if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )} 
             })
 
-          }, 200);
+          //}, 0);
         })
         el.addEventListener("click", () => {
           _map.ratio = _map.focusR
@@ -270,12 +277,10 @@ const project_list = () => ({
           project_map().setTransform()
           let coord = project_map().getCoord('l-Guadeloupe')
           project_map().focusOnPoint(coord[0], coord[1])
-          _map.focusOn = null
+          //_map.focusOn = null
 
           let focusedPoint = document.querySelectorAll('.etiquette.focus')
-          if(focusedPoint){ 
-            focusedPoint.forEach(f => f.classList.remove('focus') )
-          }
+          if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )}
 
         }
       })
@@ -303,10 +308,10 @@ const project_list = () => ({
           project_map().setTransform()
           project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
 
-          let focusedPoint = document.querySelector('.etiquette.focus')
-          if(focusedPoint){ focusedPoint.classList.remove('focus') }  
+          let focusedPoint = document.querySelectorAll('.etiquette.focus')
+          if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )}
 
-          _map.focusOn = null
+          //_map.focusOn = null
       })
     }
   }),
