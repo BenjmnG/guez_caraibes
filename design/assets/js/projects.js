@@ -1,6 +1,7 @@
 // Openers are three hidden input to open three list of item filter
 let openers  = document.querySelectorAll('[name="open_filter"]'),
     items    = document.querySelectorAll('[name^="f-"]'),
+    items_lo = document.querySelectorAll('[name="f-lo"]'),
     projects = document.querySelectorAll('[data-map-point]')
 
 let _map = {
@@ -25,7 +26,8 @@ let _map = {
   avgR:    4,
   focusR:  20,
   ratio:   4,
-  focusOn: null
+  focusOn: null,
+  active_island: []
 }
 
 const project_list = () => ({
@@ -178,6 +180,35 @@ const project_list = () => ({
       })
     },
 
+    watchSubCategorie_lo: () => {
+      // This check number of selected island  and focus on selected one if single
+      items_lo.forEach( item_lo => {
+        item_lo.addEventListener('change', evt => {
+          
+          _map.active_island = []
+
+          items_lo.forEach( item => {
+            if(item.checked == true){
+              _map.active_island.push(item.value)
+            }
+          })
+
+          if(_map.active_island.length == 1){
+            _map.ratio = _map.focusR
+            project_map().setTransform()
+            let coord = project_map().getCoord(`l-${_map.active_island[0]}`)
+            project_map().focusOnPoint(coord[0], coord[1])
+            _map.focusOn = coord;
+          } else {
+            _map.ratio = _map.avgR
+            project_map().setTransform()
+            project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
+          }
+
+        })
+      })
+    },
+
     watchFirstInteraction: () =>{
 
       // This remove init class after first interaction
@@ -231,7 +262,9 @@ const project_list = () => ({
       })
 
       document.querySelector('.list.projets').addEventListener('mouseleave', () => {
-        if(_map.focusOn != null && main.getAttribute('data-vue') != 'single'){
+        
+        if( _map.focusOn != null && main.getAttribute('data-vue') != 'single' && _map.active_island.length != 1
+          ){
           _map.ratio = _map.avgR
           project_map().setTransform()
           let coord = project_map().getCoord('l-Guadeloupe')
@@ -249,6 +282,7 @@ const project_list = () => ({
         } )
       })
     },
+
     disableSingleMode: () => {
       // This hide Single Vue Mode on user clic 
       document.querySelector('#filter #closeProject').addEventListener("click", () => {
@@ -275,6 +309,7 @@ const project_list = () => ({
 
     project_list().events().watchCategorie()
     project_list().events().watchSubCategorie()
+    project_list().events().watchSubCategorie_lo()
     project_list().events().watchFirstInteraction()
     project_list().events().watchProjectListInteractions()
     project_list().events().watchCloseAllFiltersInteraction()
