@@ -8,11 +8,16 @@ statut: Marché privé
 ile: Guadeloupe
 localité: Les Abymes
 coordonnées: 16.267663050184627, -61.52724555704186
-visible: true
+
+calendrier:
+  debut: 2022-06-01
+  durée_en_mois: 48 
+
 cover:
   src: /_media/sample.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: true
+visible: true
 ---
 
 

@@ -94,11 +94,9 @@
           </li>
         {% endif %}
 
-        {% if projet.data.debut %}
-          <li aria-label="Date">
-            {{ projet.data.debut | simpleDate | title}}
-            {% if projet.data.debut and projet.data.fin  %}&#8239;—&#8239;{% endif %}
-            {{ projet.data.fin | simpleDate | title}}
+        {% if projet.data.calendrier %}
+          <li aria-label="Durée des travaux">
+            {{ projet.data.calendrier | parseDate | safe}}
           </li>
         {% endif %}
 
