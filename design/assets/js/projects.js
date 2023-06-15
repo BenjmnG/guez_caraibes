@@ -11,7 +11,7 @@ let _map = {
     height: document.querySelector("#map").getBoundingClientRect().height
   },
 
-  on: 'l-Martinique',
+  on: 'l-Guadeloupe',
   
   svg: {
     el: document.querySelector("#main_map"),
@@ -292,8 +292,8 @@ const project_map = () => ({
     let minX = offset * -_map.ratio,
         maxX = (_map.section.width * -_map.ratio) + (_map.section.width)
         minY = _map.section.height / 2,
-        maxY = (_map.section.height * -_map.ratio) + (_map.section.height)
-    
+        maxY = (_map.section.height * -_map.ratio / 2) + (_map.section.height)
+
     if( _map.tX > minX ){ 
       _map.tX = minX
     } else if( _map.tX < maxX ){ 
@@ -511,7 +511,7 @@ const project_map = () => ({
 
 //Temp
 
-project_map().focusOnPoint(108, 156)
+project_map().focusOnPoint(191, 96)
 items.forEach( item => item.checked = false)
 
 
