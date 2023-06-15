@@ -547,7 +547,7 @@ main[data-type="projets"]{
 			#filter, ul.list.projets{width: calc((100% - #{$u*3}) / 4 * 3)}
 			//#map{grid-column: 1 / span 4;}		
 		}
-		@media (min-height: 800px){
+		/*@media (min-height: 800px){
 			#filter:before{
 				content: "";
 				position: absolute;
@@ -569,7 +569,7 @@ main[data-type="projets"]{
 				width: 0;
 			}
 
-		} 
+		} */
 	}
 
 	@include for-size(desktop){
