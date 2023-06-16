@@ -73,35 +73,38 @@ footer{
 
 	address{
 		font-style: inherit;
-		li{
+		> ul > li{
 			//border-left: 1px solid currentColor;
 			//padding-left: $u;
 			margin-bottom: $base*4;
+			
+				> *{
+					@include f1(1, -.5);
+					display: block;
+				}
 
-			h3{
+			h2{
 				//margin-bottom: $base;
 				font-weight: $bold;
 				text-transform: uppercase;
 			}
 
-			a{letter-spacing: .015em;}
-
-			//p:last-child{margin-top: $base;}
-
-			*{
-				@include f1(1, -.5);
-				display: block;
-			}
-
-			*:not(h3){
+			li{
 				padding-left: $u*1.5;
-				&:before{
-					position: absolute;
+
+				a{letter-spacing: .015em;}
+
+				//p:last-child{margin-top: $base;}
+
+
+				> *::before{
 					content: attr(data-icon)':';
+					position: absolute;
 					top: .3em;
-					left: 0;
+					left: $u*-1.45;
 					@include f1(0);
 					font-size: .6rem;
+					display: inline-block;
 				}
 			}
 
@@ -128,7 +131,7 @@ footer{
 		> *:first-child {margin-bottom: $base*4;}
 		> *:not(:first-child):not(:last-child) {margin-bottom: $base*12;}
 		address{
-			li{margin-bottom: $base*12;}
+			> ul > li{margin-bottom: $base*12;}
 		}
 	}
 
@@ -157,12 +160,12 @@ footer{
 			grid-row: 3;
 			grid-column: 1 / -1;
 			
-			ul{
+			> ul{
 				display: grid;
 				grid-template-columns: repeat(6, 1fr);
 				grid-gap: $baseline $u;
 
-				li{
+				> li{
 					grid-column: span 2;
 				}
 			}

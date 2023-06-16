@@ -12,8 +12,7 @@
     <address aria-label="Liste des équipes">
       <ul>
         {%- for equipe in collections.equipes -%}
-          <li role="none"
-          >
+          <li>
             {% if equipe.data.cover %}
               {% image 
                 equipe.data.cover.src, 
@@ -24,34 +23,36 @@
                   (min-width: 900px) 900w"
                %}
             {% else %}
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
+              <img aria-hidden="true" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
             {% endif %}
             
             <h2 aria-label="Localisation">
               {{ equipe.data.nom }}
             </h2>
             
+            <ul aria-label="Contact de l'agence {{ equipe.data.nom }}">
             {% set mail = equipe.data.adresse.mail | reverse %}
             {% set phone = equipe.data.adresse.téléphone | reverse %}
-            <a class="obf"
-               aria-label="Mail"
-               data-icon="M&thinsp;"
-               data-href="{{ mail }}"
-               data-protocol="mail"
-               role="Email de l'équipe {{ equipe.data.nom }}">
-            </a>
-            <a class="obf" 
-               aria-label="Phone"
-               data-icon="T&thinsp;"
-               data-href="{{ phone }}"
-               data-protocol="phone"
-               role="Téléphone de l'équipe {{ equipe.data.nom }}">
-            </a>
-            <p aria-label="Adresse"
-               data-icon="A&thinsp;"
-            >
-              {{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}
-            </p>
+              <li aria-label="Email de l'équipe {{ equipe.data.nom }}">
+                <a class="obf"
+                   data-icon="M&thinsp;"
+                   data-href="{{ mail }}"
+                   data-protocol="mail"
+                   >
+                </a>
+              </li>
+              <li aria-label="Téléphone de l'équipe {{ equipe.data.nom }}">
+                <a class="obf" 
+                   data-icon="T&thinsp;"
+                   data-href="{{ phone }}"
+                   data-protocol="phone"
+                   >
+                </a>
+              </li>
+              <li aria-label="Adresse">
+                <p data-icon="A&thinsp;">{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
+              </li>
+            </ul>
 
           </li>
         {%- endfor -%}
@@ -103,7 +104,8 @@
                    data-href="{{ email | reverse}}"
                    data-protocol="mail"
                    data-subject='Candidature : "{{ job.data.titre }}"'
-                   role="Postuler par mail">
+                   role="button"
+                   aria-label="Postuler par mail">
                   Candidater par Mail
                 </a>
 

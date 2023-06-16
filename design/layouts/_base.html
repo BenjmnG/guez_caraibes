@@ -18,6 +18,7 @@
     <meta name="theme-color" content="#ffffff">
     
     <!--SEO-->
+    <meta name="description" content="{% if seo.description %}{{ seo.description}}{% else%}{{website.seo.description}}{% endif %}">
     <meta property="og:url" content="{{site.url}}/{{ page.url }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content='{% include "partials/title.html" %}'>
@@ -44,7 +45,7 @@
     {% block css %}{% endblock %}
 
     <!-- TEMP NO INDEX ! -->
-    <meta name="robots" content="noindex">
+    <!--<meta name="robots" content="noindex">-->
     <!-- TEMP NO INDEX ! -->
   
   </head>

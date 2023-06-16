@@ -190,7 +190,7 @@ main[data-type="projets"]{
 					}
 					&:before{
 						position: absolute;
-						content: attr(aria-label);
+						content: attr(aria-label)"\00a0";
 						top: 1em;
 						left: 0;//$u*.5;
 						@include f1(0);

@@ -298,10 +298,12 @@ const project_list = () => ({
 
     disableSingleMode: () => {
       // This hide Single Vue Mode on user clic 
-      document.querySelector('#filter #closeProject').addEventListener("click", () => {
+      document.querySelector('#filter #closeProject').addEventListener("click", el => {
           let id = document.querySelector('[data-active="true"]').getAttribute('data-map-point')
           project_map().setVueMode(false, id)
 
+
+          el.target.setAttribute('aria-hidden', true)
           
           _map.ratio = _map.avgR
           project_map().validMinR()
@@ -407,6 +409,9 @@ const project_map = () => ({
 
     document.querySelector(`.list.projets [data-map-point="${id}"]`)
       .setAttribute('data-active', single == true ? true : false)
+
+    document.querySelector('#closeProject')
+      .setAttribute('aria-hidden', single == true ? false : true)
   },
 
   focusOnPoint: (x, y) => {

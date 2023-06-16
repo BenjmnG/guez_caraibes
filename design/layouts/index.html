@@ -13,24 +13,22 @@
 				(min-width: 1921px) 3840w"
 		 %}
 
-	<header>
-
+	<div class="header">
 
 		 <h1><span>{{ titre | replace (' ', '</span><span>') | safe}}</span></h1>
 
-		 <p class="description"
-		 		aria-label="Description de l'entreprise">
+		 <p class="description">
 		 		{{content | markdown | escaP | safe }}
 		 </p>
 
 		 <ul  class="localisation"
-		 			aria-label="Liste des implentations de l'entreprise">
-		 	{%- for equipe in collections.equipes -%}
-        <li>{{ equipe.data.nom }}</li>
-      {% endfor %}
+		 			aria-label="Liste des implantations de l'entreprise">
+			 	{%- for equipe in collections.equipes -%}
+	        <li>{{ equipe.data.nom }}</li>
+	      {% endfor %}
 		 </ul>
 
-	</header>
+	</div>
 {% endblock %}
 
 {% block script %}{% endblock %}

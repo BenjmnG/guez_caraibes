@@ -1,64 +1,70 @@
-<footer>
+<footer aria-label="Pied de page">
 
 	<svg viewBox="0 0 200 150">
 		  <use href="#_sign_B"></use>
 		  <use href="#_sign_A"></use>
 	</svg>
 
-	<p class="baseline">
-		<span>Bureau <br>d'ingénierie</span> 
+	<h1 class="baseline">
+		<span>Bureau&nbsp;<br>d'ingénierie</span> 
 		<span>dans la</span> 
 		<span>Caraïbe</span>
-	</p>
+	</h1>
 
 	<ul class="agrement" 
 			aria-label="Liste des Agrément">
-		<li role="none">
+		<li>
 			{% include "../../assets/svg/opqibi.svg" %}
-			<p aria-label="Certification">Agrément n° 09 02 2045</p>
+			<p aria-label="Certification">
+				<span class="sr-only">OPQIBI</span>
+				Agrément n° 09 02 2045
+			</p>
 		</li>
-		<li role="none">
+		<li>
 			{% include "../../assets/svg/abi.svg" %}
-			<p aria-label="Certification">Certification ISO 9001:2015</p>
+			<p aria-label="Certification">
+				<span class="sr-only">ABi</span>
+				Certification ISO 9001:2015</p>
 		</li>
 	</ul>
 
-	<address aria-label="Liste des équipes">
-		<ul>
+	<address>
+		<ul aria-label="Liste des équipes">
 			{%- for equipe in collections.equipes -%}
-        <li role="none"
-        >
-          <h3 aria-label="Localisation">
+        <li >
+          <h2 aria-label="Localisation">
           	{{ equipe.data.nom }}
-          </h3>
-          
+          </h2>
+          <ul aria-label="Contact de l'agence {{ equipe.data.nom }}">
           {% set mail = equipe.data.adresse.mail | reverse %}
           {% set phone = equipe.data.adresse.téléphone | reverse %}
-          <a class="obf"
-          	 aria-label="Mail"
-          	 data-icon="M&thinsp;"
-          	 data-href="{{ mail }}"
-          	 data-protocol="mail"
-          	 role="Email de l'équipe {{ equipe.data.nom }}">
-          </a>
-        	<a class="obf" 
-          	 aria-label="Phone"
-          	 data-icon="T&thinsp;"
-        	 	 data-href="{{ phone }}"
-        	   data-protocol="phone"
-          	 role="Téléphone de l'équipe {{ equipe.data.nom }}">
-        	</a>
-        	<p aria-label="Adresse"
-        		 data-icon="A&thinsp;"
-        	>
-        		{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}
-        	</p>
+	          <li aria-label="Email de l'équipe {{ equipe.data.nom }}">
+		          <a class="obf"
+		          	 data-icon="M&thinsp;"
+		          	 data-href="{{ mail }}"
+		          	 data-protocol="mail"
+		          	 >
+		          </a>
+	          </li>
+	          <li aria-label="Téléphone de l'équipe {{ equipe.data.nom }}">
+		        	<a class="obf" 
+		          	 data-icon="T&thinsp;"
+		        	 	 data-href="{{ phone }}"
+		        	   data-protocol="phone"
+		          	 >
+		        	</a>
+	          </li>
+	          <li aria-label="Adresse">
+		        	<p data-icon="A&thinsp;">{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
+	          </li>
+        	</ul>
         </li>
       {%- endfor -%}
 		</ul>
 	</address>
 
-	<ul id="mentions_legales">
+	<ul id="mentions_legales"
+			aria-label="Mentions légales et crédits">
 		<li>{{ site.currentYear() }} — {{website.name}}</li>
 		<li><a href="/mentions_legales">Mentions légales</a></li>
 		<li>Design & Code: <a href="https://bnjm.eu" target="_blank">bnjm.eu</a></li>

@@ -1,5 +1,7 @@
 <!-- List of projects -->
-<ul class="list projets">
+<ul class="list projets" 
+    aria-live="assertive"
+    aria-label="Liste des projets">
   {%- for projet in collections.projets | shuffle -%}
 
     <li data-ty=" {%- for t in typologies -%}{% if projet.data.typologie == t %}{{loop.index}},{% endif %}{% endfor %}"

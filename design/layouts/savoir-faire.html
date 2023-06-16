@@ -5,11 +5,12 @@
   <ul class="list savoir-faire"
       aria-label="Liste des savoir-faire">
     {%- for sf in collections.savoirFaire -%}
-       <li role="none">
+       <li>
           <h2>{{ sf.data.nom }}</h2>
-          <p>{{ sf.content | markdown | escaP | safe }}</p>
+          <p aria-label="Description de la l'acronyme">{{ sf.content | markdown | escaP | safe }}</p>
           <a href="/projets/?sf={{ sf.data.nom | urlencode  }}"
-             aria-label="Voir les projets relatifs à la mission {{ sf.data.nom }}">Voir les projets</a>
+             role="button"
+             aria-label="Aller à la page Projets et découvrir les projets relatifs à la mission {{ sf.data.nom }}">Voir les projets</a>
         </li>
     {%- endfor -%}
   </ul>
