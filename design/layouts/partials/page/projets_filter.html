@@ -4,25 +4,25 @@
 <nav  id="filter"
       aria-label="Liste des filtres ">
 
-  <ul role="menu">
+  <ul role="none">
     <!-- Filter -->
     <li role="none"
         aria-label="Filtrer les projets par typologie">
 
       <!-- Header -->
       <label for="filter_by_ty"
-             role="heading">
+             role="none">
         <span>Typologie</span>
         <span class="value"></span>
       </label>
 
       <!-- List of values -->
-      <ul aria-label="Filtrer par typologie">  
+      <ul role="menu" aria-label="Filtrer par typologie">  
 
         {%- for typo in typologies -%}
-          <li>
+          <li role="menuitem">
             <label for="f-ty_{{ loop.index }}" 
-                   role="menuitem">
+                   role="button">
               {{ typo }}
             </label>
           </li>
@@ -38,17 +38,17 @@
 
       <!-- Header -->
       <label for="filter_by_sf"
-             role="heading">
+             role="none">
         <span>Savoir-Faire</span>
         <span class="value"></span>
       </label>
 
       <!-- List of values -->
-      <ul aria-label="Filtrer par Savoir-faire">
+      <ul role="menu" aria-label="Filtrer par Savoir-faire">
         {%- for sf in collections.savoirFaire -%}
-          <li>
+          <li role="menuitem">
             <label for="f-sf_{{ loop.index }}" 
-                   role="menuitem">
+                   role="button">
               {{ sf.data.nom }}
             </label>
           </li>
@@ -62,17 +62,17 @@
 
       <!-- Header -->
       <label for="filter_by_lo"
-            role="heading">
+            role="none">
         <span>Localisation</span>
         <span class="value"></span>
       </label>
 
       <!-- List of values -->
-      <ul aria-label="Filtrer par localistation">
+      <ul role="menu" aria-label="Filtrer par localistation">
         {%- for equipe in collections.localisations -%}
-          <li>
+          <li role="menuitem">
             <label for="f-lo_{{ loop.index }}" 
-                   role="menuitem">
+                   role="button">
               {{ equipe.data.nom }}
             </label>
           </li>
