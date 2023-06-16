@@ -14,7 +14,18 @@
         {%- for equipe in collections.equipes -%}
           <li role="none"
           >
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
+            {% if equipe.data.cover %}
+              {% image 
+                equipe.data.cover.src, 
+                equipe.data.cover.src, 
+                [400, 600, 900], 
+                " (max-width: 400px) 400w,
+                  (max-width: 600px) 600w,
+                  (min-width: 900px) 900w"
+               %}
+            {% else %}
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
+            {% endif %}
             
             <h2 aria-label="Localisation">
               {{ equipe.data.nom }}

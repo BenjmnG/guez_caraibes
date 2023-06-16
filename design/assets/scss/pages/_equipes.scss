@@ -31,27 +31,6 @@ main[data-type="equipes"]{
 				letter-spacing: .025em;
 			}
 
-			&:after{
-				content: "";
-				height: .1rem;
-				width: $u*4;
-				position: absolute;
-				left: 50%;
-				transform: translateX(-50%);
-				bottom: 0;
-
-				background: linear-gradient(90deg, 
-											var(--c1)   0%, 
-											var(--c1)  25%,
-											var(--c2)  25%,
-											var(--c2)  50%,
-											var(--c3)  50%,
-											var(--c3)  75%,
-											var(--c4)  75%,
-											var(--c4) 100%
-										) 
-			}
-
 		}
 		.description{
 			max-width: 30rem;
@@ -92,7 +71,7 @@ main[data-type="equipes"]{
 					@include f1(1,-1);
 				}
 
-				> *:not(h2):not(img){
+				> *:not(h2):not(img):not(picture){
 					padding-left: $u*1.5;
 					&:before{
 						position: absolute;
@@ -104,23 +83,29 @@ main[data-type="equipes"]{
 					}
 				}
 				a{letter-spacing: .015em;}
-			}
 
-			img{
-				//height: min(33vh,  $baseline*20);
-				aspect-ratio: 3/4;
-				width: 100%;
-				margin-bottom: $baseline;
-			}
+				> img, > picture{
+					//height: min(33vh,  $baseline*20);
+					aspect-ratio: 3/4;
+					width: 100%;
+					margin-bottom: $baseline;
+				}
 
-			h2{
-				text-transform: uppercase;
-				margin-bottom: $base;
-				font-weight: $bold;
-			}
+				picture img{
+					object-fit: cover;
+					width: 100%;
+					height: 100%;
+				}
 
-			p{
-				margin-top: $base;
+				h2{
+					text-transform: uppercase;
+					margin-bottom: $base;
+					font-weight: $bold;
+				}
+
+				p{
+					margin-top: $base;
+				}
 			}
 
 		}

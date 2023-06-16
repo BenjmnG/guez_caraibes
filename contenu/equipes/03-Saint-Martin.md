@@ -5,4 +5,8 @@ adresse:
   téléphone: +590 690 262 676
   mail: betsxm@guezcaraibes.fr
 coordonnées: 18.104268205329976, -63.0533129673406
+
+cover:
+  src: _media/equipe_Saint-Martin.jpg
+  alt: Équipe de l'agence Saint-Martin
 ---
