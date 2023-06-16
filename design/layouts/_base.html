@@ -27,12 +27,12 @@
     <meta property="og:locale" content="{{website.locale}}">
 
     <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="{{site.url}}">
     <meta property="twitter:url" content="{{site.url}}/{{ page.url }}">
     <meta name="twitter:title" content='{% include "partials/title.html" %}'>
     <meta name="twitter:description" content="{% if seo.description %}{{ seo.description}}{% else%}{{website.seo.description}}{% endif %}">
     <meta name="twitter:image" content="/_media/og_cover.webp">
+    <meta name="twitter:card" content="summary_large_image">
 
 
     {% block SEO %}{% endblock %}

@@ -358,7 +358,6 @@ main[data-type="projets"]{
 		grid-gap: 0 $u;
 		justify-items: end;
 
-		&.empty:before{ top: 50%; }
 
 		&, #map, {
 			width: 100%;
@@ -485,6 +484,7 @@ main[data-type="projets"]{
 									padding .5s ease-in;
 			transform: translateX(calc(100% + #{$u*2}));
 
+			&.empty:before{ top: 45%; }
 
 			> li{
 				grid-column: span 3;
