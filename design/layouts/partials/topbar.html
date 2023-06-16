@@ -1,4 +1,9 @@
 <nav id="topbar">
+	<input id="mobileMenu" 
+				 type="checkbox"
+				 role="none"
+				 hidden>
+
 	<ul role="menubar">
 		<li role="menuitem" 
 				class="home">
@@ -9,17 +14,8 @@
 				{% include "../../assets/svg/guez_logo+.svg" %}
 			</a>
 		</li>
-		<li role="menuitem" 
+		<li role="none" 
 				class="pages">
-
-			<input id="mobileMenu" 
-						 type="checkbox"
-						 role="none"
-						 hidden>
-			<label for="mobileMenu"
-						 role="none"
-						 aria-hidden="true">
-			</label>
 
 			<ul role="none">
 
@@ -91,4 +87,9 @@
 			</ul>
 		</li>
 	</ul>
+
+	<label for="mobileMenu"
+			 role="none"
+			 aria-hidden="true">
+	</label>
 </nav>

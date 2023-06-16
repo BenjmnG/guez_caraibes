@@ -56,52 +56,6 @@
 			justify-self: end;
 			min-width: $unite*2;
 
-
-			> label{
-				font-size: 0;
-				width: $unite*2;
-				display: block;
-				height: $base*4;
-				cursor: pointer;
-				z-index: 5;
-				padding: $base*6 0 $base*6 $u;
-
-
-
-
-				&::before, &::after {
-				  content: '';
-				  position: absolute;
-				  width: $unite*2;
-				  height: 1px;
-				  height: .5px;
-				  transition: 0.25s;
-				  background: currentColor;
-				}
-				&::before {
-				  top: $base*6;
-				}
-				&::after {
-				  bottom: $base*6;
-				}
-			}
-			> input:checked + label{
-				color: var(--cW);
-
-				position: fixed;
-				top: $base*4;
-				right: $u;
-
-				&::before{
-					top: 50%;
-					transform: rotate(135deg);
-				}
-				&::after{
-					bottom: 50%;
-					transform: rotate(225deg);
-				}
-			}
-
 			> ul {
 				position: fixed;
 				top: 0;
@@ -185,26 +139,6 @@
 
 				}
 			}
-
-			> input:checked ~ ul {
-				width: 100vw;
-				width: 100dvw;
-				height: 100vh;
-				height: 100dvh;
-
-				box-sizing: border-box;
-				transition: height 0s 0s,
-										width 0s 0s,
-										clip-path .75s 0s ease-in-out;
-				clip-path: circle(110vh at calc(100% - #{$u*2}) #{$u*3});
-				clip-path: circle(135vmax at calc(100% - #{$u*2}) #{$u*3});
-
-				z-index: 2;
-
-				&:after{
-					content: "";
-				}
-			}
 		}
 	}
 	@include for-size(desktop){
@@ -213,13 +147,13 @@
 			width: $unite*15;
 			border-left: 1px solid currentColor;
 			padding-left: $unite;
-			> label {display: none;}
 			> ul {
 
 				@include f1(1);
 				text-transform: uppercase;
 			}
 		}
+		label[for="mobileMenu"] {display: none;}
 	}
 }
 
@@ -238,5 +172,78 @@ body[data-serve="projets"],
 body[data-serve="equipes"],
 body[data-serve="savoir-faire"]{
 	#topbar{
+	}
+}
+
+// Menu Mobile
+
+@include for-size(phone){
+
+	label[for="mobileMenu"]{
+		font-size: 0;
+		width: $unite*2;
+		display: block;
+		height: $base*4;
+		cursor: pointer;
+		z-index: 5;
+		padding: $base*6 0 $base*6 $u;
+
+		position: absolute;
+		top: $base*4;
+		right: $u;
+
+
+		&::before, &::after {
+		  content: '';
+		  position: absolute;
+		  width: $unite*2;
+		  height: 1px;
+		  height: .5px;
+		  transition: 0.25s;
+		  background: currentColor;
+		  transform-origin: center;
+		}
+		&::before {
+		  top: $base*6;
+		}
+		&::after {
+		  bottom: $base*6;
+		}
+	}
+
+	#mobileMenu:checked ~ label[for="mobileMenu"]{
+		color: var(--cW);
+
+		position: fixed;
+		right: $u*2;
+
+		&::before{
+			top: 50%;
+			transform: rotate(135deg) ;
+		}
+		&::after{
+			bottom: 50%;
+			transform: rotate(225deg) ;
+		}
+	}
+
+	#mobileMenu:checked + ul .pages > ul {
+		width: 100vw;
+		width: 100dvw;
+		height: 100vh;
+		height: 100dvh;
+
+		box-sizing: border-box;
+		transition: height 0s 0s,
+								width 0s 0s,
+								clip-path .75s 0s ease-in-out;
+		clip-path: circle(110vh at calc(100% - #{$u*2}) #{$u*3});
+		clip-path: circle(135vmax at calc(100% - #{$u*2}) #{$u*3});
+
+		z-index: 2;
+
+		&:after{
+			content: "";
+		}
 	}
 }
