@@ -53,6 +53,7 @@ const project_list = () => ({
     if (name){
       let input = document.querySelector(`[name="f-sf"][value="${name}"]`)
       input.checked = true;
+      project_list().checkIfListIsEmpty()
     }
   },
 

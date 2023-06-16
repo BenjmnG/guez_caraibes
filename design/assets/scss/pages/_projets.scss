@@ -116,7 +116,6 @@ main[data-type="projets"]{
 				position: absolute;
 				text-align: center;
 				left: 50%;
-				top: 50%;
 				transform: translateX(-50%) translateY(-50%)
 			}
 		}
@@ -329,6 +328,8 @@ main[data-type="projets"]{
 			padding: 0 $u 25vh $u;
 			left: -$u;
 
+			&.empty:before{ top: 25%; }
+
 			.cover{
 				margin-bottom: $base*4;
 			}
@@ -356,6 +357,8 @@ main[data-type="projets"]{
 		grid-template-rows: auto 1fr;
 		grid-gap: 0 $u;
 		justify-items: end;
+
+		&.empty:before{ top: 50%; }
 
 		&, #map, {
 			width: 100%;
