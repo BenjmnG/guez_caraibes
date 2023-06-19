@@ -64,9 +64,10 @@ footer{
 
 			p{
 				@include f1(0);
+				font-size: .5em;
+				text-transform: uppercase;
 			}
 
-			&:nth-of-type(1) svg{transform: translateX(#{$u*-.75})}
 			&:nth-of-type(2) svg > g:last-of-type{display: none;}
 		}
 	}
@@ -90,7 +91,7 @@ footer{
 			}
 
 			li{
-				padding-left: $u*1.5;
+				padding-left: $u*2;
 
 				a{letter-spacing: .015em;}
 
@@ -98,10 +99,10 @@ footer{
 
 
 				> *::before{
-					content: attr(data-icon)':';
+					content: attr(data-icon);
 					position: absolute;
 					top: .3em;
-					left: $u*-1.45;
+					left: $u*-1.95;
 					@include f1(0);
 					font-size: .6rem;
 					display: inline-block;
@@ -130,6 +131,8 @@ footer{
 		padding: $base*4 0;
 		> *:first-child {margin-bottom: $base*4;}
 		> *:not(:first-child):not(:last-child) {margin-bottom: $base*12;}
+		
+		.agrement li{text-align: center;}
 		address{
 			> ul > li{margin-bottom: $base*12;}
 		}
@@ -153,7 +156,8 @@ footer{
 		.agrement{
 			grid-row: 2;
 			grid-column: 3 / span 4;
-
+			
+			&:nth-of-type(1) svg{transform: translateX(#{$u*-.75})}
 			li:nth-of-type(2){transform: translateY(5%);}
 		}
 		address{

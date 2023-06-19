@@ -82,10 +82,10 @@ main[data-type="equipes"]{
 					> *{
 
 						&:not(img):not(picture){
-							padding-left: $u*1.5;
+							padding-left: $u*2;
 							&:before{
 								position: absolute;
-								content: attr(data-icon)':';
+								content: attr(data-icon);
 								top: .3em;
 								left: 0;
 								@include f1(0);
@@ -209,7 +209,7 @@ main[data-type="equipes"]{
 			margin-bottom: $baseline*4;
 			header{margin-bottom: $baseline*2;}
 
-			address li{margin-bottom: $baseline*2;}
+			address > ul > li{margin-bottom: $baseline*2;}
 		}
 		#jobs{
 			margin-bottom: $baseline*2;

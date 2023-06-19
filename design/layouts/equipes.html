@@ -35,7 +35,7 @@
             {% set phone = equipe.data.adresse.téléphone | reverse %}
               <li aria-label="Email de l'équipe {{ equipe.data.nom }}">
                 <a class="obf"
-                   data-icon="M&thinsp;"
+                   data-icon="Mail"
                    data-href="{{ mail }}"
                    data-protocol="mail"
                    >
@@ -43,14 +43,14 @@
               </li>
               <li aria-label="Téléphone de l'équipe {{ equipe.data.nom }}">
                 <a class="obf" 
-                   data-icon="T&thinsp;"
+                   data-icon="Tél"
                    data-href="{{ phone }}"
                    data-protocol="phone"
                    >
                 </a>
               </li>
               <li aria-label="Adresse">
-                <p data-icon="A&thinsp;">{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
+                <p data-icon="Adr">{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
               </li>
             </ul>
 

@@ -94,8 +94,8 @@
 				  border-bottom: 1px solid var(--cW);
 				} 
 
-				&:hover > li > a:hover,
-				&:not(:hover) > li > a[aria-current="page"]{
+				&:hover > li:not(.artifact) > a:hover,
+				&:not(:hover) > li:not(.artifact) > a[aria-current="page"]{
 					padding-left: $u*1.25 !important;
 					&:before{
 						left: $u*.25;
