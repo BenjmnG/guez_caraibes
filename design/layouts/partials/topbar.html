@@ -60,8 +60,7 @@
 									 aria-label="Liste des équipes">
 						<ul>
 							{%- for equipe in collections.equipes -%}
-				        <li role="none"
-				        >
+				        <li>
 				          <p aria-label="Localisation">
 				          	{{ equipe.data.nom }}
 				          </p>
@@ -71,12 +70,12 @@
  				          <a class="obf" 
  				          	 data-href="{{ mail }}"
  				          	 data-protocol="mail"
- 				          	 role="Email de l'équipe {{ equipe.data.nom }}">
+ 				          	 aria-label="Email de l'équipe {{ equipe.data.nom }}">
  				          </a>
 				          <a class="obf" 
 				          	 data-href="{{ phone }}"
 				          	 data-protocol="phone"
- 				          	 role="Téléphone de l'équipe {{ equipe.data.nom }}">
+ 				          	 aria-label="Téléphone de l'équipe {{ equipe.data.nom }}">
 				          </a>
 
 				        </li>
