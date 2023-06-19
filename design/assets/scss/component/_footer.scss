@@ -45,7 +45,6 @@ footer{
 
 	.agrement{
 		align-self: start;
-		margin-top: $base*12;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		grid-gap: $u;
@@ -58,13 +57,14 @@ footer{
 			//margin-bottom: $base*4;
 
 			svg{
-				max-height: $u*4.5;
-				max-width: $u*7;
+				max-height: $u*5;
+				max-width: $u*8;
 			}
 
 			p{
 				@include f1(0);
 				font-size: .5em;
+				top: -.5em;
 				text-transform: uppercase;
 			}
 
@@ -156,9 +156,12 @@ footer{
 		.agrement{
 			grid-row: 2;
 			grid-column: 3 / span 4;
+
+			grid-template-columns: $u*8 $u*8 auto;
+			grid-gap: $u*2;
 			
-			&:nth-of-type(1) svg{transform: translateX(#{$u*-.75})}
-			li:nth-of-type(2){transform: translateY(5%);}
+			li:nth-of-type(1) svg{transform: translateX(#{$u*-.75})}
+			li:nth-of-type(2) svg{transform: translateY(5%);}
 		}
 		address{
 			grid-row: 3;
