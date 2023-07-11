@@ -1,5 +1,5 @@
 ---
-titre: 15 VILLAS DOMANIALES
+titre: 15 villas domaniales
 maître_ouvrage: RSMAM (Régiment du Service Militaire Adapté Martinique)
 typologie: Logements et Hébergements
 type_de_travaux: Réhabilitation

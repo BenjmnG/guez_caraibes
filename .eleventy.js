@@ -31,12 +31,12 @@ function parseDate(data){
 
   let start_date, end_date, month_count
 
-  if(data.debut && data.fin){
-    start_date = new Date(data.debut)
+  if(data.début && data.fin){
+    start_date = new Date(data.début)
     end_date = new Date(data.fin)
     month_count = end_date.getMonth() - start_date.getMonth()
-  } else if(data.debut && data.durée_en_mois){
-    start_date = new Date(data.debut)
+  } else if(data.début && data.durée_en_mois){
+    start_date = new Date(data.début)
     month_count = parseFloat(data.durée_en_mois)
     end_date = start_date.setMonth(start_date.getMonth() + month_count)
     end_date = new Date(end_date)

@@ -10,7 +10,7 @@ localité: Les Abymes
 coordonnées: 16.267663050184627, -61.52724555704186
 
 calendrier:
-  debut: 2022-06-01
+  début: 2022-06-01
   durée_en_mois: 48 
 
 cover:
@@ -20,8 +20,3 @@ cover:
   
 visible: true
 ---
-
-
-
-
-
