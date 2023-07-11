@@ -46,7 +46,7 @@ visible: true
 
 ### À noter que :
 
-`typologie`
+#### `typologie`
 
 À choisir parmis les valeurs :
 
@@ -60,14 +60,16 @@ visible: true
 + Aéroportuaire et maritime
 + Institutions et services public
 
-`type_de_travaux`
+
+#### `type_de_travaux`
 
 À choisir parmis les valeurs :
 
 + Réhabilitation
 + Construction neuve
 
-`missions`
+
+#### `missions`
 
 À choisir parmis les valeurs :
 
@@ -80,15 +82,18 @@ visible: true
 + CSPS
 + CSSI
 
-`surface`
+
+#### `surface`
 
 À indiquer en M², sans unité, sans espace
 
-`montant`
+
+#### `montant`
 
 À indiquer en euros, sans unité, sans espace
 
-`coordonnées`
+
+#### `coordonnées`
 
 Les coordonées _latitude_, _longitude_ en degrés décimaux (ex: 41.40338, 2.17403)
 Obtenir les coordonnées d'un lieu
@@ -97,7 +102,8 @@ Obtenir les coordonnées d'un lieu
 2. Effectuez un clic droit sur le lieu ou la zone qui vous intéresse sur la carte. Vous trouverez vos coordonnées (latitude et longitude) au format décimal en haut de la fenêtre pop-up qui s'affiche.
 3. Pour copier automatiquement les coordonnées, effectuez un clic gauche sur la latitude et la longitude.
 
-`calendrier`
+
+#### `calendrier`
 
 Ce champ ne comprend pas de valeurs directes mais deux enfants (affiliés).
 Il convient d'indenter les deux champs suivants au moyen de deux espaces
@@ -110,12 +116,13 @@ calendrier:
   fin : 2025-09-01 
 ```
 
-`durée_en_mois`
+
+#### `durée_en_mois`
 
 Enfant du champ `calendrier`
 Indiquer le nombre de mois, sans unité.
 
-`fin` et `début`
+#### `fin` et `début`
 Indiquer l'un ou l'autre.
 La date doit être formatée suivant le format: AAAA-MM-JJ (Année-Mois-Jour)
 
@@ -124,7 +131,7 @@ Exemple :
 `début : 2025-09-01 `
 
 
-`cover`
+#### `cover`
 
 Ce champ ne comprend pas de valeurs directes mais trois enfants (affiliés).
 Il convient d'indenter les deux champs suivants au moyen de deux espaces
@@ -138,7 +145,7 @@ cover:
   temporary: false
 ```
 
-`src`
+#### `src`
 
 Enfant du champ `cover`
 Indiquer le nom du fichier avec son extension, précédé du dossier dans lequel l'image a été téléversé. Par défaut : `/_media/`
@@ -148,27 +155,27 @@ Il convient dans le même temps de téléverser l'image dans le dossier `_media`
 Il est préférable de garder un nom d'image concis, et sans espace. Par exemple: `3001-1-projet_chat.jpg`
 
 
-`alt`
+#### `alt`
 
 Enfant du champ `cover`
 Indiquer une description pertinente de l'image.
 Cet important détail permet à une personne déficiente visuelle de comprendre l'image projet.
 
 
-`temporary`
+#### `temporary`
 
 Enfant du champ `cover`
 Ce champs ne supporte que deux valeurs :
-`true`: l'image est grisée
-`false`: l'image est affichée en couleur
++ `true`: l'image est grisée
++ `false`: l'image est affichée en couleur
 
 Une image grisée permet d'homogénéiser les photographies disgracieuses ou temporaire
 
 
-`visible`
+#### `visible`
 
 Champ indépendant de l'image.
 
 Ce champs ne supporte que deux valeurs :
-`true`: le projet est référencé sur le site
-`false`: le projet ne l'est pas
++ `true`: le projet est référencé sur le site
++ `false`: le projet ne l'est pas
