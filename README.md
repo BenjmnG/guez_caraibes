@@ -48,7 +48,7 @@ visible: true
 
 #### `typologie`
 
-À choisir parmis les valeurs :
+À choisir parmi les valeurs :
 
 + Centres commerciaux et Commerces 
 + Santé 
@@ -63,7 +63,7 @@ visible: true
 
 #### `type_de_travaux`
 
-À choisir parmis les valeurs :
+À choisir parmi les valeurs :
 
 + Réhabilitation
 + Construction neuve
@@ -71,7 +71,7 @@ visible: true
 
 #### `missions`
 
-À choisir parmis les valeurs :
+À choisir parmi les valeurs :
 
 + MOE
 + AMO
@@ -95,7 +95,7 @@ visible: true
 
 #### `coordonnées`
 
-Les coordonées _latitude_, _longitude_ en degrés décimaux (ex: 41.40338, 2.17403)
+Les coordonnées  _latitude_, _longitude_ en degrés décimaux (ex: 41.40338, 2.17403)
 Obtenir les coordonnées d'un lieu
 
 1. Ouvrez Google Maps sur votre ordinateur. 
@@ -165,17 +165,17 @@ Cet important détail permet à une personne déficiente visuelle de comprendre 
 #### `temporary`
 
 Enfant du champ `cover`
-Ce champs ne supporte que deux valeurs :
+Ce champ ne supporte que deux valeurs :
 + `true`: l'image est grisée
 + `false`: l'image est affichée en couleur
 
-Une image grisée permet d'homogénéiser les photographies disgracieuses ou temporaire
+Une image grisée permet d'homogénéiser les photographies disgracieuses ou temporaires
 
 
 #### `visible`
 
 Champ indépendant de l'image.
 
-Ce champs ne supporte que deux valeurs :
+Ce champ ne supporte que deux valeurs :
 + `true`: le projet est référencé sur le site
 + `false`: le projet ne l'est pas
