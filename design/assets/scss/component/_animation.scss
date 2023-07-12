@@ -13,6 +13,13 @@
 	to{ left: 100%; opacity: 0;}
 }
 
+
+@keyframes zoomOut {
+	from { transform: scale(1.1)}
+	to { transform: scale(1)}
+}
+
+
 @media (prefers-reduced-motion: no-preference) {
 
 
@@ -30,6 +37,10 @@
 					&:nth-of-type(3){animation-delay: .9s}
 				}
 			}
+		}
+
+		picture{
+			animation: zoomOut 1s forwards;
 		}
 
 
