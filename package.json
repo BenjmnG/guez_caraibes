@@ -6,7 +6,7 @@
     "watch:eleventy": "npx @11ty/eleventy --serve",
     "watch:sass": "npx sass ./design/assets/scss/:./design/assets/css/ --watch --style compressed",
     "git:push": "git add . && git commit -m '[OTO] Update' && git push origin main",
-    "git:pull": "git pull origin master",
+    "git:pull": "git pull origin main",
     "build:eleventy": "npx @11ty/eleventy",
     "build:sass": "npx sass ./design/assets/scss/:./design/assets/css/ --style compressed",
     "build:prod": "NODE_ENV=production npm run build",
