@@ -8,13 +8,14 @@
 
 {% set typologies =  [
   "Centres commerciaux et Commerces",
-  "Hôtels",
   "Santé",
   "Enseignement",
   "Tertiaires",
   "Logements et Hébergements",
   "Culture, Sport et Loisirs",
-  "Aménagement Urbain"
+  "Aménagement Urbain",
+  "Aéroportuaire et maritime",
+  "Institutions et services publics"
 ] %}
 
 {% block input %}
@@ -36,4 +37,4 @@
 {% block script %}
   <script type="text/javascript" src="{{site.url}}/{{ 'assets/js/projects.js' | url }}"></script>
   <script type="text/javascript">event().project()</script>
-  {% endblock %}
+{% endblock %}

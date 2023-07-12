@@ -1,6 +1,7 @@
-let body      = document.querySelector('body'),
-    main      = document.querySelector('main'),
-    url       = window.location.href
+let body       = document.querySelector('body'),
+    main       = document.querySelector('main'),
+    url        = window.location.href,
+    menuMobile = document.querySelector('#mobileMenu')
 
 
 
@@ -20,7 +21,7 @@ function obf(){
   as.forEach( a => {
     let value     = a.getAttribute('data-href'),
         protocol  = a.getAttribute('data-protocol'),
-        subject   = a.getAttribute('data-subject') ? `?subject=${a.getAttribute('data-subject')}` : null
+        subject   = a.getAttribute('data-subject') ? `?subject=${a.getAttribute('data-subject')}` : ''
 
     if(protocol == "mail"){protocol = "mailto:"}
     else if(protocol == "phone"){protocol = "tel:"}
@@ -62,12 +63,28 @@ function isDarkMode(){
 
 const event = () => ({
 
+  all: () => {
+    /*menuMobile.addEventListener('change', evt => {
+      if(menuMobile.checked){
+        window.onscroll = function() {
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'instant'
+            });
+        };
+      } else {
+        window.onscroll = function() {};
+      }
+    })*/
+  },  
+
   index: () => {
 
   },
 
-  
   project: () => {
+
     // JS for this page is verbose. 
     // Calling  function in a spécéfic project.js file
     project_list().onLoad()
@@ -102,6 +119,9 @@ const event = () => ({
 //
 
 obf()
+menuMobile.checked = false 
+
+
 
 // That's all for me. Thank you !
 // console.log("%cDesign + Code: \nhttps://bnjm.eu", "font-family: monospace; font-size: 1.5em;")

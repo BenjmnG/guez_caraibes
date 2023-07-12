@@ -1,0 +1,7 @@
+{% extends "_base.html" %}
+
+{% block main %}
+   <h1>{{ titre }}</h1>
+   {{content | markdown |  safe }}
+{% endblock %}
+

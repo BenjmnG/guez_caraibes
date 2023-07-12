@@ -1,54 +1,80 @@
-<footer>
+<footer aria-label="Pied de page">
 
 	<svg viewBox="0 0 200 150">
 		  <use href="#_sign_B"></use>
 		  <use href="#_sign_A"></use>
 	</svg>
 
-	<p class="baseline">
-		<span>Bureau <br>d'ingéniérie</span> 
+	<h1 class="baseline">
+		<span>Bureau&nbsp;<br>d'ingénierie</span> 
 		<span>dans la</span> 
-		<span>Caraïbes</span>
-	</p>
+		<span>Caraïbe</span>
+	</h1>
 
 	<ul class="agrement" 
 			aria-label="Liste des Agrément">
-		<li role="none">
+		<li>
 			{% include "../../assets/svg/opqibi.svg" %}
-			<p aria-label="Certification">Agrément n° 09 02 2045</p>
+			<p aria-label="Certification">
+				<span class="sr-only">OPQIBI</span>
+				Agrément n° 09 02 2045
+			</p>
 		</li>
-		<li role="none">
-			AB Certification
-			<p aria-label="Certification">Certification ISO 9001:2008</p>
+		<li>
+			{% include "../../assets/svg/abi.svg" %}
+			<p aria-label="Certification">
+				<span class="sr-only">ABi</span>
+				Certification ISO 9001:2015</p>
 		</li>
 	</ul>
 
-	<address aria-label="Liste des équipes">
-		<ul>
+	<address>
+		<ul aria-label="Liste des équipes">
 			{%- for equipe in collections.equipes -%}
-        <li role="none"
-        >
-          <p aria-label="Localisation">
+        <li >
+          <h2 aria-label="Localisation">
           	{{ equipe.data.nom }}
-          </p>
-          
+          </h2>
+          <ul aria-label="Contact de l'agence {{ equipe.data.nom }}">
           {% set mail = equipe.data.adresse.mail | reverse %}
           {% set phone = equipe.data.adresse.téléphone | reverse %}
-	          <a class="obf" 
-	          	 data-href="{{ mail }}"
-	          	 data-protocol="mail"
-	          	 role="Email de l'équipe {{ equipe.data.nom }}">
-	          </a>
-          <a class="obf" 
-          	 data-href="{{ phone }}"
-          	 data-protocol="phone"
-	          	 role="Téléphone de l'équipe {{ equipe.data.nom }}">
-          </a>
+	          <li aria-label="Email de l'équipe {{ equipe.data.nom }}">
+		          <a class="obf"
+		          	 data-icon="Mail"
+		          	 data-href="{{ mail }}"
+		          	 data-protocol="mail"
+		          	 >
+		          </a>
+	          </li>
+	          <li aria-label="Téléphone de l'équipe {{ equipe.data.nom }}">
+		        	<a class="obf" 
+		          	 data-icon="Tél"
+		        	 	 data-href="{{ phone }}"
+		        	   data-protocol="phone"
+		          	 >
+		        	</a>
+	          </li>
+	          <li aria-label="Adresse">
 
-          <p>{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
+						  {% set lat = equipe.data.coordonnées | split(',') | head(0, 1) %}
+						  {% set long = equipe.data.coordonnées | split(',') | head(1, 2) %}
 
+		        	<a data-icon="Adr"
+		        		href="https://www.openstreetmap.org/?mlat={{lat}}&mlon={{long}}#map=19/{{lat}}/{{long}}" target="_blank">
+		        		{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}
+		        	</a>
+	          </li>
+        	</ul>
         </li>
       {%- endfor -%}
 		</ul>
 	</address>
+
+	<ul id="mentions_legales"
+			aria-label="Mentions légales et crédits">
+		<li>{{ site.currentYear() }} — {{website.name}}</li>
+		<li><a href="/mentions_legales">Mentions légales</a></li>
+		<li>Design & Code: <a href="https://bnjm.eu" target="_blank">bnjm.eu</a></li>
+	</ul>
+
 </footer>

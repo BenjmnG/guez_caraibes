@@ -15,6 +15,41 @@ const { EleventyI18nPlugin }
 
 
 
+function isDateNotPast(date){
+  if(Date.parse(date) - Date.parse(new Date()) > 0){
+    return true
+  } 
+}
+
+function simpleDate(date){
+  date = new Date(date); 
+  let d_fr = new Intl.DateTimeFormat("fr", { month: 'long', year: 'numeric' }).format(date); 
+  return d_fr 
+}
+
+function parseDate(data){
+
+  let start_date, end_date, month_count
+
+  if(data.début && data.fin){
+    start_date = new Date(data.début)
+    end_date = new Date(data.fin)
+    month_count = end_date.getMonth() - start_date.getMonth()
+  } else if(data.début && data.durée_en_mois){
+    start_date = new Date(data.début)
+    month_count = parseFloat(data.durée_en_mois)
+    end_date = start_date.setMonth(start_date.getMonth() + month_count)
+    end_date = new Date(end_date)
+  } else if(data.durée_en_mois && data.fin){
+    month_count = parseFloat(data.durée_en_mois)
+    end_date = new Date(data.fin)
+  }
+
+  let deliver_word = isDateNotPast(end_date) ? 'Livraison' : 'Livré'
+
+  return `${month_count} mois<br>${deliver_word} ${simpleDate(end_date)}`
+}
+
 module.exports = config => {
   
   config.addFilter("markdown", content => markdownLibrary.render(content) );
@@ -31,8 +66,10 @@ module.exports = config => {
   config.addFilter("getId", value => {return value.replace(/\W/g,'_')});
   config.addFilter("toCharCode", value => to_charcode(value));
   config.addFilter("reverse", value => value ? [...value].reverse().join("") : value);
-  config.addFilter("simpleDate", date => { let d = new Date(date); return new Intl.DateTimeFormat("fr", { month: 'long', year: 'numeric' }).format(date)});
+  config.addFilter("simpleDate", date => simpleDate(date));
+  config.addFilter("isDateNotPast", date => isDateNotPast(date));
   config.addFilter("devise", number => { return new Intl.NumberFormat('fr', { style: 'currency', currency: 'EUR' }).format(number)})
+  config.addFilter("parseDate", data => parseDate(data));
   config.addDataExtension("yaml", contents => yaml.load(contents));
   
   config.setLibrary("md", markdownLibrary);
@@ -63,10 +100,16 @@ module.exports = config => {
       return jobs; 
   });
 
-
   config.addCollection("equipes", function(collection) {
       let équipes = collection.getFilteredByGlob("contenu/equipes/*.md")
       return équipes;
+  });
+
+  config.addCollection("localisations", function(collection) {
+      let localisations = collection.getFilteredByGlob("contenu/equipes/*.md")
+      let stBart = { data: { nom: 'Saint-Barthélemy'} }
+      localisations.push(stBart)
+      return localisations;
   });
 
 

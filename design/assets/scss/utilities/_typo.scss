@@ -65,7 +65,7 @@ body{
     } @else if( $s == 6){
       @media screen{
         font-size: calc(clamp( #{$base*25}, 8vw, #{$base*60}));
-        line-height: 1em;
+        line-height: calc(1em + #{$l}em);
         letter-spacing: -.05em;
       }
     } @else if(){

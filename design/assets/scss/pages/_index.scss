@@ -35,7 +35,7 @@ body[data-serve="index"]{
 			}
 		}
 
-		header{
+		.header{
 			border-bottom: 1px solid currentColor;
 			min-height: calc(#{$minH} - #{$baseline * 2});
 
@@ -58,7 +58,7 @@ body[data-serve="index"]{
 		}
 
 		@include for-size(phone){
-			header{
+			.header{
 
 				display: flex;
 				flex-direction: column;
@@ -78,7 +78,7 @@ body[data-serve="index"]{
 			}
 		}
 		@include for-size(desktop){
-			header{
+			.header{
 				display: grid;
 			  //grid-template-columns: calc(max(25vw, 20rem)) 1fr;
 			  grid-template-columns: 1fr 5fr;
@@ -109,9 +109,6 @@ body[data-serve="index"]{
 			  	align-self: end;
 
 			  }
-
-
-
 			}
 		}
 	}

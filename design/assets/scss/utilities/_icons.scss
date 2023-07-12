@@ -6,7 +6,7 @@
 		display: block;
 		box-sizing: border-box;
 		position: absolute;
-		right: $u;
+		left: $u;
 		top: 50%;
 		width: $u*.25;
 		height: $u*.5;
@@ -14,7 +14,10 @@
 		border-width: 0 .1em .1em 0;
 		border-style: solid;
 		transform-origin: bottom left;
-		transform: translateY(-50%) rotate(45deg) scale(var(--sc));
+		transform: 	translateY(-75%) 
+								translateX( calc( #{$u} * -.9 * var(--sc) ))
+								rotate(45deg) 
+								scale(var(--sc));
 		transition: all .25s cubic-bezier(.68,-.55,.265,1.55);
 	}
 }

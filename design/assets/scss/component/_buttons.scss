@@ -6,31 +6,33 @@
 	&:before{
 		content: "";
 		position: absolute;
-		left: 0;
+		left: $u*.25;
 		top: 50%;
 		display: inline-block;
 		width: $u*.25;
 		height: $u*.25;
 		border-radius: 50%;
 		background-color: currentColor;
-		transform: transformY(-50%) scale(0);
+		transform: translateY(-50%) translateX(0) scale(0);
 		opacity: 0;
 		transition: all .25s cubic-bezier(.68,-.55,.265,1.55);
 	}
 }
 
 
-#topbar .pages > ul:not(:hover) > li a[aria-current="page"],
-#topbar .pages > ul:hover > li a:hover,
+#topbar .pages > ul:not(:hover) > li > a[aria-current="page"],
+#topbar .pages > ul:hover > li > a:hover,
 [data-type="projets"] #filter label:not([for^="filter_by"]):hover{
-	padding-left: $u*.5;
+	padding-left: $u*.75;
 	&:before{
-		transform: transformY(-50%) scale(1);
+		transform:  translateY(-50%) 
+								translateX( calc( #{$u} * -1.5 * var(--sc) ))
+								scale(1);
 		opacity: 1;
 	}
 }
 
 // Compense le recul du signe V
-[data-type="projets"] #filter label:not([for^="filter_by"]):hover:after{
+/* [data-type="projets"] #filter label:not([for^="filter_by"]):hover:after{
 	right: $u*1.5;
-}
+} */

@@ -1,5 +1,7 @@
 <!-- List of projects -->
-<ul class="list projets">
+<ul class="list projets" 
+    aria-live="assertive"
+    aria-label="Liste des projets">
   {%- for projet in collections.projets | shuffle -%}
 
     <li data-ty=" {%- for t in typologies -%}{% if projet.data.typologie == t %}{{loop.index}},{% endif %}{% endfor %}"
@@ -13,7 +15,7 @@
         data-island="l-{{ projet.data.ile }}"
       >
 
-      <div class="cover">
+      <div class="cover {% if projet.data.cover.temporary %}temporary{% endif %}">
         {% if projet.data.cover.src %}
           {% set alt = projet.data.cover.alt | default("Photographie du batiment") %}
           {% image 
@@ -24,7 +26,7 @@
               (min-width: 901px) 1400w"
            %}
         {% endif %}
-        <figure class="sample" aria-hidden="true">
+        <figure class="sample " aria-hidden="true">
             <svg viewBox="0 0 200 150">  
               <use href="#_sign_B"></use>
               <use href="#_sign_A"></use>
@@ -41,11 +43,9 @@
         
         {% if projet.data.localité or projet.data.ile %}
           <li aria-label="Localisation">
+            {% if projet.data.ile %}{{ projet.data.ile }}{% endif %}{% if projet.data.ile and projet.data.localité %},{% endif %} 
             {% if projet.data.localité %}
-              {{ projet.data.localité }},
-            {% endif %}
-            {% if projet.data.ile %}
-              {{ projet.data.ile }}
+              {{ projet.data.localité }}
             {% endif %}
           </li>
         {% endif %}
@@ -59,17 +59,23 @@
         {% if projet.data.typologie %}
           <li aria-label="Typologie">
             {{ projet.data.typologie }}
+            {% if projet.data.typologie_travaux %}
+            <em>{{ projet.data.typologie_travaux}}</em>
+            {% endif %}            
           </li>
         {% endif %}
 
         {% if projet.data.statut %}
           <li aria-label="Statut">
             {{ projet.data.statut }}
+            {% if projet.data.statut_phase %}
+            <em>{{ projet.data.statut_phase}}</em>
+            {% endif %}
           </li>
         {% endif %}
 
         {% if projet.data.mission %}
-          <li aria-label="Mission">
+          <li aria-label="Missions">
             {% if projet.data.mission |isArr %}
               {{ projet.data.mission  | join(", ", "&") }}
             {% else %}
@@ -79,7 +85,7 @@
         {% endif %}
 
         {% if projet.data.montant %}
-          <li aria-label="Montant">
+          <li aria-label="Montant de travaux">
             {{ projet.data.montant | devise }}
           </li>
         {% endif %}
@@ -90,11 +96,9 @@
           </li>
         {% endif %}
 
-        {% if projet.data.debut %}
-          <li aria-label="Dates">
-            {{ projet.data.debut | simpleDate | title}}
-            {% if projet.data.debut and projet.data.fin  %}&#8239;—&#8239;{% endif %}
-            {{ projet.data.fin | simpleDate | title}}
+        {% if projet.data.calendrier %}
+          <li aria-label="Durée des travaux">
+            {{ projet.data.calendrier | parseDate | safe}}
           </li>
         {% endif %}
 

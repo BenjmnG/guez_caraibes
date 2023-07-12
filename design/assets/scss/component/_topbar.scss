@@ -14,6 +14,7 @@
 	  width: 100%;
 	  height: 1px;
 	  border-bottom: 1px solid currentColor;
+	  z-index: 1;
 	}
 
 	> ul{
@@ -36,9 +37,12 @@
 	}
 
 	.pages{
-		.artifact{
-			display: none;
-			a{padding: 0 !important;}
+		ul > li.artifact{display: none;}
+		ul:hover > li.artifact a[aria-current="page"],
+		ul:hover > li.artifact a,
+		ul:not(:hover) > li.artifact a[aria-current="page"],
+		ul:not(:hover) > li.artifact a{
+			padding: 0 !important;
 		}
 		address{
 			display: none;
@@ -51,44 +55,6 @@
 		.pages{
 			justify-self: end;
 			min-width: $unite*2;
-			
-			> label{
-				font-size: 0;
-				width: $unite*2;
-				display: block;
-				height: $base*4;
-				cursor: pointer;
-				z-index: 5;
-				padding: $base*6 0 $base*6 $u;
-
-				&::before, &::after {
-				  content: '';
-				  position: absolute;
-				  width: $unite*2;
-				  height: 1px;
-				  height: .5px;
-				  transition: 0.25s;
-				  background: currentColor;
-				}
-				&::before {
-				  top: $base*6;
-				}
-				&::after {
-				  bottom: $base*6;
-				}
-			}
-			> input:checked + label{
-				color: var(--cW);
-				&::before{
-					top: 50%;
-					transform: rotate(135deg);
-				}
-				&::after{
-					bottom: 50%;
-					transform: rotate(225deg);
-				}
-			}
-
 
 			> ul {
 				position: fixed;
@@ -109,13 +75,34 @@
 				//justify-content: end;
 
 				display: grid;
-				grid-template-rows: calc(100vh - #{$base*17} - #{$base*13} * 3 - 1px) #{$base*13} auto;
+				grid-template-rows: calc(100vh - #{$base*17} - #{$base*8} * 3 - #{$baseline}- 1px) #{$base*13} auto;
+				grid-template-rows: calc(100dvh - #{$base*22} - #{$base*8} * 3 - 1px) #{$base*13} auto;
 				grid-template-columns: 1fr;
-				grid-gap: $base*4;
+				grid-gap: 0;//$base*4;
 				align-items: end;
 
 				padding: $baseline $unite;
 				box-sizing: border-box;
+ 
+				&::after {
+				  position: fixed;
+				  top: $base*26;
+				  left: $u;
+				  display: block;
+				  width: calc(100vw - #{$u*2});
+				  height: 1px;
+				  border-bottom: 1px solid var(--cW);
+				} 
+
+				&:hover > li:not(.artifact) > a:hover,
+				&:not(:hover) > li:not(.artifact) > a[aria-current="page"]{
+					padding-left: $u*1.25 !important;
+					&:before{
+						left: $u*.25;
+						width: $u*.5;
+						height: $u*.5;
+					}
+				}
 
 				> li{
 					@include f1(3, -2, $bold);
@@ -123,21 +110,20 @@
 
 				}
 
-				.artifact{
+				> li.artifact{
 					display: block;
 					position: fixed;
 					top: $base*4;
 					left: $u;
 					width: 15rem;
-					svg{
-					}
 				}
 
 				address{
 					display: block;
 					font-style: normal;
 					border-top: 1px solid currentColor;
-					margin-top: $base*6;
+					margin-top: $base*4;
+					padding-top: $baseline;
 
 					@include f1(1);
 
@@ -147,33 +133,11 @@
 					}
 
 					li{
-						margin-top: $baseline
+						margin-top: $base*4
 					}
 
 
 				}
-			}
-
-			> input:not(:checked) ~ ul {
-
-				//> * { display: none;}
-
-			}
-
-			> input:checked ~ ul {
-				width: 100vw;
-				width: 100dvw;
-				height: 100vh;
-				height: 100dvh;
-
-				box-sizing: border-box;
-				transition: height 0s 0s,
-										width 0s 0s,
-										clip-path .75s 0s ease-in-out;
-				clip-path: circle(110vh at calc(100% - #{$u*2}) #{$u*3});
-
-				//> * { display: inline-block;}
-
 			}
 		}
 	}
@@ -183,18 +147,19 @@
 			width: $unite*15;
 			border-left: 1px solid currentColor;
 			padding-left: $unite;
-			> label {display: none;}
 			> ul {
 
 				@include f1(1);
 				text-transform: uppercase;
 			}
 		}
-
+		label[for="mobileMenu"] {display: none;}
 	}
-
 }
 
+body:has(#topbar #mobileMenu:checked){
+	overflow-y: hidden;
+}
 
 
 
@@ -207,5 +172,78 @@ body[data-serve="projets"],
 body[data-serve="equipes"],
 body[data-serve="savoir-faire"]{
 	#topbar{
+	}
+}
+
+// Menu Mobile
+
+@include for-size(phone){
+
+	label[for="mobileMenu"]{
+		font-size: 0;
+		width: $unite*2;
+		display: block;
+		height: $base*4;
+		cursor: pointer;
+		z-index: 5;
+		padding: $base*6 0 $base*6 $u;
+
+		position: absolute;
+		top: $base*4;
+		right: $u;
+
+
+		&::before, &::after {
+		  content: '';
+		  position: absolute;
+		  width: $unite*2;
+		  height: 1px;
+		  height: .5px;
+		  transition: 0.25s;
+		  background: currentColor;
+		  transform-origin: center;
+		}
+		&::before {
+		  top: $base*6;
+		}
+		&::after {
+		  bottom: $base*6;
+		}
+	}
+
+	#mobileMenu:checked ~ label[for="mobileMenu"]{
+		color: var(--cW);
+
+		position: fixed;
+		right: $u*2;
+
+		&::before{
+			top: 50%;
+			transform: rotate(135deg) ;
+		}
+		&::after{
+			bottom: 50%;
+			transform: rotate(225deg) ;
+		}
+	}
+
+	#mobileMenu:checked + ul .pages > ul {
+		width: 100vw;
+		width: 100dvw;
+		height: 100vh;
+		height: 100dvh;
+
+		box-sizing: border-box;
+		transition: height 0s 0s,
+								width 0s 0s,
+								clip-path .75s 0s ease-in-out;
+		clip-path: circle(110vh at calc(100% - #{$u*2}) #{$u*3});
+		clip-path: circle(135vmax at calc(100% - #{$u*2}) #{$u*3});
+
+		z-index: 2;
+
+		&:after{
+			content: "";
+		}
 	}
 }

@@ -18,25 +18,35 @@
     <meta name="theme-color" content="#ffffff">
     
     <!--SEO-->
-    <meta property="og:title" content='{% include "partials/title.html" %}'>
-    <meta name="twitter:title" content='{% include "partials/title.html" %}'>
+    <meta name="description" content="{% if seo.description %}{{ seo.description}}{% else%}{{website.seo.description}}{% endif %}">
     <meta property="og:url" content="{{site.url}}/{{ page.url }}">
-    <meta name="twitter:url" content="{{site.url}}/{{ page.url }}">
-    <meta name="description" content="{% if website.in_short %}{{website.in_short}}{%else%}{{website.in_short}}{%endif%}">
-    <meta property="og:description" content="{% if in_short %}{{in_short}}{%else%}{{website.in_short}}{%endif%}">    
-    <meta name="twitter:description" content="{% if in_short %}{{in_short}}{%else%}{{website.in_short}}{%endif%}">    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content='{% include "partials/title.html" %}'>
     <meta property="og:site_name" content="{{website.name}}">
-    <meta property="og:locale" content="{{locale}}">
+    <meta property="og:description" content="{% if seo.description %}{{ seo.description}}{% else%}{{website.seo.description}}{% endif %}">
+    <meta property="og:image" content="/_media/og_cover.webp">
+    <meta property="og:locale" content="{{website.locale}}">
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:domain" content="{{site.url}}">
+    <meta property="twitter:url" content="{{site.url}}/{{ page.url }}">
+    <meta name="twitter:title" content='{% include "partials/title.html" %}'>
+    <meta name="twitter:description" content="{% if seo.description %}{{ seo.description}}{% else%}{{website.seo.description}}{% endif %}">
+    <meta name="twitter:image" content="/_media/og_cover.webp">
     <meta name="twitter:card" content="summary_large_image">
 
+
     {% block SEO %}{% endblock %}
+    {% block prescript %}{% endblock %}
 
     <!--Style-->
     <link rel="stylesheet" href="{{site.url}}/{{ 'assets/css/main.css' | url }}" type="text/css" >
     <link rel="stylesheet" href="{{site.url}}/{{ 'assets/font/stylesheet.css' | url }}" type="text/css" >
     {% block css %}{% endblock %}
 
+    <!-- TEMP NO INDEX ! -->
     <meta name="robots" content="noindex">
+    <!-- TEMP NO INDEX ! -->
   
   </head>
 

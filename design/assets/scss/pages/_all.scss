@@ -1,3 +1,9 @@
+html{
+	-ms-overflow-style: thin;
+	scrollbar-width: thin;
+	&::-webkit-scrollbar {width: 5px;}
+}
+
 body{
 	padding: 0 $unite; 
 	overflow-x: hidden;
@@ -14,3 +20,4 @@ main:not([data-type="index"]):not([data-type="projets"]){
 		padding-top: $baseline*3;
 	}
 }
+

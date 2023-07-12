@@ -5,12 +5,7 @@ body[data-serve="equipes"]{
 
 main[data-type="equipes"]{
 
-	#equipes{
-		margin-bottom: $baseline*2;
-	}
-
 	header{
-	    text-align: center;
 		h1{
 
 			font-family: $font-1;
@@ -18,34 +13,22 @@ main[data-type="equipes"]{
 			text-transform: uppercase;
 	    font-size: $font-size*1;
 	    margin-bottom: $baseline;
-	    padding-bottom: $baseline;
+	    //padding-bottom: $baseline;
+	    text-align: center;
 
 			strong{
 				display: block;
-	    	font-size: $font-size*2;
+	    	font-size: $base*16;
 	    	line-height: 1em;
 	    	margin-bottom: $base*2;
 			}
 
-			&:after{
-				content: "";
-				height: .1rem;
-				width: $u*4;
-				position: absolute;
-				left: 50%;
-				transform: translateX(-50%);
-				bottom: 0;
-
-				background: linear-gradient(90deg, 
-											var(--c1)   0%, 
-											var(--c1)  25%,
-											var(--c2)  25%,
-											var(--c2)  50%,
-											var(--c3)  50%,
-											var(--c3)  75%,
-											var(--c4)  75%,
-											var(--c4) 100%
-										) 
+			em{
+				font-style: normal;
+				font-weight: $normal;
+				font-size: 1rem;
+				line-height: $base*16;
+				letter-spacing: .025em;
 			}
 
 		}
@@ -66,37 +49,55 @@ main[data-type="equipes"]{
 			max-width: 70rem;
 			margin: auto;
 
-			li {
+			> li {
 
 				margin-bottom: $base*4;
+				width: 100%;
 
-				> *{
+				*{
 					display: block;
 					@include f1(1,-1);
 				}
-				> *:not(img){
-					padding-left: $u;
-					border-left: 1px solid currentColor;
-				}
-				> *:not(:last-child){
+
+				h2{
 					text-transform: uppercase;
+					margin-bottom: $base;
+					font-weight: $bold;
 				}
-			}
 
-			img{
-				height: min(33vh,  $baseline*20);
-				width: 100%;
-				margin-bottom: $baseline;
-			}
+				> img, > picture{
+					//height: min(33vh,  $baseline*20);
+					aspect-ratio: 3/4;
+					width: 100%;
+					margin-bottom: $baseline;
+				}
 
-			h2{
-				text-transform: uppercase;
-				margin-bottom: $base;
-				font-weight: $bold;
-			}
+				picture img{
+					object-fit: cover;
+					width: 100%;
+					height: 100%;
+				}
 
-			p{
-				margin-top: $base;
+				li {
+					> *{
+
+						&:not(img):not(picture){
+							padding-left: $u*2;
+							&:before{
+								position: absolute;
+								content: attr(data-icon);
+								top: .3em;
+								left: 0;
+								@include f1(0);
+								font-size: .6rem;
+							}
+						}
+					}
+					
+					a{letter-spacing: .015em;}
+					
+					p{margin-top: $base;}
+				}
 			}
 
 		}
@@ -105,20 +106,24 @@ main[data-type="equipes"]{
 	#jobs{
 		display: inline-block;
 		width: 100%;
-		margin: auto;
+		margin-left: auto;
+		margin-right: auto;
 
 		h1{
-			@include f1(2);
+			@include f1(3, 0, $bold);
 			text-transform: uppercase;
 			width: 100%;
-			padding-bottom: $base*2;
+			margin-bottom: $base*4;
+			text-align: center;
 		}
 
 		.intro{
 			margin-bottom: $baseline;
+			text-align: center;
 			p{
 				@include f1(1);
 				max-width: 25rem;
+				margin: auto;
 			}
 		}
 
@@ -174,11 +179,15 @@ main[data-type="equipes"]{
 					display: none;
 				}
 
-				h2{font-weight: $bold;}
+				h2{
+					font-weight: $bold;
+					display: block;
+				}
 
 				span{
 					font-size: 1em;
-					display: block;
+					display: inline-block;
+					margin-right: $u;
 				}
 			}
 
@@ -196,14 +205,29 @@ main[data-type="equipes"]{
 
 	@include for-size(phone){
 
+		#equipes{
+			margin-bottom: $baseline*4;
+			header{margin-bottom: $baseline*2;}
+
+			address > ul > li{margin-bottom: $baseline*2;}
+		}
+		#jobs{
+			margin-bottom: $baseline*2;
+			h1{
+				max-width: 17rem;
+				margin: 0 auto $base*4 auto;
+				line-height: .9em;
+			}
+		}
+
 		details{
 
 			&:not([open]) .button{
 				display: none;
 			}
 			.button{
-				display: inline-block;
-				margin: $base*4 auto $base*2 auto;
+				display: table;
+				margin: $base*8 auto $base*4 auto;
 				left: $u*-.5;
 			}
 		}
@@ -211,16 +235,34 @@ main[data-type="equipes"]{
 	}
 
 	@include for-size(desktop){
-		address {
-			margin-top: $baseline;
-			> ul{
-				display: flex;
-				gap: $baseline;
-			}
-		}
 
 		#equipes{
-			margin-bottom: $baseline*6;
+			margin-bottom: $baseline*8;
+			header{margin-bottom: $baseline*4;}
+			.description{
+				text-align: center;
+			}
+			address {
+				margin-top: $baseline;
+				margin-bottom: $baseline*10;
+				> ul{
+					display: flex;
+					justify-content: center;
+					gap: $baseline;
+
+					> li{
+						flex-grow: 1;
+						//top: 50%;
+						//transform: translateY(-50%);
+						transition: width .25s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+												transform .25s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+						/* &:hover{
+							flex-grow: 2;
+							width: 110%;
+						} */
+					}
+				}
+			}
 		}
 		#jobs{
 			margin: 0 auto $baseline*10 auto;

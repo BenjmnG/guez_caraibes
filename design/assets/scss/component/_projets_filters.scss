@@ -1,6 +1,6 @@
 	/* */
 	/* Project Filter*/
-main[data-type="projets"]{
+//main[data-type="projets"]{
 
 	input#filter_by_typo:not(:checked) ~ input[name="f-ty"]:checked ~ #filter > ul > li:nth-of-type(1) > label .value:empty,
 	input#filter_by_sf:not(:checked) ~ input[name="f-sf"]:checked ~ #filter > ul > li:nth-of-type(2) > label .value:empty,
@@ -103,4 +103,4 @@ main[data-type="projets"]{
 			}
 		}
 	}
-}
+//}

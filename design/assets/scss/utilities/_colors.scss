@@ -35,7 +35,8 @@ body[data-serve="index"]{
 
 body[data-serve="projets"],
 body[data-serve="equipes"],
-body[data-serve="savoir-faire"]{
+body[data-serve="savoir-faire"],
+body[data-serve="mentions_legales"]{
 	color: var(--cB);
 
 	::selection {

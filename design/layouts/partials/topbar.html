@@ -1,9 +1,13 @@
 <nav id="topbar">
-	<ul role="Topbar" role="none">
-		<li role="none" 
+	<input id="mobileMenu" 
+				 type="checkbox"
+				 role="none"
+				 hidden>
+
+	<ul role="menubar">
+		<li role="menuitem" 
 				class="home">
 			<a 	href="{{ site.url }}/"
-					role="topbar Item"
 					title="Page d'accueil"
 					tabindex="-1"
 					{% if page.url == '/' %}aria-current="page"{% endif %}>
@@ -13,20 +17,12 @@
 		<li role="none" 
 				class="pages">
 
-			<input id="mobileMenu" 
-						 type="checkbox"
-						 hidden>
-			<label for="mobileMenu">
-				Menu
-			</label>
+			<ul role="none">
 
-			<ul>
-
-				<li role="none" 
+				<li role="menuitem"
 						class="artifact"
 						aria-hidden="true">
 					<a 	href="{{ site.url }}/"
-							role="topbar Item"
 							title="Page d'accueil"
 							tabindex="-1"
 							aria-hidden="true"
@@ -39,34 +35,32 @@
 	            </svg>
 					</a>
 				</li>
-				<li role="none" id="tb_savoir-faire">
+				<li   role="menuitem"
+							id="tb_savoir-faire">
 					<a 	href="{{ site.url }}/savoir-faire/"
-							role="topbar Item"
 							{% if page.url == '/savoir-faire/' %}aria-current="page"{% endif %}>
 						Savoir-faire
 					</a>
 				</li>
-				<li role="none" 
+				<li role="menuitem"
 						id="tb_projets">
 					<a 	href="{{ site.url }}/projets/"
-							role="topbar Item"
 							{% if page.url == '/projets/' %}aria-current="page"{% endif %}>
 						Projets
 					</a>
 				</li>
-				<li role="none" 
+				<li role="menuitem"
 						id="tb_equipes">
 					<a 	href="{{ site.url }}/equipes/"
-							role="topbar Item"
 							{% if page.url == '/equipes/' %}aria-current="page"{% endif %}>		
 						Équipes
 					</a>
 
-					<address aria-label="Liste des équipes">
+					<address role="none"
+									 aria-label="Liste des équipes">
 						<ul>
 							{%- for equipe in collections.equipes -%}
-				        <li role="none"
-				        >
+				        <li>
 				          <p aria-label="Localisation">
 				          	{{ equipe.data.nom }}
 				          </p>
@@ -76,12 +70,12 @@
  				          <a class="obf" 
  				          	 data-href="{{ mail }}"
  				          	 data-protocol="mail"
- 				          	 role="Email de l'équipe {{ equipe.data.nom }}">
+ 				          	 aria-label="Email de l'équipe {{ equipe.data.nom }}">
  				          </a>
 				          <a class="obf" 
 				          	 data-href="{{ phone }}"
 				          	 data-protocol="phone"
- 				          	 role="Téléphone de l'équipe {{ equipe.data.nom }}">
+ 				          	 aria-label="Téléphone de l'équipe {{ equipe.data.nom }}">
 				          </a>
 
 				        </li>
@@ -92,4 +86,9 @@
 			</ul>
 		</li>
 	</ul>
+
+	<label for="mobileMenu"
+			 role="none"
+			 aria-hidden="true">
+	</label>
 </nav>

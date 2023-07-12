@@ -2,24 +2,30 @@
 <!-- Nav element -->
 
 <nav  id="filter"
-      aria-label="Filter les projets">
+      aria-label="Liste des filtres ">
 
-  <ul>
+  <ul role="none">
     <!-- Filter -->
     <li role="none"
         aria-label="Filtrer les projets par typologie">
 
       <!-- Header -->
-      <label for="filter_by_ty">
+      <label for="filter_by_ty"
+             role="none">
         <span>Typologie</span>
         <span class="value"></span>
       </label>
 
       <!-- List of values -->
-      <ul aria-label="Liste des typologies">  
+      <ul role="menu" aria-label="Filtrer par typologie">  
 
         {%- for typo in typologies -%}
-          <li><label for="f-ty_{{ loop.index }}">{{ typo }}</label></li>
+          <li role="menuitem">
+            <label for="f-ty_{{ loop.index }}" 
+                   role="button">
+              {{ typo }}
+            </label>
+          </li>
         {%- endfor -%}
 
       </ul>
@@ -27,35 +33,49 @@
     </li>
 
     <!-- Filter Savoir-Faire -->
-    <li aria-label="Filtrer les projets par Savoir-faire">
+    <li role="none"
+        aria-label="Filtrer les projets par Savoir-faire">
 
       <!-- Header -->
-      <label for="filter_by_sf">
+      <label for="filter_by_sf"
+             role="none">
         <span>Savoir-Faire</span>
         <span class="value"></span>
       </label>
 
       <!-- List of values -->
-      <ul  aria-label="Liste des Savoir-faire">
+      <ul role="menu" aria-label="Filtrer par Savoir-faire">
         {%- for sf in collections.savoirFaire -%}
-          <li><label for="f-sf_{{ loop.index }}">{{ sf.data.nom }}</label></li>
+          <li role="menuitem">
+            <label for="f-sf_{{ loop.index }}" 
+                   role="button">
+              {{ sf.data.nom }}
+            </label>
+          </li>
         {%- endfor -%}
       </ul>
 
     </li>
 
-    <li aria-label="Filtrer les projets par localisation">
+    <li role="none"
+        aria-label="Filtrer les projets par localisation">
 
       <!-- Header -->
-      <label for="filter_by_lo">
+      <label for="filter_by_lo"
+            role="none">
         <span>Localisation</span>
         <span class="value"></span>
       </label>
 
       <!-- List of values -->
-      <ul aria-label="Liste des localistations">
-        {%- for equipe in collections.equipes -%}
-          <li><label for="f-lo_{{ loop.index }}">{{ equipe.data.nom }}</label></li>
+      <ul role="menu" aria-label="Filtrer par localistation">
+        {%- for equipe in collections.localisations -%}
+          <li role="menuitem">
+            <label for="f-lo_{{ loop.index }}" 
+                   role="button">
+              {{ equipe.data.nom }}
+            </label>
+          </li>
         {%- endfor -%}
       </ul>
 
@@ -63,7 +83,13 @@
 
   </ul>
 
-  <button>
+  <button id="closeAllFilters"
+          aria-label="Fermer les filtres"
+          aria-hidden>        
+  </button>
+
+  <button id="closeProject"
+          aria-hidden="true">
     <svg 
       viewBox="0 0 20 20"
       aria-hidden="true"

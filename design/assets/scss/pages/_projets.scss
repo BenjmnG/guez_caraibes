@@ -1,10 +1,3 @@
-$ty_len: 8;
-$sf_len: 11;
-$lo_len: 3;
-
-body[data-serve="projets"]{
-
-}
 main[data-type="projets"]{
 
 	$t: .25s;
@@ -30,6 +23,12 @@ main[data-type="projets"]{
 		//left: 0;
 		box-sizing: border-box;
 		z-index:  1;
+
+
+
+		// &:after, &:before{content: "";position: absolute;z-index: 99; }
+		// &:after{left: 50%; top: 0; height: 100%; width: 1px; background: white;  }
+		// &:before{left: 0; top: 50%; height: 1px; width: 100%; background: white;  }
 
 		.map_container{
 			overflow: hidden;
@@ -68,6 +67,9 @@ main[data-type="projets"]{
 				cursor: pointer;
 				display: flex;
 				gap: $u*.5;
+
+				span:first-child{flex-shrink: 0;}
+
 				.value{
 					flex-shrink: 2;
 					overflow: hidden;
@@ -87,6 +89,7 @@ main[data-type="projets"]{
 			ul > li{
 				label{
 					@include icon_valid;
+					padding-left: calc( #{$u} * ( var(--sc) * .75 ) );
 				}
 			}
 		}
@@ -105,16 +108,38 @@ main[data-type="projets"]{
 		  display: none;
 		}
 
+		&.empty{
+			&:before{
+				content: "⦰\A Aucun projets ne correspond à votre recherche";
+				white-space: pre; 
+				@include f1(1);
+				position: absolute;
+				text-align: center;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%)
+			}
+		}
+
 		li{
 
 			.cover{
 				background: $c3a;
 
-
 				aspect-ratio: 3/2;
 				width: 100%;
 				//max-height: max(10rem, 20vh);
 				border-bottom: 1px solid currentColor;
+
+				&.temporary{
+					picture{
+						filter: grayscale(1);
+						mix-blend-mode: overlay;
+					}
+
+					picture + figure{
+						display: none;
+					}
+				}
 
 				figure, picture, img{
 					width: 100%;
@@ -158,9 +183,14 @@ main[data-type="projets"]{
 					border-bottom: 1px solid currentColor;
 					@include f1(1);
 					padding-left: calc(max($u*7, 33.3%));
+
+					em{
+						display: block;
+						//font-style: normal;
+					}
 					&:before{
 						position: absolute;
-						content: attr(aria-label);
+						content: attr(aria-label)"\00a0";
 						top: 1em;
 						left: 0;//$u*.5;
 						@include f1(0);
@@ -196,7 +226,6 @@ main[data-type="projets"]{
 		#filter{
 			position: absolute;
 			bottom: -$baseline;
-			padding: 0;
 			transition: padding $t ease-in-out;
 			border-top: 1px solid currentColor;
 
@@ -212,16 +241,24 @@ main[data-type="projets"]{
 			}
 
 			>ul{
+				z-index: 2;
+				background: var(--cW);
+				padding: 0;
+				transition: padding $t ease-in-out;
+
 				> li{
 					padding: $base 0;
 
 					&:not(:last-child){
 						border-bottom: 1px solid currentColor;
 					}
+
+
 				}
 				ul{
 	 				overflow: hidden;
 	 				max-height: 0;
+	 				padding: 0;
 	 				padding: 0;
 					transition: max-height $t ease-in-out,
 											padding $t ease-in-out;
@@ -232,15 +269,44 @@ main[data-type="projets"]{
 				}
 			}
 
-			> button{
-				display: none;
+			#closeAllFilters{
+				background: var(--cW);
+				width: $u*6;
+				height: $base*8;
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateY(0%) translateX(-50%);
+				border-radius: $u $u 0 0;
+				color: var(--cB);
+				border: 1px solid currentColor;
+				cursor: pointer;
+				transition: transform .25s 0s ease-in-out;
+
+				&:before{
+  				content: "\00d7";
+  				content: "Fermer";
+  				text-transform: uppercase;
+  				@include f1(0)					
+				}
+
+				&:hover{
+					background: var(--cB);
+					&:before{color: var(--cW)} 
+				}
 			}
+			#closeProject{display: none;}
 		}
 
 		input[name="open_filter"]:checked ~ #filter{
-			padding: $base*2 0;
-			> ul ul{
+			
+			> ul{
+				padding: $base*2 0;
 			}
+			
+			#closeAllFilters{
+				transform: translateY(-100%) translateX(-50%);
+				transition-delay: .2s }
 
 		}
 		
@@ -258,14 +324,25 @@ main[data-type="projets"]{
 			padding-bottom: $baseline*10;
 			box-sizing: border-box;
 
+			width: calc(100% + #{$u*2});
+			padding: 0 $u 25vh $u;
+			left: -$u;
+
+			&.empty:before{ top: 25%; }
+
 			.cover{
 				margin-bottom: $base*4;
 			}
 
-
 			h1{
 				@include f1(2, 0, $bold);
 				margin-bottom: $base*2;
+			}
+
+			> li{
+				margin-bottom: $baseline*1.5;
+				border-top: 1px solid currentColor;
+				ul.details li:last-child{border-bottom: none;}
 			}
 		}
 
@@ -280,6 +357,7 @@ main[data-type="projets"]{
 		grid-template-rows: auto 1fr;
 		grid-gap: 0 $u;
 		justify-items: end;
+
 
 		&, #map, {
 			width: 100%;
@@ -298,7 +376,7 @@ main[data-type="projets"]{
 		}
 
 		> h1{
-			grid-column: 1 / 3;
+			grid-column: 1 / 4;
 			grid-row: 1;
 			padding: $base 0 0 $u; 
 			transition: padding $t ease-in-out;
@@ -306,7 +384,6 @@ main[data-type="projets"]{
 		}
 
 		#filter{
-			grid-column: 3 / span 4;
 			grid-row: 1;
 			width: 100%;
 			height: auto;
@@ -314,6 +391,7 @@ main[data-type="projets"]{
 			transition: padding $t ease-in-out,
 									width $t ease-in-out;
 
+			#closeAllFilters{display: none;}
 
 			> ul{
 				display: grid;
@@ -338,7 +416,7 @@ main[data-type="projets"]{
 
 			}
 
-			> button{
+			#closeProject{
 				background: none;
 				opacity: 0;
 				top: $base*2;
@@ -371,19 +449,6 @@ main[data-type="projets"]{
 			}
 		}
 
-		&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter,
-		&.init:not([data-vue="single"]) #filter{
-			padding: $base*4 0;
-			&:before{
-				height: 100%;
-			}
-			> ul ul{
-					max-height: $baseline*10;
-					padding-top: $base*4;
-
-			} 
-		}
-
 		input[name="open_filter"]:checked ~,
 		&.init{
 			#filter .value:not(:empty){
@@ -394,17 +459,15 @@ main[data-type="projets"]{
 
 
 		#map{
-			grid-row: 1 /3;
-			grid-column: 1 / 4;
+			grid-row: 1 / 4;
 			overflow-x: visible;
 
 			.map_container{
-				width: calc(100vw - #{$u*2} - 2px);
+				width: calc(100vw - #{$u*3} - 2px);
 			}
 		}
 
 		ul.list.projets{
-			grid-column: 3 / span 4;
 			grid-row: 2;
 			padding: $base*2 $u;
 
@@ -421,6 +484,7 @@ main[data-type="projets"]{
 									padding .5s ease-in;
 			transform: translateX(calc(100% + #{$u*2}));
 
+			&.empty:before{ top: 45%; }
 
 			> li{
 				grid-column: span 3;
@@ -455,7 +519,7 @@ main[data-type="projets"]{
 					z-index: -1;
 				}
 
-				> button {
+				#closeProject{
 					opacity: 1;
 					z-index: 1;
 				}
@@ -468,23 +532,25 @@ main[data-type="projets"]{
 		}
 
 		input[id^="f-"]:checked ~ #filter{
-			> button{
+			#closeProject{
 				span.close{  display: none;}
 				span.back{ display: inline-block;}
 			}
 		}
 
-		&:not([data-vue="single"]) input[name="open_filter"]:checked ~ ul.list.projets{
-			border-top-color: currentColor;
-			padding-top: $base*6; 
-		}
+
 
 
 		&[data-vue="single"] ul.list.projets [data-active="true"]{
 			display: block;
 		}
 
-		@media (min-height: 800px){
+		&[data-vue="single"]{
+			//#filter, ul.list.projets{grid-column: 4 / span 3;}
+			#filter, ul.list.projets{width: calc((100% - #{$u*3}) / 4 * 3)}
+			//#map{grid-column: 1 / span 4;}		
+		}
+		/*@media (min-height: 800px){
 			#filter:before{
 				content: "";
 				position: absolute;
@@ -505,28 +571,89 @@ main[data-type="projets"]{
 				left: 0;
 				width: 0;
 			}
+
+		} */
+	}
+
+	@include for-size(desktop){
+		#filter, ul.list.projets{grid-column: 3 / span 4;}
+		#map{grid-column: 1 / span 4;}
+	}
+
+	@include for-size(desktop-1200){
+		#filter, ul.list.projets{grid-column: 4 / span 3;}
+		#map{grid-column: 1 / span 4;}
+
+		&[data-vue="single"]{
+			//#filter, ul.list.projets{grid-column: 5 / span 2;}
+			#filter, ul.list.projets{width: calc((100% - #{$u*2}) / 3 * 2)}
+			//#map{grid-column: 1 / span 5;}			
+		}
+	}
+
+	@include for-size(desktop-1800){
+	}
+	
+	@mixin deployFilter(){
+		padding: $base*4 0;
+		&:before{height: 100%;}
+		> ul ul{
+				max-height: $baseline*15;
+				padding-top: $base*4;
+		} 
+	}
+	
+	@include for-size(desktop){
+		@media (min-height: 800px){
+			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter,
+			&.init:not([data-vue="single"]) #filter{
+				@include deployFilter();
+			}
+			
+			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ ul.list.projets{
+				border-top-color: currentColor;
+				padding-top: $base*6; 
+			}
+
+		}
+		@media (max-height: 800px){
+			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter:hover{
+				@include deployFilter();
+			}
 		}
 
 	}
 
-	@include for-size(desktop-1800){
-		> h1{
-			grid-column: 1 / 4;
-		}
-		#filter{
-			grid-column: 4 / span 3;
-		}
-
+	@media (max-height: 800px) and (min-width: 900px) and (max-width: 1400px){
+		#filter, ul.list.projets{grid-column: 4/span 3;}
+		
 		ul.list.projets{
-			grid-column: 4 / span 3;
-		}
+			> li{
+				grid-column: span 6;
 
-		input[id^="f-"]:checked ~ #map:hover{
+				.cover{
+					height: 33vh;
+				}
 
-			~ #filter,
-			~ ul.list.projets{
-				width: 75%;
-				//transform: translateX( 40rem) !important;
+				header{
+					padding-left: $u*.5;
+					position: absolute;
+					top: 33vh;
+					left: 0;
+					z-index: 5;
+					transform: translateY(-100%);
+					//text-shadow: -1px 1px 7px #fff;
+					background: var(--cW);
+					padding: $base $u*.5 $base 0;
+					border-top: 1px solid currentColor;
+					max-width: 75%;
+					//border-right: 1px solid currentColor;
+
+					h1{
+						@include f1(3,0, $bold);
+						margin: 0;
+					}
+				}
 			}
 		}
 	}

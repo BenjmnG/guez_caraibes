@@ -1,9 +1,9 @@
 ---
-titre: Spécialiste Fluides
-contrat: CDI
-temps: Temps plein
-ile: Guadeloupe
-date_limite: 2025-06-15
+titre: "recherche assistant AMO"
+contrat: CDD
+temps: Temps partiel
+ile: Saint-Martin
+date_limite: 2024-02-01
 ---
 
 
@@ -42,4 +42,3 @@ Lorem ipsum nulla nostrud dolore laboris magna voluptate proident reprehenderit 
 - A
 - B
 - C
-

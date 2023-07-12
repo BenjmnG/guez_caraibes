@@ -12,28 +12,54 @@
     <address aria-label="Liste des équipes">
       <ul>
         {%- for equipe in collections.equipes -%}
-          <li role="none"
-          >
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
+          <li>
+            {% if equipe.data.cover %}
+              {% image 
+                equipe.data.cover.src, 
+                equipe.data.cover.src, 
+                [400, 600, 900], 
+                " (max-width: 400px) 400w,
+                  (max-width: 600px) 600w,
+                  (min-width: 900px) 900w"
+               %}
+            {% else %}
+              <img aria-hidden="true" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
+            {% endif %}
             
             <h2 aria-label="Localisation">
               {{ equipe.data.nom }}
             </h2>
             
+            <ul aria-label="Contact de l'agence {{ equipe.data.nom }}">
             {% set mail = equipe.data.adresse.mail | reverse %}
             {% set phone = equipe.data.adresse.téléphone | reverse %}
-              <a class="obf" 
-                 data-href="{{ mail }}"
-                 data-protocol="mail"
-                 role="Email de l'équipe {{ equipe.data.nom }}">
-              </a>
-            <a class="obf" 
-               data-href="{{ phone }}"
-               data-protocol="phone"
-                 role="Téléphone de l'équipe {{ equipe.data.nom }}">
-            </a>
+              <li aria-label="Email de l'équipe {{ equipe.data.nom }}">
+                <a class="obf"
+                   data-icon="Mail"
+                   data-href="{{ mail }}"
+                   data-protocol="mail"
+                   >
+                </a>
+              </li>
+              <li aria-label="Téléphone de l'équipe {{ equipe.data.nom }}">
+                <a class="obf" 
+                   data-icon="Tél"
+                   data-href="{{ phone }}"
+                   data-protocol="phone"
+                   >
+                </a>
+              </li>
+            <li aria-label="Adresse">
 
-            <p>{{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}</p>
+              {% set lat = equipe.data.coordonnées | split(',') | head(0, 1) %}
+              {% set long = equipe.data.coordonnées | split(',') | head(1, 2) %}
+
+              <a data-icon="Adr"
+                href="https://www.openstreetmap.org/?mlat={{lat}}&mlon={{long}}#map=19/{{lat}}/{{long}}" target="_blank">
+                {{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}
+              </a>
+            </li>
+            </ul>
 
           </li>
         {%- endfor -%}
@@ -47,43 +73,60 @@
       
       <div class="intro">
         <p>
-          Nous recherchons constamment des nouveaux... Lorem ipsum nulla aliquip ex exercitation sit aliqua occaecat et aliquip non labore ex consequat pariatur in mollit eu proident exercitation et enim ut nostrud.
+          Dans l’optique de compléter nos équipes, nous sommes actuellement à la recherche de&thinsp;:
         </p>
       </div>
 
       <ul>
       {%- for job in collections.jobs -%}
-        <li>
-          <details>
-            <summary>
+        {%- if not job.data.date_limite or (job.data.date_limite and job.data.date_limite | isDateNotPast)-%}
+          <li>
+            <details>
+              <summary>
 
-              <svg viewbox="0 0 20 20"><use href="#icon-arrow"></use></svg>
+                <svg viewbox="0 0 20 20"><use href="#icon-arrow"></use></svg>
 
-              <h2>{{ job.data.titre }}</h2>
-              <span>
-                {% if job.data.temps %}{{ job.data.temps }}{% endif %}
-                {% if job.data.temps and job.data.contrat %},{% endif %}
-                {% if job.data.contrat %}{{ job.data.contrat }}{% endif %}
-              </span>
+                <h2>{{ job.data.titre }}</h2>
 
-              <a class="obf button" 
-                 data-href="{{ website.email_job | reverse}}"
-                 data-protocol="mail"
-                 data-subject='Candidature : "{{ job.data.titre }}"'
-                 role="Postuler par mail">
-                Candidater par Mail
-              </a>
+                {% if job.data.contrat %}
+                  <span>{{ job.data.contrat }}</span>
+                {% endif %}
+                
+                {% if job.data.temps %}
+                  <span>{{ job.data.temps }}</span>
+                {% endif %}
 
-            </summary>
+                {% if job.data.ile %}
+                  <span>{{ job.data.ile }}</span>
+                {% endif %}
 
-              {{ job.content 
-                | replace('h2', 'h3') 
-                | replace('h1', 'h2') 
-                | safe 
-              }}
-          </details>
+                {% set email = website.email %}
+                {%- for equipe in collections.equipes -%}
+                  {% if job.data.ile == equipe.data.nom %}
+                    {% set email = equipe.data.adresse.mail %}
+                  {%- endif -%}
+                {%- endfor -%}
 
-        </li>
+                <a class="obf button" 
+                   data-href="{{ email | reverse}}"
+                   data-protocol="mail"
+                   data-subject='Candidature : "{{ job.data.titre }}"'
+                   role="button"
+                   aria-label="Postuler par mail">
+                  Candidater par Mail
+                </a>
+
+              </summary>
+
+                {{ job.content 
+                  | replace('h2', 'h3') 
+                  | replace('h1', 'h2') 
+                  | safe 
+                }}
+            </details>
+
+          </li>
+        {% endif %}
       {%- endfor -%}
     </section>
   {% endif %}
