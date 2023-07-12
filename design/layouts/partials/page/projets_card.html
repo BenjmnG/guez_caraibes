@@ -92,7 +92,7 @@
 
         {% if projet.data.surface %}
           <li aria-label="Surface">
-            {{ projet.data.surface }} m²
+            {{ projet.data.surface | spaceNumber }} m²
           </li>
         {% endif %}
 

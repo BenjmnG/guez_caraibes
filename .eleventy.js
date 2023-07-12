@@ -69,6 +69,7 @@ module.exports = config => {
   config.addFilter("simpleDate", date => simpleDate(date));
   config.addFilter("isDateNotPast", date => isDateNotPast(date));
   config.addFilter("devise", number => { return new Intl.NumberFormat('fr', { style: 'currency', currency: 'EUR' }).format(number)})
+  config.addFilter("spaceNumber", number => { return new Intl.NumberFormat('fr-FR').format(number)})
   config.addFilter("parseDate", data => parseDate(data));
   config.addDataExtension("yaml", contents => yaml.load(contents));
   
