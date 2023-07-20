@@ -103,6 +103,20 @@ Obtenir les coordonnées d'un lieu
 3. Pour copier automatiquement les coordonnées, effectuez un clic gauche sur la latitude et la longitude.
 
 
+#### `statut`
+
+Deux valeurs possibles : `Marché privé` ou `Marché public`
+
+#### `phase`
+
+Plusieurs valeurs possibles
+
++ `ESQ`
++ `APD`
++ `PRO`
++ `DET`
++ `Construit`
+
 #### `calendrier`
 
 Ce champ ne comprend pas de valeurs directes mais deux enfants (affiliés).
