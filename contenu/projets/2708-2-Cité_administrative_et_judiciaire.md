@@ -1,17 +1,20 @@
 ---
 titre: Cité administrative et judiciaire
-maître_ouvrage: Apij
-typologie: Institution
-type_de_travaux: Construction neuve
-mission: AMO
-statut: Marché public
 ile: Saint-Martin
-localité: Concordia
-coordonnées: 18.066881363906912, -63.076280116579994
+ville: Marigot
+maître_ouvrage: APIJ
+typologie: Institutions et services publics
+type_de_travaux: Construction neuve
+statut: Marché public
+phase: Phase PRO
+mission: AMO
+montants_de_travaux_en_€HT: 25500000
+surface_en_m² : 5500
+coordonnées: 18.070508, -63.079605
 
 calendrier:
-  durée_en_mois: 18 
-  fin: 2022-06-01
+  durée_en_mois: 24 
+  fin: 2025-09-01
 
 cover:
   src: /_media/sample.jpg
