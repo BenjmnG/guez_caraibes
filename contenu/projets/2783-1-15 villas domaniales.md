@@ -13,8 +13,8 @@ surface_en_m² : 1300
 coordonnées: 16.267663050184627, -61.52724555704186
 
 calendrier:
-  début: 2025-09-01
   durée_en_mois: 21 
+  fin: 2025-09-01
 
 cover:
   src: /_media/sample.jpg
