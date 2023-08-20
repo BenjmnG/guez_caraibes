@@ -1,0 +1,25 @@
+---
+titre: Aménagement Urbain Touristique "EAT"
+ile: Martinique
+ville: Trois-Ilets
+maître_ouvrage: Mairie des Trois-Ilets
+typologie: Aménagement Urbain
+type_de_travaux: Construction neuve
+statut: Marché public
+phase: Phase AVP
+mission: MOE
+montants_de_travaux_en_€HT: 14515000
+surface_en_m² : 9 ha
+coordonnées: 
+
+calendrier:
+  durée_en_mois: 72
+  fin: 2030-06-01
+
+cover:
+  src: /_media/sample.jpg
+  alt: Batiment blanc entouré d'arbre en contre-plongée
+  temporary: false
+  
+visible: true
+---

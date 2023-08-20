@@ -10,7 +10,7 @@ phase: Phase PRO
 mission: MOE
 montants_de_travaux_en_€HT: 2765000
 surface_en_m² : 1300
-coordonnées: 16.267663050184627, -61.52724555704186
+coordonnées: 
 
 calendrier:
   durée_en_mois: 21 
