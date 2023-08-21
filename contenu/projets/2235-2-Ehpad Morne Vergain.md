@@ -10,7 +10,7 @@ phase: Phase DET
 mission: MOE
 montants_de_travaux_en_€HT: 1491000
 surface_en_m² : 6200
-coordonnées: 
+coordonnées: 16.255015, -61.521219
 
 calendrier:
   durée_en_mois: 14 

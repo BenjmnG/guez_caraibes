@@ -10,7 +10,7 @@ phase: Phase PC
 mission: MOE Fluides
 montants_de_travaux_en_€HT: 10000000
 surface_en_m² : 4400
-coordonnées: 
+coordonnées: 14.615269, -60.996556
 
 calendrier:
   durée_en_mois: 13
