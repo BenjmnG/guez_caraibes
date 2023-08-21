@@ -7,7 +7,7 @@ typologie: Logements et Hébergements
 type_de_travaux: Construction neuve
 statut: Marché public
 phase: Livré
-mission: 
+mission: MOE
 montants_de_travaux_en_€HT: 3160000
 surface_en_m² : 5630
 coordonnées: 16.246932, -61.369046

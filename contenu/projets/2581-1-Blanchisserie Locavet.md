@@ -10,7 +10,7 @@ phase: Phase AVP
 mission: MOE
 montants_de_travaux_en_€HT: 7000000
 surface_en_m² : 1400
-coordonnées: 
+coordonnées: 14.680337, -60.944568
 
 calendrier:
   durée_en_mois: 13

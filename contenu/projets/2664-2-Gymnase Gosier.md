@@ -10,7 +10,7 @@ phase: Phase ACT
 mission: MOE
 montants_de_travaux_en_€HT: 3500000
 surface_en_m² : 1635
-coordonnées: 
+coordonnées: 16.206658, -61.493694
 
 calendrier:
   durée_en_mois: 18 
