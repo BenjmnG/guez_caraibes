@@ -10,7 +10,7 @@ phase: Phase DET
 mission: OPC et CSPS
 montants_de_travaux_en_€HT: 23000000
 surface_en_m² : 12000
-coordonnées: 
+coordonnées: 14.685506, -60.939139
 
 calendrier:
   durée_en_mois: 20

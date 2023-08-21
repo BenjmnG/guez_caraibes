@@ -10,7 +10,7 @@ phase: Phase DET
 mission: OPC
 montants_de_travaux_en_€HT: 30000000
 surface_en_m² : NC
-coordonnées: 
+coordonnées: 14.577108, -60.989447
 
 calendrier:
   durée_en_mois: 25
