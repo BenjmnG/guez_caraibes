@@ -10,38 +10,40 @@
 {% set long2 = -50.32910 %}
 
 {%- for projet in collections.projets -%}
-  
-  {% set lat = projet.data.coordonnées | split(',') | head(0, 1) %}
-  {% set long = projet.data.coordonnées | split(',') | head(1, 2) %}
+  {%- if projet.data.coordonnées -%}
+    
+    {% set lat = projet.data.coordonnées | split(',') | head(0, 1) %}
+    {% set long = projet.data.coordonnées | split(',') | head(1, 2) %}
 
-  {% set y = lat | int | map(lat1, lat2, 0, svgH) %}
-  {% set x = long | int | map(long1, long2, 0, svgW) %}
+    {% set y = lat | int | map(lat1, lat2, 0, svgH) %}
+    {% set x = long | int | map(long1, long2, 0, svgW) %}
 
-  {% set r = 0.5 %}
-  
-  {# (lat2 - lat1) | debug #}
-  {# (long2 - long1) | debug #}
-  {# ( (long2 - long1) * 100 / (lat2 - lat1) ) | debug #}
-  <!--
-  0%, 0%
-  18.91602, -66.80300
+    {% set r = 0.5 %}
+    
+    {# (lat2 - lat1) | debug #}
+    {# (long2 - long1) | debug #}
+    {# ( (long2 - long1) * 100 / (lat2 - lat1) ) | debug #}
+    <!--
+    0%, 0%
+    18.91602, -66.80300
 
-  100%, 100%
-  1.81773,-50.32910
-  --> 
+    100%, 100%
+    1.81773,-50.32910
+    --> 
 
-  <g class="etiquette" 
-     id="pt-{{ projet.data.titre | getId }}"
-     data-x="{{ x - r / 2}}"
-     data-y="{{ y - r / 2}}"
-     >
-    <circle class="pt" cx="{{ x - r / 2}}" cy="{{ y - r / 2}}" r="{{ r }}" />
-  	
-    <!--<text x="{{ x - r / 2}}" y="{{ y - r / 2}}">
-      {{ projet.data.localité | default(projet.data.localité) }}
-    </text>-->
-  </g>
+    <g class="etiquette" 
+       id="pt-{{ projet.data.titre | getId }}"
+       data-x="{{ x - r / 2}}"
+       data-y="{{ y - r / 2}}"
+       >
+      <circle class="pt" cx="{{ x - r / 2}}" cy="{{ y - r / 2}}" r="{{ r }}" />
+    	
+      <!--<text x="{{ x - r / 2}}" y="{{ y - r / 2}}">
+        {{ projet.data.localité | default(projet.data.localité) }}
+      </text>-->
+    </g>
 
+  {%- endif -%}
 {%- endfor -%}
 
 
