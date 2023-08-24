@@ -19,14 +19,15 @@ let _map = {
     viewbox: 495
   },
 
-  tX:      0,
-  tY:      0,
-  minR:    4,
-  maxR:    80,
-  avgR:    4,
-  focusR:  20,
-  ratio:   4,
-  focusOn: null,
+  tX:           0,
+  tY:           0,
+  minR:         4,
+  maxR:         80,
+  avgR:         4,
+  focusR:       20,
+  hard_focusR:  50,
+  ratio:        4,
+  focusOn:      null,
   active_island: []
 }
 
@@ -337,13 +338,13 @@ const project_map = () => ({
   validMinR: () => {
     if(_map.ratio < _map.minR){
       _map.ratio = _map.minR
-    } else if(_map.ratio <= _map.minR+ 2 ){
+    } else if(_map.ratio <= _map.minR + 2 ){
       _map.svg.el.classList = `no-scale`
-    } else if(_map.ratio > _map.minR+ 6){
-      _map.svg.el.classList = `scale-B`
-
+    } else if(_map.ratio > _map.hard_focusR){
+      _map.svg.el.classList = `scale-C`
       if(_map.ratio > _map.maxR) { _map.ratio = _map.maxR}
-
+    } else if(_map.ratio > _map.focusR){
+      _map.svg.el.classList = `scale-B`
     } else if(_map.ratio > _map.minR + 2 ){
       _map.svg.el.classList = `scale-A`
     }
@@ -365,7 +366,6 @@ const project_map = () => ({
     } else if(_map.tY < maxY ){ 
       _map.tY = maxY 
     }
-
   },
 
   getPerfectRatio: (id = null) => {
@@ -384,7 +384,6 @@ const project_map = () => ({
     _map.ratio = _map.section.width  / (baseIsland * 3)
 
     project_map().validMinR()
-
   },
 
   getCoord: (el) => {
@@ -442,7 +441,6 @@ const project_map = () => ({
     //  Drag & Zoom based on https://codepen.io/stack-getover/pen/VwPgQQr
     window.start = { x: 0, y: 0 }
     window.panning = false
-
 
     return {
 
@@ -504,56 +502,87 @@ const project_map = () => ({
 
           project_map().validMaxt()
 
-          project_map().setTransform();      
+          project_map().setTransform();
         })
       },
 
       watchPointInteraction: () => {
+
 
         // This focus / display project card if user clic on its map location 
         document.querySelectorAll('.pt').forEach(el => {
           el.addEventListener("click", () => {
 
             let alreadyActive = document.querySelector(`.list.projets [data-active="true"]`)
+            
+            // Is this project already in Single Mode. 
             if(alreadyActive && alreadyActive.getAttribute('data-map-point') == el.id){
-              // Project is already in Single Mode. Time to shut it down
+              // Time to shut it down
               project_map().setVueMode(false, el.id)
+              el.classList.remove('focus')
 
               // Zoom out
               _map.ratio /= 4
 
             } else {
-                if(alreadyActive) {
-                // A project is already open and there is a new project to see
 
-                let focusedPoint = document.querySelector('.pt.focus')
-                if(focusedPoint){ focusedPoint.classList.remove('focus') }  
-
-                alreadyActive.setAttribute('data-active', false)
-                project_map().setVueMode(true, el.id)
-                
-              } else {
-                // No project is open and there is a project to see
-                project_map().setVueMode(true, el.id)
-              }
-
-              project_map().getPerfectRatio()
-              _map.ratio = _map.focusR
-              
               _map.focusOn = [
                 parseFloat(el.getAttribute('cx')),
                 parseFloat(el.getAttribute('cy'))
               ]
+    
+              // Is point is part of a compact group ?
+              let couldCompact = el.parentNode.classList.contains('parent')
+      
+              if(_map.ratio < _map.hard_focusR && couldCompact) {
+                // If point is part of a compact group 
+                // and scale ratio isn't sufficent to display its parts
+                _map.ratio = _map.hard_focusR + 1
 
-            } 
+              } else {
 
-            el.classList.add('focus')
+                el.classList.add('focus')
+
+                if(alreadyActive) {
+                  // A project is already open and there is a new project to see
+                  let focusedPoint = document.querySelector('.pt.focus')
+                  if(focusedPoint){ focusedPoint.classList.remove('focus') }  
+
+                  alreadyActive.setAttribute('data-active', false)
+                  project_map().setVueMode(true, el.id)
+                } else {
+                  // No project is open and there is a project to see
+                  project_map().setVueMode(true, el.id)
+                }
+
+                if(couldCompact){
+                  _map.ratio = _map.hard_focusR + 1
+                } else {
+                  project_map().getPerfectRatio()
+                  _map.ratio = _map.focusR
+                }
+              } 
+            }
 
             // Update tranform because of ratio update
             project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
             project_map().validMinR()
             project_map().setTransform()
           })
+
+
+          // Fix hover inconsistancy
+          el.addEventListener("mouseenter", () => {
+            let container = el.parentNode
+            el.classList.add('hover')
+            container.appendChild(el);
+
+          })
+
+          el.addEventListener("mouseleave", () => {
+            el.classList.remove('hover')
+          })
+
         })
       },
 

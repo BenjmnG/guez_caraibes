@@ -9,7 +9,7 @@
 {% set long1 = -66.80300 %}
 {% set long2 = -50.32910 %}
 
-{% set siblingLimit = 0.02 %}
+{% set siblingLimit = 0.005 %}
 
 {% set projets = [] %}
 
@@ -128,9 +128,10 @@
     {% set r = 0.5 %}
     <circle id="{{item.id}}" 
             class="pt" 
-            cx="{{ x - r / 2}}" 
-            cy="{{ y - r / 2}}" 
-            r="{{ r }}" 
+            cx="{{ x }}" 
+            cy="{{ y }}" 
+            r="{{ r }}"
+            transform-origin="50% 50%"
           />
 
   {%- endfor -%}

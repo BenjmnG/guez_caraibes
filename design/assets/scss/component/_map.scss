@@ -8,48 +8,81 @@ svg#main_map{
 
 
 	cursor: move;
-	transform: translateX(var(--tX)) translateY(var(--tY)) scale(var(--r)) ;
+	transform: translateX(var(--tX)) translateY(var(--tY)) scale(var(--r))  ;
 	transition: transform .5s ease;//cubic-bezier(.46,.03,.52,.96);
 	transform-origin: top left;
+	will-change: transform;
 
 	&:active{
 		cursor: grabbing;
 	}
 
-	#Land { z-index: 4; }
-	#M200 { z-index: 3; }
-	#M1000{ z-index: 2; }
-	#M3000{ z-index: 1; }
-
-	[id^='gp-']:not(.focus){
-		.pt:not(:first-of-type){
-			opacity: .5;
-		}
-		.pt:first-of-type{
-			stroke-width: 2px;
-		}
-	}
-
+	// Points
 	.pt{
 		cursor: pointer;
 		display: inline-block;
 		fill: none;
 		stroke-width: 1px;
 		stroke: var(--cB);
+		fill: currentColor;
 		z-index: 1;
-		transition: stroke .25s ease,
-		stroke-width .5s ease;
+		transition: all .25s ease,
+								stroke-width .5s ease;
 
 		&.focus{
 			stroke-width: 3px;
 			stroke: var(--cR);
+			fill: transparent;
 			z-index: 5;
 		}
 
-		&:hover{
+		&:hover, &.hover{
 			stroke: var(--cR);
+			fill: transparent;
+
 		}
 	}
+
+	[id^='gp-'] .pt:last-of-type{
+	}
+
+	// Point style based on scale
+	&:not(.scale-B):not(.scale-C) [id^='gp-'] .pt:not(:last-of-type){
+		display: none;
+	}
+
+	&:not(.scale-C) [id^='gp-'] .pt:last-of-type{
+		//stroke: green;
+	}
+
+	&.scale-B{
+		.pt{
+			r: .25px;
+			stroke-width: .5px;
+		}
+
+		[id^='gp-'] .pt:not(:last-of-type){
+			r: calc(.25px * ( var(--r)/40 - .5 ) );
+			stroke-width: calc(.5px * ( var(--r)/40 - .5 ) );
+		}
+	} 
+	&.scale-C{
+
+		.pt{
+			r: .125px;
+			stroke-width: .25px;
+		}
+
+		[id^='gp-']{
+
+		}
+	} 
+
+	// Map
+	#Land { z-index: 4; }
+	#M200 { z-index: 3; }
+	#M1000{ z-index: 2; }
+	#M3000{ z-index: 1; }
 
 	// All cases
 	#M200, #M1000, #M3000{
@@ -60,7 +93,6 @@ svg#main_map{
 	}
 
 	// No Scale
-
 	#Land path{
 		fill: var(--cW);
 		stroke: var(--cB);
@@ -69,7 +101,7 @@ svg#main_map{
 		stroke-width: 0.2px;
 		// 4 < ratio < 80   	&&   .05px < stroke-width < .2px	
 		stroke-width: calc(max(.05px, .2px - .001875px * ( var(--r) - 4) ));
-
+		stroke-linecap: round;
 	}
 
 	#M200, #M1000, #M3000{
