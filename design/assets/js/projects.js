@@ -1,4 +1,4 @@
-// Openers are three hidden input to open three list of item filter
+ // Openers are three hidden input to open three list of item filter
 let openers  = document.querySelectorAll('[name="open_filter"]'),
     items    = document.querySelectorAll('[name^="f-"]'),
     items_lo = document.querySelectorAll('[name="f-lo"]'),
@@ -255,7 +255,7 @@ const project_list = () => ({
             
 
             el.addEventListener("mouseleave", () => {
-              let focusedPoint = document.querySelectorAll('.etiquette.focus')
+              let focusedPoint = document.querySelectorAll('.pt.focus')
               if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )} 
             })
 
@@ -280,7 +280,7 @@ const project_list = () => ({
           project_map().focusOnPoint(coord[0], coord[1])
           //_map.focusOn = null
 
-          let focusedPoint = document.querySelectorAll('.etiquette.focus')
+          let focusedPoint = document.querySelectorAll('.pt.focus')
           if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )}
 
         }
@@ -311,7 +311,7 @@ const project_list = () => ({
           project_map().setTransform()
           project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
 
-          let focusedPoint = document.querySelectorAll('.etiquette.focus')
+          let focusedPoint = document.querySelectorAll('.pt.focus')
           if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )}
 
           //_map.focusOn = null
@@ -511,7 +511,7 @@ const project_map = () => ({
       watchPointInteraction: () => {
 
         // This focus / display project card if user clic on its map location 
-        document.querySelectorAll('.etiquette').forEach(el => {
+        document.querySelectorAll('.pt').forEach(el => {
           el.addEventListener("click", () => {
 
             let alreadyActive = document.querySelector(`.list.projets [data-active="true"]`)
@@ -526,7 +526,7 @@ const project_map = () => ({
                 if(alreadyActive) {
                 // A project is already open and there is a new project to see
 
-                let focusedPoint = document.querySelector('.etiquette.focus')
+                let focusedPoint = document.querySelector('.pt.focus')
                 if(focusedPoint){ focusedPoint.classList.remove('focus') }  
 
                 alreadyActive.setAttribute('data-active', false)
@@ -541,8 +541,8 @@ const project_map = () => ({
               _map.ratio = _map.focusR
               
               _map.focusOn = [
-                parseFloat(el.getAttribute('data-x')),
-                parseFloat(el.getAttribute('data-y'))
+                parseFloat(el.getAttribute('cx')),
+                parseFloat(el.getAttribute('cy'))
               ]
 
             } 

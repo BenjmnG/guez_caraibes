@@ -28,7 +28,7 @@ surface: 1300
 montant: 2765000 
 
 ile: Martinique
-localité: Fort-de-France
+ville: Fort-de-France
 coordonnées: 16.267663050184627, -61.52724555704186
 
 calendrier:

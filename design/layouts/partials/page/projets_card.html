@@ -41,12 +41,10 @@
 
       <ul aria-label="Détails" class="details">
         
-        {% if projet.data.localité or projet.data.ile %}
+        {% if projet.data.ville or projet.data.ile %}
           <li aria-label="Localisation">
-            {% if projet.data.ile %}{{ projet.data.ile }}{% endif %}{% if projet.data.ile and projet.data.localité %},{% endif %} 
-            {% if projet.data.localité %}
-              {{ projet.data.localité }}
-            {% endif %}
+            {% if projet.data.ville %}{{ projet.data.ville }}{% endif %}{% if projet.data.ile and projet.data.ville %},{% endif %} {% if projet.data.ile %}{{ projet.data.ile }}{% endif %}
+            
           </li>
         {% endif %}
 

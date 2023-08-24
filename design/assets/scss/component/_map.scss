@@ -16,42 +16,37 @@ svg#main_map{
 		cursor: grabbing;
 	}
 
-	> g{
-	}
-
-
 	#Land { z-index: 4; }
 	#M200 { z-index: 3; }
 	#M1000{ z-index: 2; }
 	#M3000{ z-index: 1; }
 
-	.etiquette{
+	[id^='gp-']:not(.focus){
+		.pt:not(:first-of-type){
+			opacity: .5;
+		}
+		.pt:first-of-type{
+			stroke-width: 2px;
+		}
+	}
 
+	.pt{
 		cursor: pointer;
 		display: inline-block;
+		fill: none;
+		stroke-width: 1px;
+		stroke: var(--cB);
+		z-index: 1;
+		transition: stroke .25s ease,
+		stroke-width .5s ease;
 
-		text{
-			fill: transparent;
-			font-size: $base*2;
-			font-family: $font-1;
-			transition: fill .25s .75s ease-in;
-		}
-
-		circle{
-			fill: none;
-			stroke-width: 1px;
-			stroke: var(--cB);
-			z-index: 1;
-			transition: stroke .25s ease,
-									stroke-width .5s ease;
-		}
-		&.focus	circle{
+		&.focus{
 			stroke-width: 3px;
 			stroke: var(--cR);
 			z-index: 5;
 		}
 
-		&:hover circle{
+		&:hover{
 			stroke: var(--cR);
 		}
 	}
@@ -63,10 +58,6 @@ svg#main_map{
 			stroke: none;
 		}
 	}
-
-	.etiquette{
-	}
-
 
 	// No Scale
 
@@ -105,18 +96,5 @@ svg#main_map{
 		#M1000{ transition-delay: .4s; }
 		#M3000{ transition-delay: .2s; }
 
-	}
-
-
-	&.scale-A{
-
-		#Land path{
-			//stroke-width: 0.25px;
-		}
-	}
-
-
-
-	&.scale-B{
 	}
 }

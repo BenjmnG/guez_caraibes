@@ -71,6 +71,8 @@ module.exports = config => {
   config.addFilter("devise", number => { return new Intl.NumberFormat('fr', { style: 'currency', currency: 'EUR' }).format(number)})
   config.addFilter("spaceNumber", number => { return new Intl.NumberFormat('fr-FR').format(number)})
   config.addFilter("parseDate", data => parseDate(data));
+  config.addFilter("setAttribute", (dictionary, key, value) => {dictionary[key] = value; return dictionary;});
+  config.addFilter("appendToArray", (dictionary, object) => { dictionary.push(object); return dictionary });
   config.addDataExtension("yaml", contents => yaml.load(contents));
   
   config.setLibrary("md", markdownLibrary);

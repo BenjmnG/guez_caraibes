@@ -9,41 +9,134 @@
 {% set long1 = -66.80300 %}
 {% set long2 = -50.32910 %}
 
+{% set siblingLimit = 0.02 %}
+
+{% set projets = [] %}
+
+<!-- First, we'll regroup too close entry -->
 {%- for projet in collections.projets -%}
   {%- if projet.data.coordonnées -%}
-    
-    {% set lat = projet.data.coordonnées | split(',') | head(0, 1) %}
-    {% set long = projet.data.coordonnées | split(',') | head(1, 2) %}
 
-    {% set y = lat | int | map(lat1, lat2, 0, svgH) %}
-    {% set x = long | int | map(long1, long2, 0, svgW) %}
+    <!-- Parse string to get proper lattitude and longitude -->
+    {% set lat = projet.data.coordonnées | split(',') | head(0, 1) | int %}
+    {% set long = projet.data.coordonnées | split(',') | head(1, 2) | int %}
 
-    {% set r = 0.5 %}
-    
-    {# (lat2 - lat1) | debug #}
-    {# (long2 - long1) | debug #}
-    {# ( (long2 - long1) * 100 / (lat2 - lat1) ) | debug #}
-    <!--
-    0%, 0%
-    18.91602, -66.80300
+    <!-- First we set an object with point coordinates -->
+    {% set item = 
+      { 
+        id: 'pt-' + projet.data.titre | getId, 
+        coord: [lat, long]
+      }
+    %}
 
-    100%, 100%
-    1.81773,-50.32910
-    --> 
+    <!-- Now we need to find if the area arround the point is crownded or not -->
+    {% set isAreaClear = true %}
 
-    <g class="etiquette" 
-       id="pt-{{ projet.data.titre | getId }}"
-       data-x="{{ x - r / 2}}"
-       data-y="{{ y - r / 2}}"
-       >
-      <circle class="pt" cx="{{ x - r / 2}}" cy="{{ y - r / 2}}" r="{{ r }}" />
-    	
-      <!--<text x="{{ x - r / 2}}" y="{{ y - r / 2}}">
-        {{ projet.data.localité | default(projet.data.localité) }}
-      </text>-->
-    </g>
+    <!-- Lets parse existing point to find close relatives -->
+    {%- if projet.data.ville -%}
+      {%- for _projet in projets -%}
+
+      <!-- if no matching had already been found for this project-->
+
+        {% set i = loop.index - 1 %}
+
+        {%- for _item in _projet.items -%}
+
+          {%- if isAreaClear -%}
+
+            {% set lat_offset = _item.coord[0] - lat %}
+            {% set long_offset = _item.coord[1] - long %}
+
+            {% if lat_offset < 0 %}
+              {% set lat_offset = lat_offset * -1 %}
+            {% endif %}
+
+            {% if long_offset < 0 %}
+              {% set long_offset = long_offset * -1 %}
+            {% endif %}
+            
+
+            <!-- If this point is close to already parsed point -->
+            {% if lat_offset < siblingLimit or long_offset < siblingLimit %}
+
+              {% set old_entry = projets[i] %}
+
+              <!-- Reset id if needed -->
+              {% set new_id = old_entry.id %}
+
+              {% if (old_entry.id | truncate(3, true, '') ) == 'pt-' %}
+                {% set new_id = 'gp-' + (projet.data.ville | getId )%}
+              {% endif %}
+
+              <!-- set existing entry a new general Id -->
+              {% set _projet = _projet | setAttribute('id', new_id) %}
+              <!-- set existing entry as Parent -->
+              {% set _projet = _projet | setAttribute('type', 'parent') %}
+              <!-- append item to existing project -->
+              {% set _projet = _projet | setAttribute('items', (old_entry.items | appendToArray(item) )) %}
+
+              <!-- Toggle this var to end research -->
+              {% set isAreaClear = false %}
+
+            {%- endif -%} 
+
+
+          {%- endif -%} 
+        {%- endfor -%} 
+      {%- endfor -%} 
+    {%- endif -%} 
+  
+    <!-- If nothing was found, lets create a new first grade entry in our project list -->
+    {%- if isAreaClear -%}
+
+      {% set entry =
+        {
+          id: item.id,
+          type: 'widow',
+          ville:  projet.data.ville,
+          items: [ item ]
+        } 
+      %} 
+
+      {% set projets = (projets.push(entry), projets) %}
+    {%- else -%}
+    {%- endif -%}
 
   {%- endif -%}
+{%- endfor -%}
+
+{{ projets | debug }}
+
+<!--
+0%, 0%
+18.91602, -66.80300
+
+100%, 100%
+1.81773,-50.32910
+--> 
+{%- for projet in projets -%}
+
+  {% if projet.type == "parent" %}
+    <g class="parent" id="{{projet.id}}">  
+  {% endif %}
+
+  
+  {%- for item in projet.items -%}
+    {% set y = item.coord[0] | map(lat1, lat2, 0, svgH) %}
+    {% set x = item.coord[1] | map(long1, long2, 0, svgW) %}
+
+    {% set r = 0.5 %}
+    <circle id="{{item.id}}" 
+            class="pt" 
+            cx="{{ x - r / 2}}" 
+            cy="{{ y - r / 2}}" 
+            r="{{ r }}" 
+          />
+
+  {%- endfor -%}
+
+  {% if projet.type == "parent" %}</g>{% endif %}
+
 {%- endfor -%}
 
 
