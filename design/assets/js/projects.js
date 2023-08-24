@@ -252,7 +252,15 @@ const project_list = () => ({
 
             // zindex like
             //el_target.parentNode.appendChild(el_target)
-            el_target.classList.add('focus')
+            let couldCompact = el_target.parentNode.classList.contains('parent')
+
+            if(couldCompact && _map.ratio < _map.hard_focusR){
+              let el_target_parent = el_target.parentNode,
+                  el_target_last_sibling = el_target_parent.lastElementChild
+              el_target_last_sibling.classList.add('focus')
+            } else {
+              el_target.classList.add('focus')
+            }
             
 
             el.addEventListener("mouseleave", () => {
@@ -262,12 +270,13 @@ const project_list = () => ({
 
           //}, 0);
         })
+        
         el.addEventListener("click", () => {
-          _map.ratio = _map.focusR
+          /*_map.ratio = _map.focusR
           project_map().setTransform()
           let coord = project_map().getCoord(id_to_target)
           project_map().focusOnPoint(coord[0], coord[1])
-          _map.focusOn = coord;
+          _map.focusOn = coord;*/
         })
       })
 

@@ -9,7 +9,7 @@
 {% set long1 = -66.80300 %}
 {% set long2 = -50.32910 %}
 
-{% set siblingLimit = 0.005 %}
+{% set siblingLimit = 0.25 %}
 
 {% set projets = [] %}
 
@@ -21,11 +21,14 @@
     {% set lat = projet.data.coordonnées | split(',') | head(0, 1) | int %}
     {% set long = projet.data.coordonnées | split(',') | head(1, 2) | int %}
 
+    {% set y = lat | map(lat1, lat2, 0, svgH) %}
+    {% set x = long | map(long1, long2, 0, svgW) %}
+
     <!-- First we set an object with point coordinates -->
     {% set item = 
       { 
         id: 'pt-' + projet.data.titre | getId, 
-        coord: [lat, long]
+        coord: [y, x]
       }
     %}
 
@@ -44,20 +47,20 @@
 
           {%- if isAreaClear -%}
 
-            {% set lat_offset = _item.coord[0] - lat %}
-            {% set long_offset = _item.coord[1] - long %}
+            {% set y_offset = _item.coord[0] - y %}
+            {% set x_offset = _item.coord[1] - x %}
 
-            {% if lat_offset < 0 %}
-              {% set lat_offset = lat_offset * -1 %}
+            {% if y_offset < 0 %}
+              {% set y_offset = y_offset * -1 %}
             {% endif %}
 
-            {% if long_offset < 0 %}
-              {% set long_offset = long_offset * -1 %}
+            {% if x_offset < 0 %}
+              {% set x_offset = x_offset * -1 %}
             {% endif %}
             
 
             <!-- If this point is close to already parsed point -->
-            {% if lat_offset < siblingLimit or long_offset < siblingLimit %}
+            {% if y_offset < siblingLimit or x_offset < siblingLimit %}
 
               {% set old_entry = projets[i] %}
 
@@ -122,14 +125,13 @@
 
   
   {%- for item in projet.items -%}
-    {% set y = item.coord[0] | map(lat1, lat2, 0, svgH) %}
-    {% set x = item.coord[1] | map(long1, long2, 0, svgW) %}
+
 
     {% set r = 0.5 %}
     <circle id="{{item.id}}" 
             class="pt" 
-            cx="{{ x }}" 
-            cy="{{ y }}" 
+            cx="{{ item.coord[1] }}" 
+            cy="{{ item.coord[0] }}" 
             r="{{ r }}"
             transform-origin="50% 50%"
           />
