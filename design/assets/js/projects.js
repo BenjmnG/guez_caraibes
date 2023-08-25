@@ -226,22 +226,11 @@ const project_list = () => ({
         let id_to_target     = el.getAttribute('data-map-point')
         let island_to_target = el.getAttribute('data-island')
         let el_target = _map.section.el.querySelector(`#${id_to_target}`)
-        //let delayEvent 
 
         el.addEventListener("mouseenter", () => {
 
           
           if(main.getAttribute('data-vue') == 'single'){return}
-
-          //clearTimeout(delayEvent);
-          
-          // FUnction will run in delay unless another elemnt trigg it
-          //delayEvent = setTimeout(function() {
-
-            //project_map().getPerfectRatio(island_to_target)
-            //_map.ratio +=5
-            //_map.ratio = _map.focusR
-            //project_map().setTransform()
 
             // Don't center map if we're already on focus ratio
             let coord = project_map().getCoord(id_to_target)
@@ -250,8 +239,6 @@ const project_list = () => ({
               project_map().focusOnPoint(coord[0], coord[1])
             }
 
-            // zindex like
-            //el_target.parentNode.appendChild(el_target)
             let couldCompact = el_target.parentNode.classList.contains('parent')
 
             if(couldCompact && _map.ratio < _map.hard_focusR){
@@ -268,16 +255,9 @@ const project_list = () => ({
               if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )} 
             })
 
-          //}, 0);
         })
         
-        el.addEventListener("click", () => {
-          /*_map.ratio = _map.focusR
-          project_map().setTransform()
-          let coord = project_map().getCoord(id_to_target)
-          project_map().focusOnPoint(coord[0], coord[1])
-          _map.focusOn = coord;*/
-        })
+        //el.addEventListener("click", () => {})
       })
 
       document.querySelector('.list.projets').addEventListener('mouseleave', () => {
@@ -288,7 +268,6 @@ const project_list = () => ({
           project_map().setTransform()
           let coord = project_map().getCoord('l-Guadeloupe')
           project_map().focusOnPoint(coord[0], coord[1])
-          //_map.focusOn = null
 
           let focusedPoint = document.querySelectorAll('.pt.focus')
           if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )}
