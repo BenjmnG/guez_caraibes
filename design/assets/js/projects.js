@@ -445,6 +445,12 @@ const project_map = () => ({
 
   },
 
+  downElOnDOM: (el) => {
+    let container = el.parentNode
+    el.classList.add('hover')
+    container.appendChild(el);
+  },
+
   events: () => {
 
     //  Drag & Zoom based on https://codepen.io/stack-getover/pen/VwPgQQr
@@ -582,10 +588,7 @@ const project_map = () => ({
 
           // Fix hover inconsistancy
           el.addEventListener("mouseenter", () => {
-            let container = el.parentNode
-            el.classList.add('hover')
-            container.appendChild(el);
-
+            project_map().downElOnDOM(el)
           })
 
           el.addEventListener("mouseleave", () => {
