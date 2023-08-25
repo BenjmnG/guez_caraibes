@@ -57,8 +57,8 @@
         {% if projet.data.typologie %}
           <li aria-label="Typologie">
             {{ projet.data.typologie }}
-            {% if projet.data.typologie_travaux %}
-            <em>{{ projet.data.typologie_travaux}}</em>
+            {% if projet.data.type_de_travaux %}
+            <em>{{ projet.data.type_de_travaux}}</em>
             {% endif %}            
           </li>
         {% endif %}
@@ -82,15 +82,15 @@
           </li>
         {% endif %}
 
-        {% if projet.data.montant %}
+        {% if projet.data.montants_de_travaux_en_€HT %}
           <li aria-label="Montant de travaux">
-            {{ projet.data.montant | devise }}
+            {{ projet.data.montants_de_travaux_en_€HT | devise }}
           </li>
         {% endif %}
 
-        {% if projet.data.surface %}
+        {% if projet.data.surface_en_m² %}
           <li aria-label="Surface">
-            {{ projet.data.surface | spaceNumber }} m²
+            {{ projet.data.surface_en_m² | spaceNumber }} m²
           </li>
         {% endif %}
 
