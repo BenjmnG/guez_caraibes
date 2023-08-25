@@ -132,6 +132,8 @@
             class="pt" 
             cx="{{ item.coord[1] }}" 
             cy="{{ item.coord[0] }}" 
+            data-x="{{ item.coord[1] }}" 
+            data-y="{{ item.coord[0] }}" 
             r="{{ r }}"
             transform-origin="50% 50%"
           />

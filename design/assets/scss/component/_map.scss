@@ -29,17 +29,10 @@ svg#main_map{
 		transition: all .25s ease,
 								stroke-width .5s ease;
 
-		&.focus{
-			stroke-width: 3px;
+
+		&:hover, &.focus{
 			stroke: var(--cR);
 			fill: transparent;
-			z-index: 5;
-		}
-
-		&:hover, &.hover{
-			stroke: var(--cR);
-			fill: transparent;
-
 		}
 	}
 
@@ -52,7 +45,7 @@ svg#main_map{
 	}
 
 	&:not(.scale-C) [id^='gp-'] .pt:last-of-type{
-		//stroke: green;
+		//filter: brightness(1.5)
 	}
 
 	&.scale-B{
@@ -64,6 +57,16 @@ svg#main_map{
 		[id^='gp-'] .pt:not(:last-of-type){
 			r: calc(.25px * ( var(--r)/40 - .5 ) );
 			stroke-width: calc(.5px * ( var(--r)/40 - .5 ) );
+		}
+		[id^='gp-'] .pt:last-of-type{
+			r: 1px;
+			stroke-width: .1px;
+			fill: $c2a;
+
+			&:hover, &.focus{
+				stroke: var(--cR);
+				fill: $c4a;
+			}
 		}
 	} 
 	&.scale-C{

@@ -226,34 +226,40 @@ const project_list = () => ({
         let id_to_target     = el.getAttribute('data-map-point')
         let island_to_target = el.getAttribute('data-island')
         let el_target = _map.section.el.querySelector(`#${id_to_target}`)
+        let couldCompact = el_target.parentNode.classList.contains('parent')
 
         el.addEventListener("mouseenter", () => {
 
+          // tweak point overflow
+          project_map().downElOnDOM(el_target)
+
+          /*if(_map.active_island.length != 1){
+            project_map().focusOnPoint(coord[0], coord[1])
+          }*/
           
           if(main.getAttribute('data-vue') == 'single'){return}
 
-            // Don't center map if we're already on focus ratio
-            let coord = project_map().getCoord(id_to_target)
-            _map.focusOn = coord;
-            if(_map.active_island.length != 1){
-              project_map().focusOnPoint(coord[0], coord[1])
-            }
+          if(couldCompact){            
+            _map.ratio = _map.hard_focusR + 1
+            coord = project_map().getCoord(id_to_target)
+          } else {
+            _map.ratio = _map.focusR + 1
+            coord = project_map().getCoord(`l-${_map.active_island[0]}`)
+          }
 
-            let couldCompact = el_target.parentNode.classList.contains('parent')
+          project_map().validMinR()
+          project_map().setClassbyScale()
+         
+          project_map().focusOnPoint(coord[0], coord[1])
+          _map.focusOn = coord;
 
-            if(couldCompact && _map.ratio < _map.hard_focusR){
-              let el_target_parent = el_target.parentNode,
-                  el_target_last_sibling = el_target_parent.lastElementChild
-              el_target_last_sibling.classList.add('focus')
-            } else {
-              el_target.classList.add('focus')
-            }
-            
+          el_target.classList.add('focus');
 
-            el.addEventListener("mouseleave", () => {
-              let focusedPoint = document.querySelectorAll('.pt.focus')
-              if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )} 
-            })
+          el.addEventListener("mouseleave", () => {
+            el_target.classList.remove('focus');
+            //let focusedPoint = document.querySelectorAll('.pt.focus')
+            //if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )} 
+          })
 
         })
         
@@ -296,6 +302,7 @@ const project_list = () => ({
           
           _map.ratio = _map.avgR
           project_map().validMinR()
+          project_map().setClassbyScale()
           
           project_map().setTransform()
           project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
@@ -303,7 +310,6 @@ const project_list = () => ({
           let focusedPoint = document.querySelectorAll('.pt.focus')
           if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )}
 
-          //_map.focusOn = null
       })
     }
   }),
@@ -326,7 +332,11 @@ const project_map = () => ({
   validMinR: () => {
     if(_map.ratio < _map.minR){
       _map.ratio = _map.minR
-    } else if(_map.ratio <= _map.minR + 2 ){
+    }
+  },
+
+  setClassbyScale: () => {
+    if(_map.ratio <= _map.minR + 2 ){
       _map.svg.el.classList = `no-scale`
     } else if(_map.ratio > _map.hard_focusR){
       _map.svg.el.classList = `scale-C`
@@ -372,6 +382,7 @@ const project_map = () => ({
     _map.ratio = _map.section.width  / (baseIsland * 3)
 
     project_map().validMinR()
+    project_map().setClassbyScale()
   },
 
   getCoord: (el) => {
@@ -426,7 +437,6 @@ const project_map = () => ({
 
   downElOnDOM: (el) => {
     let container = el.parentNode
-    el.classList.add('hover')
     container.appendChild(el);
   },
 
@@ -490,6 +500,7 @@ const project_map = () => ({
           (delta > 0) ? (_map.ratio *= 1.2) : (_map.ratio /= 1.2);
           
           project_map().validMinR()
+          project_map().setClassbyScale()
 
           _map.tX = (e.clientX - xs * _map.ratio);
           _map.tY = (e.clientY - ys * _map.ratio);
@@ -521,8 +532,8 @@ const project_map = () => ({
             } else {
 
               _map.focusOn = [
-                parseFloat(el.getAttribute('cx')),
-                parseFloat(el.getAttribute('cy'))
+                parseFloat(el.getAttribute('data-x')),
+                parseFloat(el.getAttribute('data-y'))
               ]
     
               // Is point is part of a compact group ?
@@ -535,7 +546,8 @@ const project_map = () => ({
 
               } else {
 
-                el.classList.add('focus')
+                el.classList.add('focus');
+
 
                 if(alreadyActive) {
                   // A project is already open and there is a new project to see
@@ -561,6 +573,7 @@ const project_map = () => ({
             // Update tranform because of ratio update
             project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
             project_map().validMinR()
+            project_map().setClassbyScale()
             project_map().setTransform()
           })
 
@@ -568,10 +581,11 @@ const project_map = () => ({
           // Fix hover inconsistancy
           el.addEventListener("mouseenter", () => {
             project_map().downElOnDOM(el)
+            el.classList.add('focus')
           })
 
           el.addEventListener("mouseleave", () => {
-            el.classList.remove('hover')
+            el.classList.remove('focus')
           })
 
         })
