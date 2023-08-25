@@ -24,8 +24,8 @@ type_de_travaux: Réhabilitation
 mission: MOE
 statut: Marché public
 
-surface: 1300
-montant: 2765000 
+surface_en_m²: 1300
+montants_de_travaux_en_€HT: 2765000 
 
 ile: Martinique
 ville: Fort-de-France
@@ -83,12 +83,12 @@ visible: true
 + CSSI
 
 
-#### `surface`
+#### `surface_en_m²`
 
 À indiquer en M², sans unité, sans espace
 
 
-#### `montant`
+#### `montants_de_travaux_en_€HT`
 
 À indiquer en euros, sans unité, sans espace
 
