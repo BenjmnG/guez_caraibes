@@ -14,7 +14,7 @@ coordonnées: 16.282513, -61.510053
 
 calendrier:
   durée_en_mois: 45 
-  fin: 2024-12-01
+  fin: 2024-08-01
 
 cover:
   src: /_media/sample.jpg
