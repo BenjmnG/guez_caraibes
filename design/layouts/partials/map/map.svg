@@ -11,6 +11,8 @@
 	 preserveAspectRatio="xMinYMid meet"
 	 class="noScale">
 
+	 <title>Carte simplifiée de la Caraïbes, localisant les projets auquel Guez Caraïbes a contribuer. Ils se situent en Martinique, Guadeloupe, Saint Barth' et Saint Martin</title>
+
 	<defs>
 	  <pattern id="dot1"
 	           x="0" y="0" width="40" height="40"
