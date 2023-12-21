@@ -1,5 +1,3 @@
-# 
-
 Le site est un site statique généré par eleventy.
 
 Les fichiers de travail du site sont synchronisés sur [un répertoire Git](https://github.com/BenjmnG/guez_caraibes)
@@ -10,7 +8,45 @@ En clair, une modification dans les fichiers textes induit la régénération de
 
 [Pour éditer le contenu ](https://github.dev/BenjmnG/guez_caraibes)
 
- ## Rédiger un projet
+## Générer le site
+
+### Automatiquement (avec Github Action)
+
+Tout _commit_ sur la branche _main_ de ce repertoire génère le site automatiquement.
+Cela au moyen d'un script Github Action.
+Ce script cache l'ensemble des dépendances si aucune mise à jour.
+
+Le site est hébergé par Github.
+Le site est accessible via http://dev2.bnjm.eu/
+
+
+### En local,  un terminal
+
+Prévisualisation dans le navigateur via `localhost:8080`
+
+```
+npm run dev
+``` 
+
+Génération simple du site (sans serveur local)
+
+```
+npm run build
+``` 
+
+Noter que l'installation des dépendences du projet est un premier préalable à ces étapes
+
+```
+npm i
+```
+
+
+## Modifier le site
+
+Depuis la page du répertoire Git, appuyer sur `shift + . ` ou aller à la page [github.dev/BenjmnG/guez_caraibes](https://github.dev/BenjmnG/guez_caraibes)
+
+
+## Rédiger un projet
 
 Voici un projet type
 
