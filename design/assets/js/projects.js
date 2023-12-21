@@ -31,23 +31,34 @@ let _map = {
   active_island: []
 }
 
+/**
+ * The `project_list` object contains methods for managing the list of projects.
+ */
 const project_list = () => ({
 
-  // This function remove init class on main. Three openers can triggers it. Once called, we destroy the two other triggers.
+
   removeInit: () => {
     if(main.classList.contains('init')){
       main.classList.remove('init')
+
+      // Three openers can triggers it. 
       openers.forEach( opener => {
         opener.removeEventListener("change", project_list().removeInit, true)
         _map.section.el.removeEventListener("change", project_list().removeInit, true)
       })
+
+      // Once called, we destroy the two other triggers.
       items.forEach( item => {
         item.removeEventListener("change", project_list().removeInit, true)
       })
     }
   },
 
-  // From Savoir-faire
+
+  /**
+   * Checks the URI parameters for users comming from the Savoir-faire page, 
+   * if it exists, selects the corresponding checkbox in the filters section.
+   */
   performURIparameters: () => {
     let params = (new URL(document.location)).searchParams;
     let name = params.get('sf');
@@ -58,6 +69,11 @@ const project_list = () => ({
     }
   },
 
+
+  /**
+   * Updates UI selected filter value
+   * @param  {string} categorie Categorie name to update
+   */
   updateOpenersValues: (categorie) => {
 
     let similarInputs = document.querySelectorAll(`[name="${categorie}"]:checked`),
@@ -70,7 +86,12 @@ const project_list = () => ({
     document.querySelector(`label[for="filter_by_${categorie.substring(2)}"] .value`).innerHTML = checkedValues.join(', ')
   },
 
-  // This function uncheck Openers
+
+  /**
+   * Manage project filter behavior. 
+   * Act as Radio input
+   * @param {Element} justChanged The element that was just checked.
+   */
   checkboxAsRadio: (justChanged) => {
 
     // If we're a large screen
@@ -257,13 +278,9 @@ const project_list = () => ({
 
           el.addEventListener("mouseleave", () => {
             el_target.classList.remove('focus');
-            //let focusedPoint = document.querySelectorAll('.pt.focus')
-            //if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )} 
           })
 
         })
-        
-        //el.addEventListener("click", () => {})
       })
 
       document.querySelector('.list.projets').addEventListener('mouseleave', () => {
