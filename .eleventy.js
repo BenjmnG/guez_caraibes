@@ -105,7 +105,10 @@ module.exports = config => {
 
   config.addCollection("equipes", function(collection) {
       let équipes = collection.getFilteredByGlob("contenu/equipes/*.md")
-      console.log(équipes)
+
+      // sort by filemane (01-NOM)
+      équipes = équipes.sort((a, b) => a.data.page.fileSlug.localeCompare(b.data.page.fileSlug));
+
       return équipes;
   });
 
