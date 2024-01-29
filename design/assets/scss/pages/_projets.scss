@@ -18,17 +18,9 @@ main[data-type="projets"]{
 	}
 
 	#map{
-		//position: absolute;
-		//top: 0;
-		//left: 0;
+		
 		box-sizing: border-box;
 		z-index:  1;
-
-
-
-		// &:after, &:before{content: "";position: absolute;z-index: 99; }
-		// &:after{left: 50%; top: 0; height: 100%; width: 1px; background: white;  }
-		// &:before{left: 0; top: 50%; height: 1px; width: 100%; background: white;  }
 
 		.map_container{
 			overflow: hidden;
@@ -187,7 +179,6 @@ main[data-type="projets"]{
 
 					em{
 						display: block;
-						//font-style: normal;
 					}
 					&:before{
 						position: absolute;
@@ -621,7 +612,6 @@ main[data-type="projets"]{
 					padding: $base $u*.5 $base 0;
 					border-top: 1px solid currentColor;
 					max-width: 75%;
-					//border-right: 1px solid currentColor;
 
 					h1{
 						@include f1(3,0, $bold);
