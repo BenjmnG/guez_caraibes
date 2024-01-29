@@ -43,10 +43,26 @@ main[data-type="equipes"]{
 	address{
 
 		font-style: normal;
-			margin: $baseline*2 auto $baseline auto;
+		margin: $baseline*2 auto $baseline auto;
+
+		> * {
+			max-width: 70rem;
+		}
+
+		> picture{
+			margin: 0 auto $baseline auto;
+			aspect-ratio: 21/9;
+			overflow: hidden;
+			display: block;
+			*{
+				object-fit: cover;
+				object-position: center;
+				width: 100%;
+  			height: 100%;
+			}
+		}
 
 		> ul{
-			max-width: 70rem;
 			margin: auto;
 
 			> li {
@@ -63,6 +79,14 @@ main[data-type="equipes"]{
 					text-transform: uppercase;
 					margin-bottom: $base;
 					font-weight: $bold;
+
+					i{
+						font-style: normal;
+						font-weight: $normal;
+						margin-left: .5em;
+						display: inline-block;
+						text-transform: capitalize;
+					}
 				}
 
 				> img, > picture{
@@ -245,6 +269,10 @@ main[data-type="equipes"]{
 			address {
 				margin-top: $baseline;
 				margin-bottom: $baseline*10;
+
+				> picture{
+					margin-bottom: $baseline*2;
+				}
 				> ul{
 					display: flex;
 					justify-content: center;

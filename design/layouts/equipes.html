@@ -10,24 +10,24 @@
     </header>
 
     <address aria-label="Liste des équipes">
+
+      {% if cover %}
+        {% image 
+          cover.src, 
+          cover.src, 
+          [600, 900, 1200, 1800], 
+          " (max-width: 400px) 600w,
+            (max-width: 600px) 900w,
+            (max-width: 899px) 1200w,
+            (min-width: 900px) 1600w"
+         %}
+      {% endif %}
+
       <ul>
         {%- for equipe in collections.equipes -%}
-          <li>
-            {% if equipe.data.cover %}
-              {% image 
-                equipe.data.cover.src, 
-                equipe.data.cover.src, 
-                [400, 600, 900], 
-                " (max-width: 400px) 400w,
-                  (max-width: 600px) 600w,
-                  (min-width: 900px) 900w"
-               %}
-            {% else %}
-              <img aria-hidden="true" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
-            {% endif %}
-            
+          <li>        
             <h2 aria-label="Localisation">
-              {{ equipe.data.nom }}
+              {{ equipe.data.nom }} {% if equipe.data.siège %}<i>(siège)</i>{% endif %}
             </h2>
             
             <ul aria-label="Contact de l'agence {{ equipe.data.nom }}">
