@@ -16,14 +16,17 @@ main[data-type="mentions_legales"]{
 	}
 
 	h2{
-		@include f1(1, 0, $bold)
+		@include f1(1, 0, $bold);
+		text-transform: uppercase;
 	}
 
 	p{
 		margin-bottom: $base*4;
+
+	
 	}
 	p + h2{
-		margin-top: $baseline
+		margin-top: $baseline*2;
 	}
 
 	a{
