@@ -98,11 +98,6 @@ module.exports = config => {
       return savoirFaire;
   });
 
-  config.addCollection("jobs", function(collection) {
-      let jobs = collection.getFilteredByGlob("contenu/jobs/*.md")
-      return jobs; 
-  });
-
   config.addCollection("equipes", function(collection) {
       let équipes = collection.getFilteredByGlob("contenu/equipes/*.md")
 

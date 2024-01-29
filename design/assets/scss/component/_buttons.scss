@@ -32,6 +32,11 @@
 	}
 }
 
+.obf:empty{
+  height: 0;
+  display: none;
+}
+
 // Compense le recul du signe V
 /* [data-type="projets"] #filter label:not([for^="filter_by"]):hover:after{
 	right: $u*1.5;

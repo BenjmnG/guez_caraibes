@@ -9,11 +9,15 @@ $c3a: rgba( 238, 200,  64, .25 ); // Ocre
 $c4: rgba( 255,  65,  71, 1 );  // Vermillon
 $c4a: rgba( 255,  65,  71, .25 );  // Vermillon
 
+
+$cB: #004D9B; //004B9C
+$cR: #E40521;
+
 body{
 
 	--cW: #ffffff;
-	--cB: #004D9B; //004B9C
-	--cR: #E40521;
+	--cB: #{$cB}; //004B9C
+	--cR: #{$cR};
 
 
 }

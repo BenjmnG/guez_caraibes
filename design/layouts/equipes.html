@@ -1,28 +1,31 @@
 {% extends "_base.html" %}
 
 {% block main %}
-  <section id="equipes">
-    <header>
-      <h1>{{ slogan | markdown | escaP | safe }}</h1>
-      <div class="description">
-        {{ description | markdown | safe }}
-      </div>
-    </header>
+
+  <header>
+    <h1>{{ slogan | markdown | escaP | safe }}</h1>
+    <div class="description">
+      {{ description | markdown | safe }}
+    </div>
+  </header>
+
+  {% if cover %}
+    {% image 
+      cover.src, 
+      cover.alt, 
+      [600, 900, 1200, 1800], 
+      " (max-width: 400px) 600w,
+        (max-width: 600px) 900w,
+        (max-width: 899px) 1200w,
+        (min-width: 900px) 1600w"
+     %}
+  {% endif %}
+
+  <section id="equipes" aria-label="Nos équipes">
+
+    <h1>Nos agences</h1>
 
     <address aria-label="Liste des équipes">
-
-      {% if cover %}
-        {% image 
-          cover.src, 
-          cover.src, 
-          [600, 900, 1200, 1800], 
-          " (max-width: 400px) 600w,
-            (max-width: 600px) 900w,
-            (max-width: 899px) 1200w,
-            (min-width: 900px) 1600w"
-         %}
-      {% endif %}
-
       <ul>
         {%- for equipe in collections.equipes -%}
           <li>        
@@ -67,69 +70,102 @@
     </address>
   </section>
 
-  {% if (collections.jobs | length) > 0 %}
-    <section id="jobs">
-      <h1>Nous rejoindre</h1>
+  <section id="jobs">
+    <h1>Nous rejoindre</h1>
+    
+    <div class="intro">
       
-      <div class="intro">
-        <p>
-          Dans l’optique de compléter nos équipes, nous sommes actuellement à la recherche de&thinsp;:
-        </p>
-      </div>
+      {{ job.intro | markdown | safe }}
 
       <ul>
-      {%- for job in collections.jobs -%}
-        {%- if not job.data.date_limite or (job.data.date_limite and job.data.date_limite | isDateNotPast)-%}
-          <li>
-            <details>
-              <summary>
+        <li>
 
-                <svg viewbox="0 0 20 20"><use href="#icon-arrow"></use></svg>
+          <a  class="link" 
+          href="{{ job.link }}" 
+          target="_blank"
+          title="Lien externe vers nos offres">
+            <span>Nos offres sur LinkedIn</span>
+            {% include "../assets/svg/arrow.svg" %}
+          </a>
 
-                <h2>{{ job.data.titre }}</h2>
+        </li>
+        <li>
+          
+          {% set mail = job.mail | reverse %}
 
-                {% if job.data.contrat %}
-                  <span>{{ job.data.contrat }}</span>
-                {% endif %}
-                
-                {% if job.data.temps %}
-                  <span>{{ job.data.temps }}</span>
-                {% endif %}
+          <a class="obf link"
+             data-icon="Mail"
+             data-href="{{ mail }}"
+             data-protocol="mail"
+             title="Pour contacter nos ressources humaines"
+             >
+            <span>Postuler par mail</span>
+            {% include "../assets/svg/arrow.svg" %}
+          </a>
 
-                {% if job.data.ile %}
-                  <span>{{ job.data.ile }}</span>
-                {% endif %}
+        </li>
+      </ul>
+      
 
-                {% set email = website.email %}
-                {%- for equipe in collections.equipes -%}
-                  {% if job.data.ile == equipe.data.nom %}
-                    {% set email = equipe.data.adresse.mail %}
-                  {%- endif -%}
-                {%- endfor -%}
+      <!--
+      Below is templte for job list
+      <ul>
+        {%- for job in collections.jobs -%}
+          {%- if not job.data.date_limite or (job.data.date_limite and job.data.date_limite | isDateNotPast)-%}
+            <li>
+              <details>
+                <summary>
 
-                <a class="obf button" 
-                   data-href="{{ email | reverse}}"
-                   data-protocol="mail"
-                   data-subject='Candidature : "{{ job.data.titre }}"'
-                   role="button"
-                   aria-label="Postuler par mail">
-                  Candidater par Mail
-                </a>
+                  <svg viewbox="0 0 20 20"><use href="#icon-arrow"></use></svg>
 
-              </summary>
+                  <h2>{{ job.data.titre }}</h2>
 
-                {{ job.content 
-                  | replace('h2', 'h3') 
-                  | replace('h1', 'h2') 
-                  | safe 
-                }}
-            </details>
+                  {% if job.data.contrat %}
+                    <span>{{ job.data.contrat }}</span>
+                  {% endif %}
+                  
+                  {% if job.data.temps %}
+                    <span>{{ job.data.temps }}</span>
+                  {% endif %}
 
-          </li>
-        {% endif %}
-      {%- endfor -%}
-    </section>
-  {% endif %}
+                  {% if job.data.ile %}
+                    <span>{{ job.data.ile }}</span>
+                  {% endif %}
+
+                  {% set email = website.email %}
+                  {%- for equipe in collections.equipes -%}
+                    {% if job.data.ile == equipe.data.nom %}
+                      {% set email = equipe.data.adresse.mail %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  <a class="obf button" 
+                     data-href="{{ email | reverse}}"
+                     data-protocol="mail"
+                     data-subject='Candidature : "{{ job.data.titre }}"'
+                     role="button"
+                     aria-label="Postuler par mail">
+                    Candidater par Mail
+                  </a>
+
+                </summary>
+
+                  {{ job.content 
+                    | replace('h2', 'h3') 
+                    | replace('h1', 'h2') 
+                    | safe 
+                  }}
+              </details>
+
+            </li>
+          {% endif %}
+        {%- endfor -%}
+      <ul>-->
+
+
+    </div>
+
+  </section>
 {% endblock %}
 
 {% block script %}<script type="text/javascript">event().equipes()</script>{% endblock %}

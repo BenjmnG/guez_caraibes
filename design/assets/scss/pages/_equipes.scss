@@ -40,27 +40,42 @@ main[data-type="equipes"]{
 
 	}
 
+	> * {
+		max-width: 70rem;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: $baseline;
+	}
+
+	section{
+
+		h1{
+			@include f1(3, 0, $bold);
+			text-transform: uppercase;
+			width: 100%;
+			margin-bottom: $base*4;
+			text-align: center;
+		}
+
+	}
+
+	> picture{
+		aspect-ratio: 21/9;
+		overflow: hidden;
+		display: block;
+		*{
+			object-fit: cover;
+			object-position: center;
+			width: 100%;
+			height: 100%;
+		}
+	}
+
 	address{
 
 		font-style: normal;
 		margin: $baseline*2 auto $baseline auto;
 
-		> * {
-			max-width: 70rem;
-		}
-
-		> picture{
-			margin: 0 auto $baseline auto;
-			aspect-ratio: 21/9;
-			overflow: hidden;
-			display: block;
-			*{
-				object-fit: cover;
-				object-position: center;
-				width: 100%;
-  			height: 100%;
-			}
-		}
 
 		> ul{
 			margin: auto;
@@ -89,19 +104,6 @@ main[data-type="equipes"]{
 					}
 				}
 
-				> img, > picture{
-					//height: min(33vh,  $baseline*20);
-					aspect-ratio: 3/4;
-					width: 100%;
-					margin-bottom: $baseline;
-				}
-
-				picture img{
-					object-fit: cover;
-					width: 100%;
-					height: 100%;
-				}
-
 				li {
 					> *{
 
@@ -127,30 +129,90 @@ main[data-type="equipes"]{
 		}
 	}
 
-	#jobs{
-		display: inline-block;
-		width: 100%;
-		margin-left: auto;
-		margin-right: auto;
 
-		h1{
-			@include f1(3, 0, $bold);
-			text-transform: uppercase;
-			width: 100%;
-			margin-bottom: $base*4;
-			text-align: center;
+	#jobs{
+
+
+		.link{
+			font-weight: $bold;
+			display: block;
+
+	    text-decoration: none;
+	    color: var(--cB);
+	    --stroke-width: 1.5px;
+	    padding: .25em .5em;
+  		border-radius: .2em;
+  		border: 1px solid transparent;
+  		transition: border .25s ease-in-out;
+
+	    span {
+	        background-image: linear-gradient(0deg, var(--cB) 0%, var(--cB) 100%);
+	        background-position: 100% 100%;
+	        background-repeat: no-repeat;
+	        background-size: var(--background-size, 100%) var(--stroke-width);
+	        transition: background-size .2s linear var(--background-delay, .15s);
+	        font-size: 16px;
+	        line-height: 20px;
+	        transform: translateZ(0);
+	        padding-bottom: $base*2;
+	    }
+
+	    svg {
+        vertical-align: top;
+        display: inline;
+        line-height: 1;
+        width: 13px;
+        height: $baseline;
+        position: relative;
+        left: -2px;
+		    
+		    * {
+		        fill: none;
+		        stroke-linecap: round;
+		        stroke-linejoin: round;
+		        stroke-width: var(--stroke-width);
+		        stroke: var(--cB);
+		        stroke-dasharray: 7.95 30;
+		        stroke-dashoffset: var(--stroke-dashoffset, 46);
+		        transition: stroke-dashoffset var(--stroke-duration, .15s) var(--stroke-easing, linear) var(--stroke-delay, 0s);
+		    }
+
+	    }
+	    &:hover {
+	        --background-size: 0%;
+	        --background-delay: 0s;
+	        --stroke-dashoffset: 26;
+	        --stroke-duration: .3s;
+	        --stroke-easing: cubic-bezier(.3, 1.5, .5, 1);
+	        --stroke-delay: .195s;
+
+	        border: 1px solid #{$cB}60;
+	        transition-duration: .5s;
+	    }
 		}
 
 		.intro{
-			margin-bottom: $baseline;
-			text-align: center;
+
+			display: flex;
+	    flex-direction: column;
+	    gap: $baseline 0;
+	    align-items: center;
+
 			p{
+				max-width: 30rem;
 				@include f1(1);
-				max-width: 25rem;
-				margin: auto;
+				text-align: center;
 			}
+
+			ul{
+				display: flex;
+			  justify-content: space-evenly;
+			  width: 100%;
+			}
+
 		}
 
+		/* 
 		details{
 			padding-bottom: $base*4;
 			margin-bottom: $base*4;
@@ -222,26 +284,28 @@ main[data-type="equipes"]{
 			> h3 {
 				@include f1(1, 0, $bold);
 			}
-		}
+		} 
+		*/
 
 	}
 
 
 	@include for-size(phone){
 
-		#equipes{
-			margin-bottom: $baseline*4;
-			header{margin-bottom: $baseline*2;}
-
-			address > ul > li{margin-bottom: $baseline*2;}
-		}
-		#jobs{
+		section{
 			margin-bottom: $baseline*2;
 			h1{
 				max-width: 17rem;
 				margin: 0 auto $base*4 auto;
 				line-height: .9em;
 			}
+		}
+
+		#equipes{
+			margin-bottom: $baseline*4;
+			header{margin-bottom: $baseline*2;}
+
+			address > ul > li{margin-bottom: $baseline*2;}
 		}
 
 		details{
@@ -260,19 +324,25 @@ main[data-type="equipes"]{
 
 	@include for-size(desktop){
 
-		#equipes{
-			margin-bottom: $baseline*8;
-			header{margin-bottom: $baseline*4;}
+		> *{
+			margin-bottom: $baseline*4;
+
+			&:last-child{
+				margin-bottom: $baseline*6;
+			}
+		}
+
+
+		header{
+			margin-bottom: $baseline*4;
 			.description{
 				text-align: center;
 			}
-			address {
-				margin-top: $baseline;
-				margin-bottom: $baseline*10;
+		}
 
-				> picture{
-					margin-bottom: $baseline*2;
-				}
+		#equipes{
+
+			address {
 				> ul{
 					display: flex;
 					justify-content: center;
@@ -292,8 +362,8 @@ main[data-type="equipes"]{
 				}
 			}
 		}
+
 		#jobs{
-			margin: 0 auto $baseline*10 auto;
 
 			> * {
 				max-width: 70rem;
@@ -301,6 +371,8 @@ main[data-type="equipes"]{
 				margin-right: auto;
 			}
 
+			/*
+			
 			details{
 
 				.button{
@@ -328,8 +400,22 @@ main[data-type="equipes"]{
 					}
 				}
 			}
-		}
-	}
+			*/
 
+		}
+
+	}
+	@include for-size(desktop-1800){
+
+		> *{
+			margin-bottom: $baseline*6;
+
+			&:last-child{
+				margin-bottom: $baseline*10;
+			}
+		}
+
+
+	}
 
 }
