@@ -43,6 +43,28 @@ footer{
 		}
 	}
 
+	.mother, .agrement{		
+		border-top: 1px solid;
+		padding-top: $baseline;
+  	&:before{
+  		@include f1(0);	
+			font-size: .6rem;
+			position: absolute;
+			top: $baseline*-.8;
+  	}
+	}
+
+	.mother{
+  	
+  	&:before{
+  		content: "Notre groupe";
+  	}
+
+  	svg{
+  		max-width: $u*10;
+  	}
+	}
+
 	.agrement{
 		align-self: start;
 		display: grid;
@@ -50,11 +72,14 @@ footer{
 		grid-gap: $u;
 		align-items: end;
 
+  	&:before{
+  		content: "Nos certifications";
+  	}
+
 		li{
 
-			//border-left: 1px solid currentColor;
-			//padding-left: $u;
-			//margin-bottom: $base*4;
+			height: 100%;
+			box-sizing: border-box;
 
 			svg{
 				max-height: $u*5;
@@ -137,8 +162,11 @@ footer{
 		padding: $base*4 0;
 		> *:first-child {margin-bottom: $base*4;}
 		> *:not(:first-child):not(:last-child) {margin-bottom: $base*12;}
-		
-		.agrement li{text-align: center;}
+
+		.agrement, .mother{
+			padding-top: $baseline;
+		}
+
 		address{
 			> ul > li{margin-bottom: $base*12;}
 		}
@@ -149,7 +177,7 @@ footer{
 		padding: $base*4 0 $base*4 0;
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
-		grid-template-rows: $baseline*3 $baseline*8 auto auto;
+		grid-template-rows: $baseline*3 $baseline*8 auto auto auto;
 		grid-gap: $baseline $u;
 
 		> svg{
@@ -159,16 +187,7 @@ footer{
 			grid-row: 2;
 			grid-column: 1 / span 3;
 		}
-		.agrement{
-			grid-row: 2;
-			grid-column: 3 / span 4;
 
-			grid-template-columns: $u*8 $u*8 auto;
-			grid-gap: $u*2;
-			
-			li:nth-of-type(1) svg{transform: translateX(#{$u*-.75})}
-			li:nth-of-type(2) svg{transform: translateY(5%);}
-		}
 		address{
 			grid-row: 3;
 			grid-column: 1 / -1;
@@ -184,16 +203,53 @@ footer{
 			}
 		}
 
-		#mentions_legales{
+		.agrement{
+			grid-row: 2;
+			grid-column: 3 / span 2;
+
+			grid-template-columns: repeat(2, 1fr);
+    	grid-gap: 0 $u;
+			
+			li:nth-of-type(1) svg{transform: translateX(#{$u*-.75})}
+			li:nth-of-type(2) svg{transform: translateY(5%);}
+		}
+		
+		.agrement,.mother{
 			grid-row: 4;
+			height: auto;
+    	
+		}
+		
+		.agrement{
+			grid-column: span 3;
+		}
+
+		.mother{
+			grid-column: span 3;
+		}
+
+		#mentions_legales{
+			grid-row: 5;
 			grid-column: span 6;
 		}
 	}
+
 	@include for-size(desktop-1200){
-		.agrement{grid-column: 4 / span 3;}
+		// .agrement{
+		// 	grid-column: 5 / span 1;
+		// 	top: 0;
+		// }
 	}
 	@include for-size(desktop-1800){
-		.agrement{grid-column: 5 / span 2;}
+		
+		.agrement{
+			grid-column: span 4;
+		}
+
+		.mother{
+			grid-column: span 2;
+		}
+
 		#mentions_legales{
 			li:nth-of-type(1){grid-column: 1}
 			li:nth-of-type(2){grid-column: 2}
