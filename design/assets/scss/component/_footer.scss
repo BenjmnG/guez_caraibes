@@ -191,6 +191,7 @@ footer{
 		address{
 			grid-row: 3;
 			grid-column: 1 / -1;
+			margin-bottom: $baseline;
 			
 			> ul{
 				display: grid;
