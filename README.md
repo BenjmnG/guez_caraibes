@@ -34,7 +34,7 @@ Génération simple du site (sans serveur local)
 npm run build
 ``` 
 
-Noter que l'installation des dépendences du projet est un premier préalable à ces étapes
+Noter que l'installation des dépendances du projet est un premier préalable à ces étapes
 
 ```
 npm i

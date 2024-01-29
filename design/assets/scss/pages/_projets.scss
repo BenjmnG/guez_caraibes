@@ -131,6 +131,7 @@ main[data-type="projets"]{
 				border-bottom: 1px solid currentColor;
 
 				&.temporary{
+					background: $c1a;
 					picture{
 						filter: grayscale(1);
 						mix-blend-mode: overlay;
