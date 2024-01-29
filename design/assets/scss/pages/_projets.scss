@@ -131,7 +131,7 @@ main[data-type="projets"]{
 				border-bottom: 1px solid currentColor;
 
 				&.temporary{
-					background: $c1a;
+					background: $c4a;
 					picture{
 						filter: grayscale(1);
 						mix-blend-mode: overlay;
@@ -547,33 +547,8 @@ main[data-type="projets"]{
 		}
 
 		&[data-vue="single"]{
-			//#filter, ul.list.projets{grid-column: 4 / span 3;}
 			#filter, ul.list.projets{width: calc((100% - #{$u*3}) / 4 * 3)}
-			//#map{grid-column: 1 / span 4;}		
 		}
-		/*@media (min-height: 800px){
-			#filter:before{
-				content: "";
-				position: absolute;
-				left: 0;
-				top: 0;
-				width: 0;
-				height: 0;
-				background: white;
-				transition: width $t ease-in-out,
-										left $t ease-in-out;
-			}
-
-			&.init #filter:before{
-				left: calc(-100% - #{$u});
-				width: calc(100vw - #{$u*3});
-			}
-			&.init input[id^="f-"]:checked ~ #filter:before{
-				left: 0;
-				width: 0;
-			}
-
-		} */
 	}
 
 	@include for-size(desktop){
@@ -586,9 +561,7 @@ main[data-type="projets"]{
 		#map{grid-column: 1 / span 4;}
 
 		&[data-vue="single"]{
-			//#filter, ul.list.projets{grid-column: 5 / span 2;}
 			#filter, ul.list.projets{width: calc((100% - #{$u*2}) / 3 * 2)}
-			//#map{grid-column: 1 / span 5;}			
 		}
 	}
 
