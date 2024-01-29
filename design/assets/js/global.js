@@ -57,9 +57,21 @@ function isDarkMode(){
 
 
 //
-// Event Listener
+// On init
 //
 
+const setup = () => ({
+  index: () => {
+    let pictureElements = document.querySelectorAll("main > picture")
+    const randomIndex = Math.floor(Math.random() * pictureElements.length);
+    pictureElements[randomIndex].classList.add("only");
+  }
+})
+
+
+//
+// Event Listener
+//
 
 const event = () => ({
 
@@ -80,7 +92,6 @@ const event = () => ({
   },  
 
   index: () => {
-
   },
 
   project: () => {

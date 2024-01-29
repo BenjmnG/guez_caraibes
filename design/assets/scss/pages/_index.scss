@@ -17,6 +17,10 @@ body[data-serve="index"]{
 			top: 0;
 			left: 0;
 
+			&:not(:first-of-type){
+				display: none;
+			}
+
 			*{
 				max-height: 100%;
 				object-fit: cover;
@@ -34,6 +38,18 @@ body[data-serve="index"]{
 				height: 100vh;
 				z-index: 3;
 				background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+			}
+		}
+
+		@supports selector(:has(*)){
+
+			&:has(.only) {
+				picture:first-of-type:not(.only){
+					display: none;
+				}
+				picture.only{
+					display: inline-block;
+				}
 			}
 		}
 

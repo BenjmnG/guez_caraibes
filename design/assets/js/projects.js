@@ -404,7 +404,7 @@ const project_map = () => ({
 
   getCoord: (el) => {
 
-    if(typeof el == 'string'){
+    if(el && typeof el == 'string'){
       let id  = document.getElementById(el)
       let x = id.getAttribute('data-x')
       let y = id.getAttribute('data-y')

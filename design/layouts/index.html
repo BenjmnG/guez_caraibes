@@ -2,23 +2,25 @@
 
 {% block main %}
 	
-		{% image 
-			cover.src, 
-			cover.alt, 
-			[600, 900, 1200, 1920, 3840], 
-			"	(max-width: 600px) 600w,
-				(max-width: 900px) 900w,
-				(max-width: 1200px) 1200w,
-				(max-width: 1920px) 1920w,
-				(min-width: 1921px) 3840w"
-		 %}
+		{%- for img in cover -%}
+			{% image 
+				img.src, 
+				img.alt, 
+				[600, 900, 1200, 1920, 3840], 
+				"	(max-width: 600px) 600w,
+					(max-width: 900px) 900w,
+					(max-width: 1200px) 1200w,
+					(max-width: 1920px) 1920w,
+					(min-width: 1921px) 3840w"
+			 %}
+		{%- endfor -%}
 
 	<div class="header">
 
 		 <h1><span>{{ titre | replace (' ', '</span><span>') | safe}}</span></h1>
 
 		 <p class="description">
-		 		{{content | markdown | escaP | safe }}
+		 		{{ content | markdown | escaP | safe }}
 		 </p>
 
 		 <ul  class="localisation"
@@ -31,4 +33,6 @@
 	</div>
 {% endblock %}
 
-{% block script %}{% endblock %}
+{% block script %}
+	<script type="text/javascript">setup().index()</script>
+{% endblock %}
