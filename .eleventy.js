@@ -105,6 +105,7 @@ module.exports = config => {
 
   config.addCollection("equipes", function(collection) {
       let équipes = collection.getFilteredByGlob("contenu/equipes/*.md")
+      console.log(équipes)
       return équipes;
   });
 

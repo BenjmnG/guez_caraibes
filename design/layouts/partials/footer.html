@@ -33,7 +33,7 @@
 			{%- for equipe in collections.equipes -%}
         <li >
           <h2 aria-label="Localisation">
-          	{{ equipe.data.nom }}
+          	{{ equipe.data.nom }} {% if equipe.data.siège %}<i>(siège)</i>{% endif %}
           </h2>
           <ul aria-label="Contact de l'agence {{ equipe.data.nom }}">
           {% set mail = equipe.data.adresse.mail | reverse %}
@@ -74,7 +74,8 @@
 			aria-label="Mentions légales et crédits">
 		<li>{{ site.currentYear() }} — {{website.name}}</li>
 		<li><a href="/mentions_legales">Mentions légales</a></li>
-		<li>Design & Code: <a href="https://bnjm.eu" target="_blank">bnjm.eu</a></li>
+		<li>Photo&thinsp;: {{ website.colophon.photo }} </li>
+		<li>Design & Code&thinsp;: <a href="https://bnjm.eu" target="_blank">bnjm.eu</a></li>
 	</ul>
 
 </footer>
