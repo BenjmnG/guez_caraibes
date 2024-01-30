@@ -373,6 +373,20 @@ main[data-type="projets"]{
 			padding: $base 0 0 $u; 
 			transition: padding $t ease-in-out;
 			justify-self: start;
+
+			&:before{
+				content: "";
+				position: absolute;
+				top: .4em;
+    		left: .25em;
+				width: 100%;
+				height: $baseline;
+				background: rgb(207, 236, 251);;
+				border-radius: 1em;
+				filter: blur(.2em);
+				z-index: -1;
+
+			}
 		}
 
 		#filter{
