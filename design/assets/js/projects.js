@@ -25,7 +25,7 @@ let _map = {
   maxR:         80,
   avgR:         4,
   focusR:       20,
-  hard_focusR:  50,
+  hard_focusR:  30,
   ratio:        4,
   focusOn:      null,
   active_island: []
@@ -203,6 +203,7 @@ const project_list = () => ({
       })
     },
 
+    // Watch localisation filter
     watchSubCategorie_lo: () => {
       // This check number of selected island  and focus on selected one if single
       items_lo.forEach( item_lo => {
@@ -210,6 +211,7 @@ const project_list = () => ({
           
           _map.active_island = []
 
+          // Update active island with all item checked
           items_lo.forEach( item => {
             if(item.checked == true){
               _map.active_island.push(item.value)
@@ -217,12 +219,14 @@ const project_list = () => ({
           })
 
           if(_map.active_island.length == 1){
+            // If just one island checked
             _map.ratio = _map.focusR
             project_map().setTransform()
             let coord = project_map().getCoord(`l-${_map.active_island[0]}`)
             project_map().focusOnPoint(coord[0], coord[1])
             _map.focusOn = coord;
           } else {
+            // Else just get map medium point 
             _map.ratio = _map.avgR
             project_map().setTransform()
             project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
@@ -243,44 +247,59 @@ const project_list = () => ({
     watchProjectListInteractions: () => {
 
       // This set abilities to focus map on project implentation based on lat/long coord
-      document.querySelectorAll('.list.projets [data-map-point]').forEach(el => {
+      let projets_el = document.querySelector('.list.projets')
+
+      // Using event delegation
+      projets_el.addEventListener("click", el => {
+
+        // Return if void click
+        if(el.target.matches('.list.projets')){return}
+
+        // Get closest card
+        el = el.target.closest('[data-map-point]')
+
         let id_to_target     = el.getAttribute('data-map-point')
         let island_to_target = el.getAttribute('data-island')
-        let el_target = _map.section.el.querySelector(`#${id_to_target}`)
-        let couldCompact = el_target.parentNode.classList.contains('parent')
+        let landing_point = _map.section.el.querySelector(`#${id_to_target}`)
+        let couldCompact = landing_point.parentNode.classList.contains('parent')
 
-        el.addEventListener("mouseenter", () => {
+        // tweak point overflow
+        project_map().downElOnDOM(landing_point)
 
-          // tweak point overflow
-          project_map().downElOnDOM(el_target)
+        /*if(_map.active_island.length != 1){
+          project_map().focusOnPoint(coord[0], coord[1])
+        }*/
+        
+        if(main.getAttribute('data-vue') == 'single'){return}
 
-          /*if(_map.active_island.length != 1){
-            project_map().focusOnPoint(coord[0], coord[1])
-          }*/
-          
-          if(main.getAttribute('data-vue') == 'single'){return}
+        if(couldCompact){  
+          // If landing point is shared with many project
+          _map.ratio = _map.hard_focusR + 1
+          coord = project_map().getCoord(id_to_target)
+        } else {
+          // If landing point is cleared around
+          _map.ratio = _map.focusR + 1
 
-          if(couldCompact){            
-            _map.ratio = _map.hard_focusR + 1
-            coord = project_map().getCoord(id_to_target)
-          } else {
-            _map.ratio = _map.focusR + 1
-            coord = project_map().getCoord(`l-${_map.active_island[0]}`)
+          // if no island to focus
+          if(!_map.active_island[0]){
+            _map.active_island.push(island_to_target)
           }
 
-          project_map().validMinR()
-          project_map().setClassbyScale()
-         
-          project_map().focusOnPoint(coord[0], coord[1])
-          _map.focusOn = coord;
+          coord = project_map().getCoord(_map.active_island[0])
+        }
 
-          el_target.classList.add('focus');
+        project_map().validMinR()
+        project_map().setClassbyScale()
+       
+        project_map().focusOnPoint(coord[0], coord[1])
+        _map.focusOn = coord;
 
-          el.addEventListener("mouseleave", () => {
-            el_target.classList.remove('focus');
-          })
+        landing_point.classList.add('focus');
 
-        })
+        /*el.addEventListener("mouseleave", () => {
+          landing_point.classList.remove('focus');
+        })*/
+
       })
 
       document.querySelector('.list.projets').addEventListener('mouseleave', () => {
@@ -405,6 +424,7 @@ const project_map = () => ({
   getCoord: (el) => {
 
     if(el && typeof el == 'string'){
+      console.log(el)
       let id  = document.getElementById(el)
       let x = id.getAttribute('data-x')
       let y = id.getAttribute('data-y')
