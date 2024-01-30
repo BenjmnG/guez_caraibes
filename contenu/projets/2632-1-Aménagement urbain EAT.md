@@ -7,7 +7,7 @@ typologie: Aménagement Urbain
 type_de_travaux: Construction neuve
 statut: Marché public
 phase: Phase AVP
-mission: MOE
+mission: BET VRD
 montants_de_travaux_en_€HT: 14515000
 surface_en_m² : 9 ha
 coordonnées: 14.534699, -61.036890
@@ -17,9 +17,9 @@ calendrier:
   fin: 2030-06-01
 
 cover:
-  src: /_media/sample.jpg
+  src: 2632-1.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
-  temporary: false
+  temporary: true
   
 visible: true
 ---

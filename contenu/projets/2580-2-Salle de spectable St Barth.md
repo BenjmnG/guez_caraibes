@@ -17,7 +17,7 @@ calendrier:
   fin: 2028-02-01
 
 cover:
-  src: /_media/sample.jpg
+  src: 2580-2.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: false
 

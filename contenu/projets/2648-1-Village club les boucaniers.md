@@ -1,5 +1,5 @@
 ---
-titre: Village club "Les Boucaniers"
+titre: Club MED "Les Boucaniers"
 ile: Martinique
 ville: Sainte-Anne
 maître_ouvrage: Club Méditerranée SA
@@ -17,7 +17,7 @@ calendrier:
   fin: 2024-06-01
 
 cover:
-  src: /_media/sample.jpg
+  src: 2648-1.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: false
   

@@ -1,5 +1,5 @@
 ---
-titre: Collège Numérique "900"
+titre: Collège Numérique 900
 ile: Saint-Martin
 ville: La Savane
 maître_ouvrage: Collectivité de Saint-Martin
@@ -17,7 +17,7 @@ calendrier:
   fin: 2026-03-01
 
 cover:
-  src: /_media/sample.jpg
+  src: 2490-2.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: false
 

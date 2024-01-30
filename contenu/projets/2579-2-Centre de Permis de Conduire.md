@@ -19,7 +19,7 @@ calendrier:
 cover:
   src: /_media/sample.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
-  temporary: false
+  temporary: true
   
 visible: true
 ---
