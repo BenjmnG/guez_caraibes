@@ -1,8 +1,8 @@
 ---
 titre: Parking souterrain et Salle de spectacle
-ile: Saint-Barthélémy
+ile: Saint-Barthélemy
 ville: Gustavia
-maître_ouvrage: Collectivité de Saint-Barthélémy
+maître_ouvrage: Collectivité de Saint-Barthélemy
 typologie: Culture, Sport et Loisirs
 type_de_travaux: Construction neuve
 statut: Marché public

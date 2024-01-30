@@ -789,6 +789,5 @@
 
 		{% include "partials/map/text.svg" %}
 
-		<!--<circle id="cursor" cx="296" cy="296" r="1" style="fill: red !important"/>-->
 	</g>
 </svg>
