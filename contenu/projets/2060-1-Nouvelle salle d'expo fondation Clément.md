@@ -9,7 +9,7 @@ statut: Marché privé
 phase: Livré
 mission: MOE, BET VRD, OPC, CSPS, AMO, BET Fluides
 montants_de_travaux_en_€HT: 5000000
-surface_en_m² : 1 250
+surface_en_m² : 1250
 coordonnées: 14.602666, -60.906907
 
 calendrier:
