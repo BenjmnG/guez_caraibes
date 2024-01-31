@@ -125,10 +125,10 @@ main[data-type="projets"]{
 				border-bottom: 1px solid currentColor;
 
 				&.temporary{
-					background: $c4a;
+					background: var(--cR);
 					picture{
-						filter: grayscale(1) contrast(2);
-						mix-blend-mode: overlay;
+						filter: grayscale(1);
+						mix-blend-mode: screen;
 					}
 
 					picture + figure{
@@ -165,10 +165,10 @@ main[data-type="projets"]{
 				}
 			}
 
-			&:nth-of-type(4n-1) .cover{
+			&:nth-of-type(4n-1) .cover:not(.temporary){
 				background: $c2a;
 			}
-			&:nth-of-type(4n-2) .cover{
+			&:nth-of-type(4n-2) .cover:not(.temporary){
 				background: $c4a;
 			}
 
@@ -505,7 +505,7 @@ main[data-type="projets"]{
 
 
 			h1{
-				@include f1(3, 0, $bold);
+				@include f1(2, -2, $bold);
 				margin-bottom: $base*4
 			}
 
@@ -559,9 +559,7 @@ main[data-type="projets"]{
 		&[data-vue="single"]{
 			#filter, ul.list.projets{width: calc((100% - #{$u*3}) / 4 * 3)}
 		}
-	}
 
-	@include for-size(desktop){
 		#filter, ul.list.projets{grid-column: 3 / span 4;}
 		#map{grid-column: 1 / span 4;}
 	}
@@ -574,8 +572,14 @@ main[data-type="projets"]{
 			#filter, ul.list.projets{width: calc((100% - #{$u*2}) / 3 * 2)}
 		}
 	}
-
 	@include for-size(desktop-1800){
+		ul.list.projets{
+			h1{
+				@include f1(3, -2, $bold);
+				margin-bottom: $base*6
+			}
+		}
+
 	}
 	
 	@mixin deployFilter(){
@@ -587,7 +591,7 @@ main[data-type="projets"]{
 		} 
 	}
 	
-	@include for-size(desktop){
+
 		@media (min-height: 800px){
 			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter,
 			&.init:not([data-vue="single"]) #filter{
@@ -606,7 +610,6 @@ main[data-type="projets"]{
 			}
 		}
 
-	}
 
 	@media (max-height: 800px) and (min-width: 900px) and (max-width: 1400px){
 		#filter, ul.list.projets{grid-column: 4/span 3;}
