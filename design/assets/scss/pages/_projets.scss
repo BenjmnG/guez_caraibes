@@ -127,7 +127,7 @@ main[data-type="projets"]{
 				&.temporary{
 					background: $c4a;
 					picture{
-						filter: grayscale(1);
+						filter: grayscale(1) contrast(2);
 						mix-blend-mode: overlay;
 					}
 
@@ -472,6 +472,7 @@ main[data-type="projets"]{
 
 			.map_container{
 				width: calc(100vw - #{$u*3} - 2px);
+				width: calc(100vw - #{$u*2});
 			}
 		}
 
@@ -547,10 +548,12 @@ main[data-type="projets"]{
 		}
 
 
-
-
 		&[data-vue="single"] ul.list.projets [data-active="true"]{
 			display: block;
+		}
+
+		&[data-vue="single"] ul.list.projets:empty:before{
+			content: "";
 		}
 
 		&[data-vue="single"]{
