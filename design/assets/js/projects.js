@@ -28,14 +28,19 @@ let _map = {
   hard_focusR:  8,
   ratio:        4,
   focusOn:      null,
-  active_island: []
+  active_island: [],
+
+  active_categories: {
+    ty: [],
+    sf: [],
+    lo: []
+  }
 }
 
 /**
  * The `project_list` object contains methods for managing the list of projects.
  */
 const project_list = () => ({
-
 
   removeInit: () => {
     if(main.classList.contains('init')){
@@ -54,7 +59,6 @@ const project_list = () => ({
     }
   },
 
-
   /**
    * Checks the URI parameters for users comming from the Savoir-faire page, 
    * if it exists, selects the corresponding checkbox in the filters section.
@@ -69,23 +73,29 @@ const project_list = () => ({
     }
   },
 
-
   /**
    * Updates UI selected filter value
    * @param  {string} categorie Categorie name to update
    */
-  updateOpenersValues: (categorie) => {
+  trackOpeners: (categorie) => {
 
     let similarInputs = document.querySelectorAll(`[name="${categorie}"]:checked`),
-        checkedValues = []
+        checkedValues = [],
+        checkedId = []
 
     similarInputs.forEach(i => {
       checkedValues.push(i.getAttribute("value"))
+      checkedId.push(i.getAttribute("id").slice(5))
     })
 
-    document.querySelector(`label[for="filter_by_${categorie.substring(2)}"] .value`).innerHTML = checkedValues.join(', ')
-  },
 
+    // Update Interface Recall
+    document.querySelector(`label[for="filter_by_${categorie.substring(2)}"] .value`).innerHTML = checkedValues.join(', ')
+
+    // update map object
+    _map.active_categories[categorie.substring(2)] = checkedId
+    //console.log(_map.active_categories)
+  },
 
   /**
    * Manage project filter behavior. 
@@ -179,7 +189,7 @@ const project_list = () => ({
 
         // Update value on opener when possible start checked items
         let categorie = 'f-' + opener.id.slice(-2)
-        project_list().updateOpenersValues(categorie)
+        project_list().trackOpeners(categorie)
       })
 
     },
@@ -189,8 +199,9 @@ const project_list = () => ({
       items.forEach( item => {
         item.addEventListener('change', evt => {
           let categorie = (evt.target).getAttribute('name')
-          project_list().updateOpenersValues(categorie)
+          project_list().trackOpeners(categorie)
           project_list().checkIfListIsEmpty()
+          project_map().colorRelativePoints().update()
         })
         item.addEventListener('change', e => {
           if(main.classList.contains('init')){
@@ -285,7 +296,7 @@ const project_list = () => ({
             _map.active_island.push(island_to_target)
           }
 
-          coord = project_map().getCoord(_map.active_island[0])
+          coord = project_map().getCoord("l-"+_map.active_island[0])
         }
 
         project_map().validMinR()
@@ -310,9 +321,6 @@ const project_list = () => ({
           project_map().setTransform()
           let coord = project_map().getCoord('l-Guadeloupe')
           project_map().focusOnPoint(coord[0], coord[1])
-
-          let focusedPoint = document.querySelectorAll('.pt.focus')
-          if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )}
 
         }
       })
@@ -342,8 +350,7 @@ const project_list = () => ({
           project_map().setTransform()
           project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
 
-          let focusedPoint = document.querySelectorAll('.pt.focus')
-          if(focusedPoint){ focusedPoint.forEach(f => f.classList.remove('focus') )}
+          project_map().colorRelativePoints().update()
 
       })
     }
@@ -360,6 +367,7 @@ const project_list = () => ({
     project_list().events().watchCloseAllFiltersInteraction()
     project_list().events().disableSingleMode()
   }
+
 })
 
 const project_map = () => ({
@@ -476,6 +484,69 @@ const project_map = () => ({
     container.appendChild(el);
   },
 
+
+  colorRelativePoints: () => {
+
+    return {
+
+      addClass: (el) => {
+        el.classList.add('focus')
+        project_map().colorRelativePoints().bringPointToFront(el)
+      },
+
+      removeClass: (el) => {
+        el.classList.remove('focus')
+      },
+
+      bringPointToFront: (el) => {
+        const parent = el.parentNode
+        parent.appendChild(el)
+        if(parent.tagName == 'g'){
+          const metaParent =  parent.parentNode
+          metaParent.appendChild(parent)
+        }
+      },
+
+      reset: () => {
+        // Reset Active class on points
+        let actives = document.querySelectorAll('#map .pt.focus')
+        if(actives.length > 0){
+          actives.forEach( el => { 
+            project_map().colorRelativePoints().removeClass(el)
+          })
+        }
+      },
+
+      update: () => {
+        
+        // reset
+        project_map().colorRelativePoints().reset()
+        
+        // Compose our perfect selector
+        let selector = ""
+
+        Object.keys(_map.active_categories).forEach((key) => {
+          _map.active_categories[key].forEach((value) => {
+            selector += `[data-${key}*="${value},"]`;
+          });
+        });
+
+        // Add Active class when needed
+        if(selector.length > 0){
+          let toActivate = document.querySelectorAll("#map .pt" + selector)
+          console.log("#map circle" + selector)
+          if(toActivate.length > 0){
+            toActivate.forEach( el => { 
+              project_map().colorRelativePoints().addClass(el)
+            })
+          }
+        }
+
+      }
+    }
+
+  },
+
   events: () => {
 
     //  Drag & Zoom based on https://codepen.io/stack-getover/pen/VwPgQQr
@@ -558,9 +629,12 @@ const project_map = () => ({
             
             // Is this project already in Single Mode. 
             if(alreadyActive && alreadyActive.getAttribute('data-map-point') == el.id){
+              
               // Time to shut it down
               project_map().setVueMode(false, el.id)
-              el.classList.remove('focus')
+              
+              // Reset colors point based on selected Categories
+              project_map().colorRelativePoints().update()
 
               // Zoom out
               _map.ratio /= 4
@@ -581,14 +655,9 @@ const project_map = () => ({
                 _map.ratio = _map.hard_focusR + 1
 
               } else {
-
-                el.classList.add('focus');
-
-
+                
                 if(alreadyActive) {
                   // A project is already open and there is a new project to see
-                  let focusedPoint = document.querySelector('.pt.focus')
-                  if(focusedPoint){ focusedPoint.classList.remove('focus') }  
 
                   alreadyActive.setAttribute('data-active', false)
                   project_map().setVueMode(true, el.id)
@@ -603,6 +672,10 @@ const project_map = () => ({
                   project_map().getPerfectRatio()
                   _map.ratio = _map.focusR
                 }
+
+                // update color point
+                project_map().colorRelativePoints().reset()
+                project_map().colorRelativePoints().addClass(el)
               } 
             }
 
@@ -611,17 +684,6 @@ const project_map = () => ({
             project_map().validMinR()
             project_map().setClassbyScale()
             project_map().setTransform()
-          })
-
-
-          // Fix hover inconsistancy
-          el.addEventListener("mouseenter", () => {
-            project_map().downElOnDOM(el)
-            el.classList.add('focus')
-          })
-
-          el.addEventListener("mouseleave", () => {
-            el.classList.remove('focus')
           })
 
         })

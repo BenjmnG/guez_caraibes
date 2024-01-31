@@ -27,7 +27,7 @@ svg#main_map{
 								stroke-width .5s ease;
 
 
-		&:hover, &.focus{
+		&:hover, &.focus, &.active{
 			fill: $c2;
 		}
 	}

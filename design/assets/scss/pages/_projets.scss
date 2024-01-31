@@ -552,7 +552,7 @@ main[data-type="projets"]{
 			display: block;
 		}
 
-		&[data-vue="single"] ul.list.projets:empty:before{
+		&[data-vue="single"] ul.list.projets.empty::before{
 			content: "";
 		}
 

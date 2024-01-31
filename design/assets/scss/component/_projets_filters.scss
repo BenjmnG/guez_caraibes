@@ -1,5 +1,9 @@
-/* */
-/* Project Filter*/
+//
+//Project Filter
+//
+
+// Filter are CSS driven for essential interaction
+// Map color update, a complementary feature, is JS powered
 
 input#filter_by_typo:not(:checked) ~ input[name="f-ty"]:checked ~ #filter > ul > li:nth-of-type(1) > label .value:empty,
 input#filter_by_sf:not(:checked) ~ input[name="f-sf"]:checked ~ #filter > ul > li:nth-of-type(2) > label .value:empty,
@@ -98,80 +102,6 @@ input#filter_by_local:not(:checked) ~ input[name="f-lo"]:checked ~ #filter > ul 
 		@for $k from 1 through $lo_len {
 			[id="f-ty_#{$i}"]:checked ~ [id="f-sf_#{$j}"]:checked ~ [id="f-lo_#{$j}"]:checked ~ ul [data-ty*="#{$i},"][data-sf*="#{$j},"][data-lo*="#{$k},"]{
 				display: block;
-			}
-		}
-	}
-}
-
-
-///
-///
-///
-/// One way
-
-#map [data-lo]{ display: none; }
-
-@for $i from 1 through $ty_len {
-	#f-ty_#{$i}:checked ~ #map [data-ty*="#{$i},"]{
-		fill: var(--cR)
-	}
-}
-@for $i from 1 through $sf_len {
-	#f-sf_#{$i}:checked ~ #map [data-sf*="#{$i},"]{
-		fill: var(--cR)
-	}
-}
-@for $i from 1 through $lo_len {
-	#f-lo_#{$i}:checked ~ #map  [data-lo*="#{$i},"]{
-		fill: var(--cR)
-	}
-}
-
-//
-// Two way
-// 
-
-[id^="f-ty"]:checked ~ [id^="f-sf"]:checked ~ #map [data-lo],
-[id^="f-ty"]:checked ~ [id^="f-lo"]:checked ~ #map [data-lo],
-[id^="f-sf"]:checked ~ [id^="f-lo"]:checked ~ #map [data-lo]{
-	fill: var(--cB)
-}
-
-@for $i from 1 through $ty_len {
-	@for $j from 1 through $sf_len {
-		#f-ty_#{$i}:checked ~ #f-sf_#{$i}:checked ~ #map [data-ty*="#{$i},"][data-sf*="#{$i},"]{
-				fill: var(--cR)
-		}
-	}
-}
-
-@for $i from 1 through $ty_len {
-	@for $j from 1 through $lo_len {
-		#f-ty_#{$i}:checked ~ #f-lo_#{$i}:checked ~ #map [data-ty*="#{$i},"][data-lo*="#{$i},"]{
-				fill: var(--cR)
-		}
-	}
-}
-
-@for $i from 1 through $sf_len {
-	@for $j from 1 through $lo_len {
-		#f-sf#{$i}:checked ~ #f-lo_#{$i}:checked ~ #map [data-sf*="#{$i},"][data-lo*="#{$i},"]{
-				fill: var(--cR)
-		}
-	}
-}
-
-/* */
-/* Three way filter */
-[id^="f-ty"]:checked ~ [id^="f-sf"]:checked ~ [id^="f-lo"]:checked ~ map [data-ty]{
-	fill: var(--cB)
-}
-
-@for $i from 1 through $ty_len {
-	@for $j from 1 through $sf_len {
-		@for $k from 1 through $lo_len {
-			[id="f-ty_#{$i}"]:checked ~ [id="f-sf_#{$j}"]:checked ~ [id="f-lo_#{$j}"]:checked ~ #map [data-ty*="#{$i},"][data-sf*="#{$j},"][data-lo*="#{$k},"]{
-				fill: var(--cR)
 			}
 		}
 	}
