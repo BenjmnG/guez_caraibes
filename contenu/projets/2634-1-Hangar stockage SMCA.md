@@ -9,7 +9,7 @@ statut: Marché public
 phase: Phase DET
 mission: AMO
 montants_de_travaux_en_€HT: 2055000
-surface_en_m² : 1200 m²
+surface_en_m² : 1200
 coordonnées: 14.632069, -61.030665
 
 calendrier:
