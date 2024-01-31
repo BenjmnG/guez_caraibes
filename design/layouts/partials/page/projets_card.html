@@ -16,10 +16,12 @@
       >
 
       <div class="cover {% if projet.data.cover.temporary %}temporary{% endif %}">
-        {% if projet.data.cover.src %}
+        {% if (projet.data.cover.src | length) > 0%}
+          {% set src = ["_media/", projet.data.cover.src ] | join %}
           {% set alt = projet.data.cover.alt | default("Photographie du batiment") %}
+
           {% image 
-            projet.data.cover.src,
+            src,
             alt,
             [900, 1400], 
              "(max-width: 900px) 900w,

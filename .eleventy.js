@@ -22,12 +22,15 @@ function isDateNotPast(date){
 }
 
 function simpleDate(date){
+  if(!date){return}
   date = new Date(date); 
   let d_fr = new Intl.DateTimeFormat("fr", { month: 'long', year: 'numeric' }).format(date); 
   return d_fr 
 }
 
 function parseDate(data){
+  
+  if(!data){return}
 
   let start_date, end_date, month_count
 
@@ -73,7 +76,7 @@ module.exports = config => {
   config.addFilter("parseDate", data => parseDate(data));
   config.addFilter("setAttribute", (dictionary, key, value) => {dictionary[key] = value; return dictionary;});
   config.addFilter("appendToArray", (dictionary, object) => { dictionary.push(object); return dictionary });
-  config.addFilter("isIncludes", (a, b) => { return a.includes(b) });
+  config.addFilter("isIncludes", (a, b) => { if(a && b){ return a.includes(b) } });
   config.addDataExtension("yaml", contents => yaml.load(contents));
   
   config.setLibrary("md", markdownLibrary);

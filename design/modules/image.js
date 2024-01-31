@@ -17,8 +17,13 @@ function imageShortcode(src, alt = "", widths, sizes) {
     }
   }
 
-  Image(src, options);
-  let metadata = Image.statsSync(src, options);
+  try{
+    Image(src, options);
+    let metadata = Image.statsSync(src, options);
+  } catch (err) {
+    console.error("\u001b[33m❌❌ Il manque l'image " + src + " ❌❌\u001b[0m");
+    return "";
+  }
 
   let imageAttributes = {
     alt,
