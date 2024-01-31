@@ -10,14 +10,14 @@ phase: Livré
 mission: MOE
 montants_de_travaux_en_€HT: 7000000
 surface_en_m² : 6125
-coordonnées: 16.003789, -61.729492
+coordonnées: 16.003081, -61.729837
 
 calendrier:
   durée_en_mois: 27
   fin: 2023-05-01
 
 cover:
-  src: /_media/sample.jpg
+  src: 2230-2.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: false
   

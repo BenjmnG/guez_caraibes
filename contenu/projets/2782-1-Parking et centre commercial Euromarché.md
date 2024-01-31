@@ -7,7 +7,7 @@ typologie: Centres commerciaux et commerces
 type_de_travaux: Extension
 statut: Marché privé
 phase: Phase DET
-mission: OPC et CSPS
+mission: OPC,CSPS
 montants_de_travaux_en_€HT: 23000000
 surface_en_m² : 12000
 coordonnées: 14.685506, -60.939139
@@ -17,7 +17,7 @@ calendrier:
   fin: 2024-03-01
 
 cover:
-  src: /_media/sample.jpg
+  src: 2781-1.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: false
   

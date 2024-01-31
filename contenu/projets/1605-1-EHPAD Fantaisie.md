@@ -17,7 +17,7 @@ calendrier:
   fin: 2024-05-01
 
 cover:
-  src: /_media/sample.jpg
+  src: 1605-1.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: false
   
