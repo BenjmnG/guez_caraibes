@@ -9,7 +9,7 @@ statut: Marché public
 phase: Phase AVP
 mission: BET VRD
 montants_de_travaux_en_€HT: 14515000
-surface_en_m² : 9 ha
+surface_en_m² : 9000
 coordonnées: 14.534699, -61.036890
 
 calendrier:

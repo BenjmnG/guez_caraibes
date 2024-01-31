@@ -9,7 +9,7 @@ statut: Marché privé
 phase: Livré
 mission: MOE
 montants_de_travaux_en_€HT: 31260000
-surface_en_m² : 21 ha
+surface_en_m² : 21000
 coordonnées: 16.218837, -61.395435
 
 calendrier:
