@@ -21,9 +21,6 @@ svg#main_map{
 	.pt{
 		cursor: pointer;
 		display: inline-block;
-		fill: none;
-		stroke-width: 1px;
-		stroke: var(--cB);
 		fill: currentColor;
 		z-index: 1;
 		transition: all .25s ease,
@@ -31,14 +28,10 @@ svg#main_map{
 
 
 		&:hover, &.focus{
-			stroke: var(--cR);
-			fill: transparent;
+			fill: $c2;
 		}
 	}
-
-	[id^='gp-'] .pt:last-of-type{
-	}
-
+ 
 	// Point style based on scale
 	&:not(.scale-B):not(.scale-C) [id^='gp-'] .pt:not(:last-of-type){
 		display: none;
@@ -50,34 +43,27 @@ svg#main_map{
 
 	&.scale-B{
 		.pt{
-			r: .25px;
-			stroke-width: .5px;
+			r: 1px;
 		}
 
 		[id^='gp-'] .pt:not(:last-of-type){
 			r: calc(.25px * ( var(--r)/40 - .5 ) );
-			stroke-width: calc(.5px * ( var(--r)/40 - .5 ) );
 		}
 		[id^='gp-'] .pt:last-of-type{
 			r: 1px;
-			stroke-width: .1px;
-			fill: $c2a;
+			//fill: $c2a;
 
-			&:hover, &.focus{
+			/* &:hover, &.focus{
 				stroke: var(--cR);
 				fill: $c4a;
-			}
+			} */
 		}
 	} 
 	&.scale-C{
 
 		.pt{
-			r: .125px;
-			stroke-width: .25px;
-		}
-
-		[id^='gp-']{
-
+			r: 1px;
+			stroke-width: 0;
 		}
 	} 
 

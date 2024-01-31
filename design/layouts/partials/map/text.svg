@@ -28,6 +28,9 @@
     {% set item = 
       { 
         id: 'pt-' + projet.data.titre | getId, 
+        ty: projet.data.typologie, 
+        sf: projet.data.mission, 
+        lo: projet.data.ile, 
         coord: [y, x]
       }
     %}
@@ -126,13 +129,16 @@
   {%- for item in projet.items -%}
 
 
-    {% set r = 0.5 %}
+    {% set r = 1 %}
     <circle id="{{item.id}}" 
             class="pt" 
             cx="{{ item.coord[1] }}" 
             cy="{{ item.coord[0] }}" 
-            data-x="{{ item.coord[1] }}" 
+            data-x="{{ item.coord[1] }}"
             data-y="{{ item.coord[0] }}" 
+            data-ty=" {%- for t in typologies -%}{% if item.ty == t %}{{loop.index}},{% endif %}{% endfor %}"
+            data-sf="{%- for sf in collections.savoirFaire -%}{% if item.sf | isIncludes(sf.data.nom) %}{{ loop.index }},{% endif %}{% endfor %}"
+            data-lo="{%- for t in collections.localisations -%}{% if item.lo == t.data.nom %}{{loop.index}},{% endif %}{% endfor %}"
             r="{{ r }}"
             transform-origin="50% 50%"
           />

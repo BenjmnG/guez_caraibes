@@ -22,10 +22,10 @@ let _map = {
   tX:           0,
   tY:           0,
   minR:         4,
-  maxR:         80,
+  maxR:         12,
   avgR:         4,
-  focusR:       20,
-  hard_focusR:  30,
+  focusR:       6,
+  hard_focusR:  8,
   ratio:        4,
   focusOn:      null,
   active_island: []
@@ -274,11 +274,11 @@ const project_list = () => ({
 
         if(couldCompact){  
           // If landing point is shared with many project
-          _map.ratio = _map.hard_focusR + 1
+          _map.ratio = _map.hard_focusR
           coord = project_map().getCoord(id_to_target)
         } else {
           // If landing point is cleared around
-          _map.ratio = _map.focusR + 1
+          _map.ratio = _map.focusR
 
           // if no island to focus
           if(!_map.active_island[0]){
@@ -332,7 +332,6 @@ const project_list = () => ({
       document.querySelector('#filter #closeProject').addEventListener("click", el => {
           let id = document.querySelector('[data-active="true"]').getAttribute('data-map-point')
           project_map().setVueMode(false, id)
-
 
           el.target.setAttribute('aria-hidden', true)
           

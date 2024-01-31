@@ -4,11 +4,11 @@
     aria-label="Liste des projets">
   {%- for projet in collections.projets | shuffle -%}
 
-    <li data-ty=" {%- for t in typologies -%}{% if projet.data.typologie == t %}{{loop.index}}{% endif %}{% endfor %}"
+    <li data-ty=" {%- for t in typologies -%}{% if projet.data.typologie == t %}{{loop.index}},{% endif %}{% endfor %}"
 
-        data-sf="   {%- for sf in collections.savoirFaire -%}{% if projet.data.mission == sf.data.nom %}{{ loop.index }}{% endif %}{% endfor %}"
+        data-sf="{%- for sf in collections.savoirFaire -%}{% if projet.data.mission | isIncludes(sf.data.nom) %}{{ loop.index }},{% endif %}{% endfor %}"
 
-        data-lo="{%- for t in collections.localisations -%}{% if projet.data.ile == t.data.nom %}{{loop.index}}{% endif %}{% endfor %}"
+        data-lo="{%- for t in collections.localisations -%}{% if projet.data.ile == t.data.nom %}{{loop.index}},{% endif %}{% endfor %}"
 
         data-map-point="pt-{{ projet.data.titre | getId }}"
 

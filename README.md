@@ -96,6 +96,7 @@ visible: true
 + Aéroportuaire et maritime
 + Institutions et services public
 
+Un seul choix possible.
 
 #### `type_de_travaux`
 
@@ -118,6 +119,16 @@ visible: true
 + CSPS
 + CSSI
 
+#### `ile`
+
+À choisir parmi les valeurs :
+
++ Martinique
++ Saint-Martin
++ Guadeloupe
++ Saint-Barthélemy
+
+Un seul choix possible.
 
 #### `surface_en_m²`
 
