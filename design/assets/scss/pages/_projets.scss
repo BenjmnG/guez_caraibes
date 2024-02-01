@@ -42,7 +42,7 @@ main[data-type="projets"]{
 	#filter{
 		background: var(--cW);
 		width: 100%;
-		z-index: 5;
+		z-index: 6;
 
 		label{
 			cursor: pointer;
@@ -222,6 +222,7 @@ main[data-type="projets"]{
 			bottom: -$baseline;
 			transition: padding $t ease-in-out;
 			border-top: 1px solid currentColor;
+			max-height: calc(100vh - #{$baseline*5});
 
 			&:before{
 				content: "";
@@ -277,6 +278,7 @@ main[data-type="projets"]{
 				cursor: pointer;
 				transition: transform .25s 0s ease-in-out;
 
+
 				&:before{
   				content: "\00d7";
   				content: "Fermer";
@@ -300,7 +302,8 @@ main[data-type="projets"]{
 			
 			#closeAllFilters{
 				transform: translateY(-100%) translateX(-50%);
-				transition-delay: .2s }
+				transition-delay: .2s 
+			}
 
 		}
 		
@@ -310,6 +313,7 @@ main[data-type="projets"]{
 			ul{
 				padding: $base*2 0;
 				max-height: 50vh;
+				overflow-y: auto;
 			}
 		}
 
@@ -329,7 +333,7 @@ main[data-type="projets"]{
 			}
 
 			h1{
-				@include f1(2, 0, $bold);
+				@include f1(2, -2, $bold);
 				margin-bottom: $base*2;
 			}
 
@@ -646,3 +650,10 @@ main[data-type="projets"]{
 
 }
 
+.noJS main[data-type="projets"] #filter {
+	// Avoid staking overflow if all filter deploy
+	overflow-x: hidden;
+	overflow-y: auto;
+	// This button is useless without JS
+	#closeAllFilters{display: none;}
+}

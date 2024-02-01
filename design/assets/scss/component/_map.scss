@@ -21,14 +21,15 @@ svg#main_map{
 	.pt{
 		cursor: pointer;
 		display: inline-block;
+		color: #{$cB}60;
 		fill: currentColor;
 		z-index: 1;
 		transition: all .25s ease,
-								stroke-width .5s ease;
+								fill .5s ease;
 
 
 		&:hover, &.focus, &.active{
-			fill: $c2;
+			fill: $c4a;
 		}
 	}
 
@@ -127,4 +128,10 @@ svg#main_map{
 		#M3000{ transition-delay: .2s; }
 
 	}
+}
+
+[data-vue="single"] svg#main_map  .pt{
+		&:hover, &.focus, &.active{
+			fill: #{$cR}60;
+		}
 }

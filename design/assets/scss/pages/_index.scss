@@ -71,8 +71,8 @@ body[data-serve="index"]{
 		}
 
 		.description{
-			max-width: calc(min(80vw, 25rem));
-			@include f1(1)
+			max-width: 24rem;
+			@include f1(1, -1)
 		}
 
 		@include for-size(phone){
@@ -90,18 +90,21 @@ body[data-serve="index"]{
 					padding-bottom: $base*4;
 				}
 
-				.description{
-					display: none;
-				}
 			}
 		}
 		@include for-size(desktop){
+
+			display: flex;
+		  justify-content: stretch;
+		  align-items: stretch;
+  
 			.header{
 				display: grid;
 			  //grid-template-columns: calc(max(25vw, 20rem)) 1fr;
 			  grid-template-columns: 1fr 5fr;
-			  grid-template-rows: calc(max(66vh, 40rem)) 1fr;
+			  grid-template-rows: 1fr 6rem;
 			  grid-gap: $baseline $unite;
+			  width: 100%;
 
 			  h1{
 			  	grid-row: 1 / 2;

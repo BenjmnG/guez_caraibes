@@ -19,8 +19,9 @@
 
 		 <h1><span>{{ titre | replace (' ', '</span><span>') | safe}}</span></h1>
 
-		 <p class="description">
-		 		{{ content | markdown | escaP | safe }}
+		 <p class="description"
+		 		aria-label="l'objet de notre entreprise">
+		 		{{ description | markdown | escaP | safe }}
 		 </p>
 
 		 <ul  class="localisation"

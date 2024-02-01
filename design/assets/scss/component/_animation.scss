@@ -3,6 +3,12 @@
 	to { transform: translate3d(0, 0, 0); opacity: 1}
 }
 
+@keyframes showTopText-rem {
+	from { transform: translate3d(0, 1rem, 0); opacity: 0;}
+	to { transform: translate3d(0, 0, 0); opacity: 1}
+}
+
+
 @keyframes clipText {
 	from {clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);}
 	to {clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);}
@@ -36,6 +42,12 @@
 					&:nth-of-type(2){animation-delay: .8s}
 					&:nth-of-type(3){animation-delay: .9s}
 				}
+			}
+
+			.description{
+				transform: translate3d(0, 1rem, 0); 
+				opacity: 0;
+				animation: showTopText-rem .75s .9s forwards;
 			}
 		}
 
