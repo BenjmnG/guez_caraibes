@@ -576,6 +576,7 @@ main[data-type="projets"]{
 			#filter, ul.list.projets{width: calc((100% - #{$u*2}) / 3 * 2)}
 		}
 	}
+
 	@include for-size(desktop-1800){
 		ul.list.projets{
 			h1{
@@ -595,8 +596,15 @@ main[data-type="projets"]{
 		} 
 	}
 	
+		// Dangerous to media query by height
+		// prefered pointer no fine
+		@media (max-width: 900px) {
+			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter:hover{
+				@include deployFilter();
+			}
+		}
 
-		@media (min-height: 800px){
+		@media (min-width: 900px){
 			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter,
 			&.init:not([data-vue="single"]) #filter{
 				@include deployFilter();
@@ -607,11 +615,6 @@ main[data-type="projets"]{
 				padding-top: $base*6; 
 			}
 
-		}
-		@media (max-height: 800px){
-			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter:hover{
-				@include deployFilter();
-			}
 		}
 
 

@@ -22,7 +22,7 @@ let _map = {
   tX:           0,
   tY:           0,
   minR:         4,
-  maxR:         12,
+  maxR:         8,
   avgR:         4,
   focusR:       6,
   hard_focusR:  8,
