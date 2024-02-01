@@ -5,8 +5,8 @@ ville: Marigot
 maître_ouvrage: EDF
 typologie: Institutions et services publics
 type_de_travaux: Construction neuve
-statut: Marché public
-phase: Phase AOR
+statut: Marché privé
+phase: Livré
 mission: MOE, OPC
 montants_de_travaux_en_€HT: 450000
 surface_en_m² : 140
