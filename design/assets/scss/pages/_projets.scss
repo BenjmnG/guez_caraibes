@@ -636,7 +636,7 @@ main[data-type="projets"]{
 					max-width: 75%;
 
 					h1{
-						@include f1(3,0, $bold);
+						@include f1(2,0, $bold);
 						margin: 0;
 					}
 				}

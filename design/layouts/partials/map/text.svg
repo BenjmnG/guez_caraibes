@@ -120,16 +120,16 @@
 1.81773,-50.32910
 --> 
 {%- for projet in projets -%}
+  
+  {% set r = 1 %}
 
   {% if projet.type == "parent" %}
-    <g class="parent" id="{{projet.id}}">  
+    <g class="parent" id="{{projet.id}}">
   {% endif %}
 
   
   {%- for item in projet.items -%}
 
-
-    {% set r = 1 %}
     <circle id="{{item.id}}" 
             class="pt" 
             cx="{{ item.coord[1] }}" 
@@ -145,7 +145,18 @@
 
   {%- endfor -%}
 
-  {% if projet.type == "parent" %}</g>{% endif %}
+  {% if projet.type == "parent" %}
+
+    <!--<rect class="g-pt"
+          x="{{projet.items[0].coord[1] - r}}" 
+          y="{{projet.items[0].coord[0] - r}}"
+          height="{{ r*2 }}" 
+          width="{{ r*2 }}" 
+          transform-origin="50% 50%"
+    />-->
+
+    </g>
+  {% endif %}
 
 {%- endfor -%}
 

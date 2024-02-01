@@ -31,11 +31,20 @@ svg#main_map{
 			fill: $c2;
 		}
 	}
- 
-	// Point style based on scale
-	&:not(.scale-B):not(.scale-C) [id^='gp-'] .pt:not(:last-of-type){
+
+	.g-pt{
 		display: none;
 	}
+ 
+	// Point style based on scale
+/* 	&:not(.scale-B):not(.scale-C) [id^='gp-']{
+		.pt{
+			display: none;
+		}
+		.g-pt{
+			display: block;
+		}
+	} */
 
 	&:not(.scale-C) [id^='gp-'] .pt:last-of-type{
 		//filter: brightness(1.5)
