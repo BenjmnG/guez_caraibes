@@ -9,8 +9,8 @@ statut: Marché public
 phase: Phase DET
 mission: OPC
 montants_de_travaux_en_€HT: 21000000
-surface_en_m² : 
-coordonnées: 
+surface_en_m² : 5900
+coordonnées: 16.250290, -61.586673
 
 calendrier:
   durée_en_mois:  22

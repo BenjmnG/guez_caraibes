@@ -6,7 +6,7 @@ maître_ouvrage: Ville du Gosier
 typologie: Culture, Sport et Loisirs
 type_de_travaux: Construction neuve
 statut: Marché public
-phase: Phase ACT
+phase: Phase DET
 mission: MOE
 montants_de_travaux_en_€HT: 3500000
 surface_en_m² : 1635
