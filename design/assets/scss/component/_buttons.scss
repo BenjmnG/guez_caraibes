@@ -1,34 +1,36 @@
-#topbar .pages li[id^="tb_"] > a ,
-[data-type="projets"] #filter label {
-	padding-left: 0;
-	transition: padding .25s 0s cubic-bezier(.68,-.55,.265,1.55);
+@include for-size(desktop){
+	#topbar .pages li[id^="tb_"] > a ,
+	[data-type="projets"] #filter label {
+		padding-left: 0;
+		transition: padding .25s 0s cubic-bezier(.68,-.55,.265,1.55);
 
-	&:before{
-		content: "";
-		position: absolute;
-		left: $u*.25;
-		top: 50%;
-		display: inline-block;
-		width: $u*.25;
-		height: $u*.25;
-		border-radius: 50%;
-		background-color: currentColor;
-		transform: translateY(-50%) translateX(0) scale(0);
-		opacity: 0;
-		transition: all .25s cubic-bezier(.68,-.55,.265,1.55);
+		&:before{
+			content: "";
+			position: absolute;
+			left: $u*.25;
+			top: 50%;
+			display: inline-block;
+			width: $u*.25;
+			height: $u*.25;
+			border-radius: 50%;
+			background-color: currentColor;
+			transform: translateY(-50%) translateX(0) scale(0);
+			opacity: 0;
+			transition: all .25s cubic-bezier(.68,-.55,.265,1.55);
+		}
 	}
-}
 
 
-#topbar .pages > ul:not(:hover) > li > a[aria-current="page"],
-#topbar .pages > ul:hover > li > a:hover,
-[data-type="projets"] #filter label:not([for^="filter_by"]):hover{
-	padding-left: $u*.75;
-	&:before{
-		transform:  translateY(-50%) 
-								translateX( calc( #{$u} * -1.5 * var(--sc) ))
-								scale(1);
-		opacity: 1;
+	#topbar .pages > ul:not(:hover) > li > a[aria-current="page"],
+	#topbar .pages > ul:hover > li > a:hover,
+	[data-type="projets"] #filter label:not([for^="filter_by"]):hover{
+		padding-left: $u*.75;
+		&:before{
+			transform:  translateY(-50%) 
+									translateX( calc( #{$u} * -1.5 * var(--sc) ))
+									scale(1);
+			opacity: 1;
+		}
 	}
 }
 
