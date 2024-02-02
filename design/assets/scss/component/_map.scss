@@ -11,7 +11,7 @@ svg#main_map{
 	transform: translateX(var(--tX)) translateY(var(--tY)) scale(var(--r))  ;
 	transition: transform .5s ease;//cubic-bezier(.46,.03,.52,.96);
 	transform-origin: top left;
-	will-change: transform;
+	//will-change: transform;
 
 	&:active{
 		cursor: grabbing;

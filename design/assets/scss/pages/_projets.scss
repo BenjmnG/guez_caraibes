@@ -476,7 +476,7 @@ main[data-type="projets"]{
 
 			.map_container{
 				width: calc(100vw - #{$u*3} - 2px);
-				width: calc(100vw - #{$u*2});
+				width: calc(100vw - #{$u*2.7});
 			}
 		}
 
@@ -596,14 +596,15 @@ main[data-type="projets"]{
 		} 
 	}
 	
-		// Dangerous to media query by height
-		// prefered pointer no fine
-		@media (max-width: 900px) {
+		/* 
+		// Think is useless
+		@media (pointer: fine) and (min-width: 900px) {
 			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter:hover{
 				@include deployFilter();
 			}
 		}
-
+ 		*/
+ 	
 		@media (min-width: 900px){
 			&:not([data-vue="single"]) input[name="open_filter"]:checked ~ #filter,
 			&.init:not([data-vue="single"]) #filter{
