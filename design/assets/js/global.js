@@ -55,6 +55,18 @@ function isDarkMode(){
   });
 }
 
+function addCombinedClickListener(element, callback, once = false) {
+  const options = once ? { once: true } : {};
+
+  element.addEventListener('click', el => callback(el), options);
+  element.addEventListener('focus', el => callback(el), options);
+  element.addEventListener('keydown', el => {
+    if (el.key === 'Enter') {
+      callback(el);
+    }
+  }, options);
+  element.addEventListener('touchstart', el => callback(el) , options); // Include touchstart for touch devices
+}
 
 //
 // On init
@@ -76,19 +88,6 @@ const setup = () => ({
 const event = () => ({
 
   all: () => {
-    /*menuMobile.addEventListener('change', evt => {
-      if(menuMobile.checked){
-        window.onscroll = function() {
-            window.scrollTo({
-              top: 0,
-              left: 0,
-              behavior: 'instant'
-            });
-        };
-      } else {
-        window.onscroll = function() {};
-      }
-    })*/
   },  
 
   index: () => {

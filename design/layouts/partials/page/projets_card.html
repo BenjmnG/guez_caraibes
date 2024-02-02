@@ -1,7 +1,8 @@
 <!-- List of projects -->
 <ul class="list projets" 
     aria-live="assertive"
-    aria-label="Liste des projets">
+    aria-label="Liste des projets"
+    >
   {%- for projet in collections.projets | shuffle -%}
 
     <li data-ty=" {%- for t in typologies -%}{% if projet.data.typologie == t %}{{loop.index}},{% endif %}{% endfor %}"
@@ -13,6 +14,8 @@
         data-map-point="pt-{{ projet.data.titre | getId }}"
 
         data-island="l-{{ projet.data.ile }}"
+
+        tabindex="0"
       >
 
       <div class="cover {% if projet.data.cover.temporary %}temporary{% endif %}">
@@ -23,8 +26,9 @@
           {% image 
             src,
             alt,
-            [900, 1400], 
-             "(max-width: 900px) 900w,
+            [500, 900, 1400], 
+             "(max-width: 500px) 500w,
+              (max-width: 900px) 900w,
               (min-width: 901px) 1400w"
            %}
         {% endif %}

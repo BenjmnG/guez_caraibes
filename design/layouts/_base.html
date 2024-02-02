@@ -56,7 +56,8 @@
     {% include "partials/topbar.html" %}
 
     <main 
-      data-type="{{ layout | afterSlash }}" 
+      data-type="{{ layout | afterSlash }}"
+      aria-labelledby="heading"
       aria-live="assertive"
       {% if layout  == 'projets' %}
         class="init"

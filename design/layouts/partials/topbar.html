@@ -1,7 +1,9 @@
-<nav id="topbar">
-	<input id="mobileMenu" 
+<nav id="topbar" aria-label="Barre de navigation principale">
+
+	<input id="mobileMenu"
+				 name="toggle mobile menu"
 				 type="checkbox"
-				 role="none"
+				 aria-label="Ouvrir/Fermer le menu Mobile"
 				 hidden>
 
 	<ul role="menubar">
@@ -9,7 +11,7 @@
 				class="home">
 			<a 	href="{{ site.url }}/"
 					title="Page d'accueil"
-					tabindex="-1"
+					tabindex="0"
 					{% if page.url == '/' %}aria-current="page"{% endif %}>
 				{% include "../../assets/svg/guez_logo+.svg" %}
 			</a>
@@ -24,7 +26,7 @@
 						aria-hidden="true">
 					<a 	href="{{ site.url }}/"
 							title="Page d'accueil"
-							tabindex="-1"
+							role="none"
 							aria-hidden="true"
 							{% if page.url == '/' %}aria-current="page"{% endif %}>
 							
@@ -87,8 +89,6 @@
 		</li>
 	</ul>
 
-	<label for="mobileMenu"
-			 role="none"
-			 aria-hidden="true">
-	</label>
+	<label for="mobileMenu">Ouvrir/Fermer le menu Mobile</label>
+
 </nav>

@@ -1,21 +1,22 @@
 <footer aria-label="Pied de page">
 
 	<svg viewBox="0 0 200 150">
+			<title>Emblème Guez Caraïbes</title>
 		  <use href="#_sign_B"></use>
 		  <use href="#_sign_A"></use>
 	</svg>
 
-	<h1 class="baseline">
-		<span>Bureau&nbsp;<br>d'ingénierie</span> 
-		<span>dans la</span> 
-		<span>Caraïbe</span>
+	<h1 class="baseline" role="presentation">
+		<span role="none">Bureau&nbsp;<br>d'ingénierie</span> 
+		<span role="none">dans la</span> 
+		<span role="none">Caraïbe</span>
 	</h1>
 
 
 	<address>
-		<ul aria-label="Liste des équipes">
+		<ul  aria-label="Adresse des équipes">
 			{%- for equipe in collections.equipes -%}
-        <li >
+        <li>
           <h2 aria-label="Localisation">
           	{{ equipe.data.nom }} {% if equipe.data.siège %}<i>(siège)</i>{% endif %}
           </h2>
@@ -56,23 +57,24 @@
 
 	<div class="mother">
 		<a href="https://ingerop.fr"
+			 aria-label="Lien vers le site Ingérop"
 			 target="_blank"> 
 			{% include "../../assets/svg/ingerop_logo.svg" %}
 		</a>
 	</div>
 
 	<ul class="agrement" 
-			aria-label="Liste des Agrément">
+			aria-label="Liste des Agréments">
 		<li>
 			{% include "../../assets/svg/opqibi.svg" %}
-			<p aria-label="Certification">
+			<p aria-label="Certification OPQIBI">
 				<span class="sr-only">OPQIBI</span>
 				Agrément n° 09 02 2045
 			</p>
 		</li>
 		<li>
 			{% include "../../assets/svg/abi.svg" %}
-			<p aria-label="Certification">
+			<p aria-label="Certification ABi">
 				<span class="sr-only">ABi</span>
 		</li>
 	</ul>

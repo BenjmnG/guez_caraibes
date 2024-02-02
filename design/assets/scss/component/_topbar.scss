@@ -147,13 +147,19 @@
 			width: $unite*15;
 			border-left: 1px solid currentColor;
 			padding-left: $unite;
+
 			> ul {
 
 				@include f1(1);
 				text-transform: uppercase;
 			}
 		}
-		label[for="mobileMenu"] {display: none;}
+
+		.artifact,
+		input#mobileMenu,
+		label[for="mobileMenu"] {
+			display: none;
+		}
 	}
 }
 

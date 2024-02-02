@@ -6,12 +6,12 @@
 
   <ul role="none">
     <!-- Filter -->
-    <li role="none"
-        aria-label="Filtrer les projets par typologie">
+    <li aria-label="Filtrer les projets par typologie">
 
       <!-- Header -->
       <label for="filter_by_ty"
-             role="none">
+             role="button"
+             tabindex="0">
         <span>Typologie</span>
         <span class="value"></span>
       </label>
@@ -22,7 +22,8 @@
         {%- for typo in typologies -%}
           <li role="menuitem">
             <label for="f-ty_{{ loop.index }}" 
-                   role="button">
+                   role="button"
+                   tabindex="0">
               {{ typo }}
             </label>
           </li>
@@ -33,12 +34,12 @@
     </li>
 
     <!-- Filter Savoir-Faire -->
-    <li role="none"
-        aria-label="Filtrer les projets par Savoir-faire">
+    <li aria-label="Filtrer les projets par Savoir-faire">
 
       <!-- Header -->
       <label for="filter_by_sf"
-             role="none">
+             role="button"
+             tabindex="0">
         <span>Savoir-Faire</span>
         <span class="value"></span>
       </label>
@@ -48,7 +49,8 @@
         {%- for sf in collections.savoirFaire -%}
           <li role="menuitem">
             <label for="f-sf_{{ loop.index }}" 
-                   role="button">
+                   role="button"
+                   tabindex="0">
               {{ sf.data.nom }}
             </label>
           </li>
@@ -57,12 +59,12 @@
 
     </li>
 
-    <li role="none"
-        aria-label="Filtrer les projets par localisation">
+    <li aria-label="Filtrer les projets par localisation">
 
       <!-- Header -->
       <label for="filter_by_lo"
-            role="none">
+             role="button"
+             tabindex="0">
         <span>Localisation</span>
         <span class="value"></span>
       </label>
@@ -72,7 +74,8 @@
         {%- for equipe in collections.localisations -%}
           <li role="menuitem">
             <label for="f-lo_{{ loop.index }}" 
-                   role="button">
+                   role="button"
+                   tabindex="0">
               {{ equipe.data.nom }}
             </label>
           </li>

@@ -1,6 +1,7 @@
  // Openers are three hidden input to open three list of item filter
 let openers  = document.querySelectorAll('[name="open_filter"]'),
     items    = document.querySelectorAll('[name^="f-"]'),
+    labels    = document.querySelectorAll('[for^="f-"]'),
     items_lo = document.querySelectorAll('[name="f-lo"]'),
     projects = document.querySelectorAll('[data-map-point]')
 
@@ -87,7 +88,6 @@ const project_list = () => ({
       checkedValues.push(i.getAttribute("value"))
       checkedId.push(i.getAttribute("id").slice(5))
     })
-
 
     // Update Interface Recall
     document.querySelector(`label[for="filter_by_${categorie.substring(2)}"] .value`).innerHTML = checkedValues.join(', ')
@@ -195,23 +195,53 @@ const project_list = () => ({
     },
 
     watchSubCategorie: () => {
-      // This add or update a text value of selected subcategory next categories title 
-      items.forEach( item => {
-        item.addEventListener('change', evt => {
-          let categorie = (evt.target).getAttribute('name')
-          project_list().trackOpeners(categorie)
-          project_list().checkIfListIsEmpty()
-          project_map().colorRelativePoints().update()
-        })
-        item.addEventListener('change', e => {
+
+      const callback = (el) => {
+        let categorie = (el).getAttribute('name')
+        // This add or update a text value 
+        // of selected subcategory next categories title 
+        project_list().trackOpeners(categorie)
+        // 
+        project_list().checkIfListIsEmpty()
+        // 
+        project_map().colorRelativePoints().update()
+      } 
+
+      const initCallback = (el) => {
+        console.log(el)
           if(main.classList.contains('init')){
-            let category = e.target.getAttribute('name').slice(-2);
+            let category = el.getAttribute('name').slice(-2);
             document.getElementById('filter_by_' + category).checked = true
             project_list().removeInit()
           }
-        }
-        , {once: true})
+      }
+
+      const forceChecking = (item) => {
+        item.checked = !item.checked;
+      }
+
+      items.forEach( (item) => {
+        item.addEventListener('change', e => callback(e.target) )
+        item.addEventListener('change', e => initCallback(e.target), {once: true} )
       })
+
+      // Fallback if keyboard navigation
+      // Allow to check Input with Enter key
+      labels.forEach( (label) => {
+        let item = document.getElementById(label.getAttribute("for"))
+        label.addEventListener('keydown', e => {
+          if (e.key === 'Enter') {
+            callback(item)
+            forceChecking(item)
+          }
+        })
+        label.addEventListener('keydown', e => {
+          if (e.key === 'Enter') {
+            initCallback(item)
+          }
+        },{once: true});
+      })
+
     },
 
     // Watch localisation filter
@@ -251,7 +281,7 @@ const project_list = () => ({
 
       // This remove init class after first interaction
       if(main.classList.contains('init')){
-        _map.section.el.addEventListener('click', project_list().removeInit, {once: true})
+        addCombinedClickListener(_map.section.el, project_list().removeInit, true)
       }
     },
 
