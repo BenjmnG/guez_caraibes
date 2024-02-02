@@ -306,7 +306,7 @@ const project_list = () => ({
           ],
           {
             // temporisation
-            duration: 400,
+            duration: 600,
             delay: 100,
             iterations: 2,
             effect: "cubic-bezier(.68,-0.55,.27,1.55)"
@@ -513,7 +513,7 @@ const project_map = () => ({
         const sibling = el.nextElementSibling
 
         parent.appendChild(el)
-        
+
         if(sibling){
           parent.appendChild(sibling)
         }
