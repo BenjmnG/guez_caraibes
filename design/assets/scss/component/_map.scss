@@ -2,9 +2,9 @@
 /* SVG specific */
 svg#main_map{
 
-	--tX: 0px;
-	--tY: 0px;
-	--r: 	2;
+	--tX: -200px;
+	--tY: 100px;
+	--r: 	3;
 
 
 	cursor: move;
@@ -24,64 +24,67 @@ svg#main_map{
 		color: #{$cB}30;
 		color: #ccdef0;
 		color: #ccdef0;
-		stroke: #{$cB};
+		color: #{$cB};
+		//stroke: #{$cB};
 		//color: rgb(250, 241, 207);
 		//stroke: #{$c3};
-		stroke-width: .1px;
+		//stroke-width: .1px;
 		fill: currentColor;
 		z-index: 1;
-		transition: all .25s ease,
-								fill .5s ease;
+		transition: all .25s ease;
 
 
-		&:hover, &.focus, &.active{
-			fill: $c4a;
-			fill: #ffcfd1;
-			stroke: $c4;
+		&:hover, &.hover{
+			//color: $c4a;
+			//color: #ffcfd1;
+			color: $c2;
+			//stroke: $c2;
+			r: 3px;
+
+		}
+		&.focus{
+			fill: $c4;
 		}
 	}
 
-	.g-pt{
+
+	text{
+		font-size: 2px;
 		display: none;
+		transition: .25s ease-in-out;
+		transform: translateX(1.5em) translateY(.35em);
+		text-transform: uppercase;
+		font-weight: 600;
+		letter-spacing: -.5em;
+		transition: .25s ease-in-out;
+		fill: white
+	}
+
+	tspan{
+		fill: none;
+	}
+
+
+	&[class^="scale-"] .pt.single + text{
+		display: block;
+  	letter-spacing: 0;
 	}
  
-	// Point style based on scale
-/* 	&:not(.scale-B):not(.scale-C) [id^='gp-']{
-		.pt{
-			display: none;
-		}
-		.g-pt{
-			display: block;
-		}
-	} */
-
-	&:not(.scale-C) [id^='gp-'] .pt:last-of-type{
-		//filter: brightness(1.5)
-	}
-
 	&.scale-B{
-		.pt{
-			r: 1px;
-		}
-
-		[id^='gp-'] .pt:not(:last-of-type){
-			//r: calc(.25px * ( var(--r)/40 - .5 ) );
-		}
-
-		[id^='gp-'] .pt:last-of-type{
-			r: 1px;
-			//fill: $c2a;
-
-			/* &:hover, &.focus{
-				stroke: var(--cR);
-				fill: $c4a;
-			} */
+		.pt{r: .875px;}
+		
+		.pt:hover, 
+		.pt.hover{
+			r: 2.5px;
 		}
 	} 
-	&.scale-C{
 
-		.pt{
-			r: 1px;
+	&.scale-C{
+		.pt{r: .75px;}
+		
+		.pt:hover, 
+		.pt.hover{
+			r: 2px;
 		}
 	} 
 
@@ -139,7 +142,16 @@ svg#main_map{
 }
 
 [data-vue="single"] svg#main_map  .pt{
-		&:hover, &.focus, &.active{
+		&.single{
 			fill: #{$cR};
+			r: 3px;
 		}
 }
+
+[data-vue="single"] svg#main_map.scale-B .pt.single{
+	r: 2.5px;
+} 
+
+[data-vue="single"] svg#main_map.scale-C .pt.single{
+	r: 2px;
+} 

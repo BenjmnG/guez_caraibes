@@ -14,7 +14,7 @@
 	 <title>Carte simplifiée de la Caraïbes, localisant les projets auxquels Guez Caraïbes a contribué. Ils se situent en Martinique, Guadeloupe, Saint Barth' et Saint Martin</title>
 
 	<defs>
-	  <pattern id="dot1"
+	  	<pattern id="dot1"
 	           x="0" y="0" width="40" height="40"
 	           patternUnits="userSpaceOnUse"
 	           patternTransform="scale(0.2 0.2)">
@@ -24,9 +24,9 @@
 
 			<path  d='M20 25a5 5 0 110-10 5 5 0 010 10z' 
 						style="stroke: none; fill: #ffffff"/>
-	  </pattern>
+	  	</pattern>
 
-	  <pattern id="dot2"
+	  	<pattern id="dot2"
 	           x="0" y="0" width="20" height="20"
 	           patternUnits="userSpaceOnUse"
 	           patternTransform="scale(0.2 0.2)">
@@ -38,27 +38,36 @@
 						style="stroke: none; fill: #ffffff"/>
 	  </pattern>
 
-	  <pattern id='cross1' 
+	  	<pattern id='cross1' 
 	  				 patternUnits='userSpaceOnUse' 
 	  				 width='20' 
 	  				 height='20' 
 	  				 patternTransform='translate(-7,-5) scale(.2) rotate(45)'>
 
-	  	<rect x='0' y='0'
+	  		<rect x='0' y='0'
 	  		style="stroke: #ffff; stroke-width='1px' fill: none"/>
 
-	  	<path  d='M3.25 10h13.5M10 3.25v13.5' 
+	  		<path  d='M3.25 10h13.5M10 3.25v13.5' 
 	  		style="stroke: #ffff; stroke-width='1px' fill: none"/>
-	  </pattern>
+	  	</pattern>
+
+	  	<filter id="displacementFilter">
+	    	<feTurbulence type="turbulence" baseFrequency="1 1"
+	        	numOctaves="3" result="turbulence" seed="15"/>
+	    	<feDisplacementMap in2="turbulence" in="SourceGraphic"
+	        	scale="15" xChannelSelector="R" xChannelSelector="G" yChannelSelector="B"/>
+	  	</filter>
+
+	    <filter x="0" y="0" width="1" height="1" id="solid">
+	      	<feFlood flood-color="#E40521" result="bg" />
+	      	<feMerge>
+	        	<feMergeNode in="bg"/>
+	        	<feMergeNode in="SourceGraphic"/>
+	      	</feMerge>
+	    </filter>
 
 	</defs>
 
-  <filter id="displacementFilter">
-    <feTurbulence type="turbulence" baseFrequency="1 1"
-        numOctaves="3" result="turbulence" seed="15"/>
-    <feDisplacementMap in2="turbulence" in="SourceGraphic"
-        scale="15" xChannelSelector="R" xChannelSelector="G" yChannelSelector="B"/>
-  </filter>	
 
 	<g >
 

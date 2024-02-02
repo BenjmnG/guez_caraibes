@@ -124,7 +124,7 @@
   {% set r = 1 %}
 
   {% if projet.type == "parent" %}
-    <g class="parent" id="{{projet.id}}">
+    <!--<g class="parent" id="{{projet.id}}">-->
   {% endif %}
 
   
@@ -143,6 +143,14 @@
             transform-origin="50% 50%"
           />
 
+    <text x="{{ item.coord[1] }}" 
+          y="{{ item.coord[0] }}" 
+          filter="url(#solid)">
+          <tspan>.</tspan>
+          {{ projet.ville }}
+          <tspan>.</tspan>
+    </text>
+
   {%- endfor -%}
 
   {% if projet.type == "parent" %}
@@ -155,7 +163,7 @@
           transform-origin="50% 50%"
     />-->
 
-    </g>
+    <!--</g>-->
   {% endif %}
 
 {%- endfor -%}

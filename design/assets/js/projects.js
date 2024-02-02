@@ -225,7 +225,7 @@ const project_list = () => ({
           // Update active island with all item checked
           items_lo.forEach( item => {
             if(item.checked == true){
-              _map.active_island.push(item.value)
+              _map.active_island.push(`l-${item.value}`)
             }
           })
 
@@ -233,7 +233,7 @@ const project_list = () => ({
             // If just one island checked
             _map.ratio = _map.focusR
             project_map().setTransform()
-            let coord = project_map().getCoord(`l-${_map.active_island[0]}`)
+            let coord = project_map().getCoord(_map.active_island[0])
             project_map().focusOnPoint(coord[0], coord[1])
             _map.focusOn = coord;
           } else {
@@ -272,32 +272,21 @@ const project_list = () => ({
         let id_to_target     = el.getAttribute('data-map-point')
         let island_to_target = el.getAttribute('data-island')
         let landing_point = _map.section.el.querySelector(`#${id_to_target}`)
-        let couldCompact = landing_point.parentNode.classList.contains('parent')
 
         // tweak point overflow
         project_map().downElOnDOM(landing_point)
 
-        /*if(_map.active_island.length != 1){
-          project_map().focusOnPoint(coord[0], coord[1])
-        }*/
-        
         if(main.getAttribute('data-vue') == 'single'){return}
 
-        if(couldCompact){  
-          // If landing point is shared with many project
-          _map.ratio = _map.hard_focusR
-          coord = project_map().getCoord(id_to_target)
-        } else {
-          // If landing point is cleared around
-          _map.ratio = _map.focusR
+        // If landing point is cleared around
+        _map.ratio = _map.focusR
 
-          // if no island to focus
-          if(!_map.active_island[0]){
-            _map.active_island.push(island_to_target)
-          }
-
-          coord = project_map().getCoord("l-"+_map.active_island[0])
+        // if no island to focus
+        if(!_map.active_island[0]){
+          _map.active_island.push(island_to_target)
         }
+
+        coord = project_map().getCoord(island_to_target)
 
         project_map().validMinR()
         project_map().setClassbyScale()
@@ -306,6 +295,24 @@ const project_list = () => ({
         _map.focusOn = coord;
 
         landing_point.classList.add('focus');
+
+        // Set little interaction on landing point
+        landing_point.animate(
+          [
+            // étapes/keyframes
+            { r: "1", fill: "var(--cR)" },
+            { r: "3px", fill: "var(--cR)" },
+            { r: "1px", fill: "var(--cR)" },
+          ],
+          {
+            // temporisation
+            duration: 400,
+            delay: 100,
+            iterations: 2,
+            effect: "cubic-bezier(.68,-0.55,.27,1.55)"
+          },
+        );
+                
 
         /*el.addEventListener("mouseleave", () => {
           landing_point.classList.remove('focus');
@@ -431,11 +438,10 @@ const project_map = () => ({
   getCoord: (el) => {
 
     if(el && typeof el == 'string'){
-      console.log(el)
+      //console.log(el)
       let id  = document.getElementById(el)
       let x = id.getAttribute('data-x')
       let y = id.getAttribute('data-y')
-
       return [x, y]
     }
   },
@@ -454,6 +460,10 @@ const project_map = () => ({
 
     document.querySelector('#closeProject')
       .setAttribute('aria-hidden', single == true ? false : true)
+
+    if(!single){
+      project_map().colorRelativePoints().resetSingle()
+    }
   },
 
   focusOnPoint: (x, y) => {
@@ -489,21 +499,23 @@ const project_map = () => ({
 
     return {
 
-      addClass: (el) => {
-        el.classList.add('focus')
+      addClass: (el, clss = "focus") => {
+        el.classList.add(clss)
         project_map().colorRelativePoints().bringPointToFront(el)
       },
 
-      removeClass: (el) => {
-        el.classList.remove('focus')
+      removeClass: (el, clss = "focus") => {
+        el.classList.remove(clss)
       },
 
       bringPointToFront: (el) => {
         const parent = el.parentNode
+        const sibling = el.nextElementSibling
+
         parent.appendChild(el)
-        if(parent.tagName == 'g'){
-          const metaParent =  parent.parentNode
-          metaParent.appendChild(parent)
+        
+        if(sibling){
+          parent.appendChild(sibling)
         }
       },
 
@@ -515,6 +527,11 @@ const project_map = () => ({
             project_map().colorRelativePoints().removeClass(el)
           })
         }
+      },
+
+      resetSingle: () => {
+        let el = document.querySelector(".pt.single")
+        project_map().colorRelativePoints().removeClass(el, "single")
       },
 
       update: () => {
@@ -623,6 +640,7 @@ const project_map = () => ({
 
         // This focus / display project card if user clic on its map location 
         document.querySelectorAll('.pt').forEach(el => {
+
           el.addEventListener("click", () => {
 
             let alreadyActive = document.querySelector(`.list.projets [data-active="true"]`)
@@ -634,10 +652,8 @@ const project_map = () => ({
               project_map().setVueMode(false, el.id)
               
               // Reset colors point based on selected Categories
+              project_map().colorRelativePoints().removeClass(el, "single")
               project_map().colorRelativePoints().update()
-
-              // Zoom out
-              _map.ratio /= 4
 
             } else {
 
@@ -645,39 +661,29 @@ const project_map = () => ({
                 parseFloat(el.getAttribute('data-x')),
                 parseFloat(el.getAttribute('data-y'))
               ]
+
+              _map.ratio = _map.focusR + 1
     
               // Is point is part of a compact group ?
               let couldCompact = el.parentNode.classList.contains('parent')
-      
-              if(_map.ratio < _map.hard_focusR && couldCompact) {
-                // If point is part of a compact group 
-                // and scale ratio isn't sufficent to display its parts
-                _map.ratio = _map.hard_focusR + 1
+    
+              if(alreadyActive) {
+                // A project is already open and there is a new project to see
+                alreadyActive.setAttribute('data-active', false)
+                project_map().setVueMode(true, el.id)
+
+                // remove single class to old
+                project_map().colorRelativePoints().resetSingle()
+                
 
               } else {
-                
-                if(alreadyActive) {
-                  // A project is already open and there is a new project to see
+                // No project is open and there is a project to see
+                project_map().setVueMode(true, el.id)
+              }
 
-                  alreadyActive.setAttribute('data-active', false)
-                  project_map().setVueMode(true, el.id)
-                } else {
-                  // No project is open and there is a project to see
-                  project_map().setVueMode(true, el.id)
-                }
-
-                if(couldCompact){
-                  _map.ratio = _map.hard_focusR + 1
-                } else {
-                  project_map().getPerfectRatio()
-                  _map.ratio = _map.focusR
-                }
-
-                // update color point
-                project_map().colorRelativePoints().reset()
-                project_map().colorRelativePoints().addClass(el)
-              } 
-            }
+              // Add Single class to new
+              project_map().colorRelativePoints().addClass(el, "single")
+            } 
 
             // Update tranform because of ratio update
             project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
