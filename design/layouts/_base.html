@@ -81,12 +81,7 @@
 
   <script type="text/javascript">
     document.querySelector('body').classList.remove('noJS')
-    setTimeout( function() {
-      document.querySelector('body').classList.remove('transition', 'init')
-    }, 500);
   </script>
-
-  <!--<script type="text/javascript" src="{{site.url}}/{{ 'assets/js/mini-spa.js' | url }}" async></script>-->
   <script type="text/javascript" src="{{site.url}}/{{ 'assets/js/global.js' | url }}"></script>
   {% block script %}{% endblock %}
 
