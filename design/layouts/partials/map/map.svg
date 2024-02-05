@@ -9,9 +9,8 @@
 	 xml:space="preserve"
 	 
 	 preserveAspectRatio="xMinYMid meet"
-	 class="noScale">
-
-	 <title>Carte simplifiée de la Caraïbes, localisant les projets auxquels Guez Caraïbes a contribué. Ils se situent en Martinique, Guadeloupe, Saint Barth' et Saint Martin</title>
+	 class="noScale"
+	 aria-label="Carte simplifiée de la Caraïbes, localisant les projets auxquels Guez Caraïbes a contribué. Ils se situent en Martinique, Guadeloupe, Saint Barth' et Saint Martin">
 
 	<defs>
 	  	<pattern id="dot1"

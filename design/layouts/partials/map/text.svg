@@ -99,6 +99,7 @@
         {
           id: item.id,
           type: 'widow',
+          title: projet.data.titre,
           ville:  projet.data.ville,
           items: [ item ]
         } 
@@ -141,7 +142,9 @@
             data-lo="{%- for t in collections.localisations -%}{% if item.lo == t.data.nom %}{{loop.index}},{% endif %}{% endfor %}"
             r="{{ r }}"
             transform-origin="50% 50%"
-          />
+            >
+            <title>{{projet.title}}, {{projet.ville}}</title>
+    </circle>
 
     <text x="{{ item.coord[1] }}" 
           y="{{ item.coord[0] }}" 
