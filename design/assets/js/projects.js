@@ -5,7 +5,7 @@ let openers  = document.querySelectorAll('[name="open_filter"]'),
     items_lo = document.querySelectorAll('[name="f-lo"]'),
     projects = document.querySelectorAll('[data-point_id]')
 
-let _map = {
+let view = {
 
   section: {
     el:     document.querySelector("#map"),
@@ -50,7 +50,7 @@ const project_list = () => ({
       // Three openers can triggers it. 
       openers.forEach( opener => {
         opener.removeEventListener("change", project_list().removeInit, true)
-        _map.section.el.removeEventListener("change", project_list().removeInit, true)
+        view.section.el.removeEventListener("change", project_list().removeInit, true)
       })
 
       // Once called, we destroy the two other triggers.
@@ -93,8 +93,8 @@ const project_list = () => ({
     document.querySelector(`label[for="filter_by_${categorie.substring(2)}"] .value`).innerHTML = checkedValues.join(', ')
 
     // update map object
-    _map.active_categories[categorie.substring(2)] = checkedId
-    //console.log(_map.active_categories)
+    view.active_categories[categorie.substring(2)] = checkedId
+    //console.log(view.active_categories)
   },
 
   /**
@@ -249,27 +249,27 @@ const project_list = () => ({
       items_lo.forEach( item_lo => {
         item_lo.addEventListener('change', evt => {
           
-          _map.active_island = []
+          view.active_island = []
 
           // Update active island with all item checked
           items_lo.forEach( item => {
             if(item.checked == true){
-              _map.active_island.push(`l-${item.value}`)
+              view.active_island.push(`l-${item.value}`)
             }
           })
 
-          if(_map.active_island.length == 1){
+          if(view.active_island.length == 1){
             // If just one island checked
-            _map.ratio = _map.focusR
+            view.ratio = view.focusR
             project_map().setTransform()
-            let coord = project_map().getCoord(_map.active_island[0])
+            let coord = project_map().getCoord(view.active_island[0])
             project_map().focusOnPoint(coord[0], coord[1])
-            _map.focusOn = coord;
+            view.focusOn = coord;
           } else {
             // Else just get map medium point 
-            _map.ratio = _map.avgR
+            view.ratio = view.avgR
             project_map().setTransform()
-            project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
+            project_map().focusOnPoint(view.focusOn[0], view.focusOn[1])
           }
 
         })
@@ -280,7 +280,7 @@ const project_list = () => ({
 
       // This remove init class after first interaction
       if(main.classList.contains('init')){
-        addCombinedClickListener(_map.section.el, project_list().removeInit, true)
+        addCombinedClickListener(view.section.el, project_list().removeInit, true)
       }
     },
 
@@ -302,7 +302,7 @@ const project_list = () => ({
         if (!clickedElement) return; 
 
         const { point_id, island } = clickedElement.dataset;
-        let landing_point = _map.section.el.querySelector(`#${point_id}`)
+        let landing_point = view.section.el.querySelector(`#${point_id}`)
 
         // Ensure visibility
         project_map().downElOnDOM(landing_point)
@@ -323,19 +323,19 @@ const project_list = () => ({
       function focusMapOnPoint(island) {
 
         // if no island to focus
-        if(!_map.active_island[0]){
-          _map.active_island.push(island)
+        if(!view.active_island[0]){
+          view.active_island.push(island)
         }
 
         coord = project_map().getCoord(island)
         // If landing point is cleared around
-        _map.ratio = _map.focusR
+        view.ratio = view.focusR
 
         project_map().validMinR()
         project_map().setClassbyScale()
        
         project_map().focusOnPoint(coord[0], coord[1])
-        _map.focusOn = coord;
+        view.focusOn = coord;
 
       }  
 
@@ -358,9 +358,9 @@ const project_list = () => ({
       }
 
       function handleMouseLeave(){
-        if( _map.focusOn != null && main.getAttribute('data-vue') != 'single' && _map.active_island.length != 1
+        if( view.focusOn != null && main.getAttribute('data-vue') != 'single' && view.active_island.length != 1
           ){
-          _map.ratio = _map.avgR
+          view.ratio = view.avgR
           project_map().setTransform()
           let coord = project_map().getCoord('l-Guadeloupe')
           project_map().focusOnPoint(coord[0], coord[1])
@@ -386,12 +386,12 @@ const project_list = () => ({
 
           el.target.setAttribute('aria-hidden', true)
           
-          _map.ratio = _map.avgR
+          view.ratio = view.avgR
           project_map().validMinR()
           project_map().setClassbyScale()
           
           project_map().setTransform()
-          project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
+          project_map().focusOnPoint(view.focusOn[0], view.focusOn[1])
 
           project_map().colorRelativePoints().update()
 
@@ -416,39 +416,39 @@ const project_list = () => ({
 const project_map = () => ({
 
   validMinR: () => {
-    if(_map.ratio < _map.minR){
-      _map.ratio = _map.minR
+    if(view.ratio < view.minR){
+      view.ratio = view.minR
     }
   },
 
   setClassbyScale: () => {
-    if(_map.ratio <= _map.minR + 2 ){
-      _map.svg.el.classList = `no-scale`
-    } else if(_map.ratio > _map.hard_focusR){
-      _map.svg.el.classList = `scale-C`
-      if(_map.ratio > _map.maxR) { _map.ratio = _map.maxR}
-    } else if(_map.ratio > _map.focusR){
-      _map.svg.el.classList = `scale-B`
-    } else if(_map.ratio > _map.minR + 2 ){
-      _map.svg.el.classList = `scale-A`
+    if(view.ratio <= view.minR + 2 ){
+      view.svg.el.classList = `no-scale`
+    } else if(view.ratio > view.hard_focusR){
+      view.svg.el.classList = `scale-C`
+      if(view.ratio > view.maxR) { view.ratio = view.maxR}
+    } else if(view.ratio > view.focusR){
+      view.svg.el.classList = `scale-B`
+    } else if(view.ratio > view.minR + 2 ){
+      view.svg.el.classList = `scale-A`
     }
   },
 
   validMaxt: () => {
     offset = 50 // Far west isn't a friendly world
-    let minX = offset * -_map.ratio,
-        maxX = (_map.section.width * -_map.ratio) + (_map.section.width)
-        minY = _map.section.height / 2,
-        maxY = (_map.section.height * -_map.ratio / 2) + (_map.section.height)
+    let minX = offset * -view.ratio,
+        maxX = (view.section.width * -view.ratio) + (view.section.width)
+        minY = view.section.height / 2,
+        maxY = (view.section.height * -view.ratio / 2) + (view.section.height)
 
-    if( _map.tX > minX ){ 
-      _map.tX = minX
-    } else if( _map.tX < maxX ){ 
-      _map.tX = maxX }
-    if( _map.tY > minY ){ 
-      _map.tY = minY
-    } else if(_map.tY < maxY ){ 
-      _map.tY = maxY 
+    if( view.tX > minX ){ 
+      view.tX = minX
+    } else if( view.tX < maxX ){ 
+      view.tX = maxX }
+    if( view.tY > minY ){ 
+      view.tY = minY
+    } else if(view.tY < maxY ){ 
+      view.tY = maxY 
     }
   },
 
@@ -465,7 +465,7 @@ const project_map = () => ({
       baseIsland = 13
     }
 
-    _map.ratio = _map.section.width  / (baseIsland * 3)
+    view.ratio = view.section.width  / (baseIsland * 3)
 
     project_map().validMinR()
     project_map().setClassbyScale()
@@ -483,9 +483,9 @@ const project_map = () => ({
   },
 
   setTransform: () => {
-    _map.svg.el.style.setProperty('--tX', `${_map.tX}px`);
-    _map.svg.el.style.setProperty('--tY', `${_map.tY}px`);
-    _map.svg.el.style.setProperty('--r', _map.ratio);
+    view.svg.el.style.setProperty('--tX', `${view.tX}px`);
+    view.svg.el.style.setProperty('--tY', `${view.tY}px`);
+    view.svg.el.style.setProperty('--r', view.ratio);
   },
 
   setVueMode: (single, id) => {
@@ -509,16 +509,16 @@ const project_map = () => ({
     let pt_radius = 1 / 2;
 
     // Deform Ratio is the relation between SVG viewbox and container (1.5/1 on 1080 pixel screen)
-    let deformRatio = _map.section.width / _map.svg.viewbox
+    let deformRatio = view.section.width / view.svg.viewbox
 
-    let centerWidth   = _map.section.width  / 2 
-        centerHeight  = _map.section.height / 2
+    let centerWidth   = view.section.width  / 2 
+        centerHeight  = view.section.height / 2
 
     // Ratio Increase by de
-    let factor = _map.ratio * deformRatio * -1
+    let factor = view.ratio * deformRatio * -1
 
-    _map.tX = x * (_map.ratio * -1) + centerWidth;
-    _map.tY = y * (_map.ratio * -1) + centerHeight;
+    view.tX = x * (view.ratio * -1) + centerWidth;
+    view.tY = y * (view.ratio * -1) + centerHeight;
 
     project_map().validMaxt()
     project_map().setTransform();
@@ -578,8 +578,8 @@ const project_map = () => ({
         // Compose our perfect selector
         let selector = ""
 
-        Object.keys(_map.active_categories).forEach((key) => {
-          _map.active_categories[key].forEach((value) => {
+        Object.keys(view.active_categories).forEach((key) => {
+          view.active_categories[key].forEach((value) => {
             selector += `[data-${key}*="${value},"]`;
           });
         });
@@ -609,7 +609,7 @@ const project_map = () => ({
 
       watchMouseDown: () => {
         // This trigger drag permission
-        _map.section.el.addEventListener("mousedown", function(e) {
+        view.section.el.addEventListener("mousedown", function(e) {
           start = { x: e.clientX, y: e.clientY };
           panning = true
           project_list().removeInitCLass()
@@ -619,16 +619,16 @@ const project_map = () => ({
       watchMouseMove: () => {
 
         // This drag by translation svg map based on mouse move
-        _map.section.el.addEventListener("mousemove", function(e) {
+        view.section.el.addEventListener("mousemove", function(e) {
           if (panning === true) {
 
-            _map.tX = _map.tX + (e.clientX - start.x) //  * ratio - 1;
-            _map.tY = _map.tY + (e.clientY - start.y) //  * ratio - 1;
+            view.tX = view.tX + (e.clientX - start.x) //  * ratio - 1;
+            view.tY = view.tY + (e.clientY - start.y) //  * ratio - 1;
 
             project_map().validMaxt()
 
-            _map.svg.el.style.setProperty('--tX', `${_map.tX}px`);
-            _map.svg.el.style.setProperty('--tY', `${_map.tY}px`);
+            view.svg.el.style.setProperty('--tX', `${view.tX}px`);
+            view.svg.el.style.setProperty('--tY', `${view.tY}px`);
 
             start.x = e.clientX 
             start.y = e.clientY
@@ -639,7 +639,7 @@ const project_map = () => ({
 
       watchMouseUp: () => {
         // This end drag premission on mouse up      
-        _map.section.el.addEventListener("mouseup", function(e) {
+        view.section.el.addEventListener("mouseup", function(e) {
           panning = false
         });
       },
@@ -647,22 +647,22 @@ const project_map = () => ({
       watchWheel: () => {
 
         // This Zoom In / Out based on wheel event
-        _map.section.el.addEventListener("wheel", function(e) {
+        view.section.el.addEventListener("wheel", function(e) {
           e.preventDefault();
           e.stopPropagation();
 
           project_list().removeInitCLass()
 
-          var   xs    = (e.clientX - _map.tX) / _map.ratio,
-                ys    = (e.clientY - _map.tY) / _map.ratio,
+          var   xs    = (e.clientX - view.tX) / view.ratio,
+                ys    = (e.clientY - view.tY) / view.ratio,
                 delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
-          (delta > 0) ? (_map.ratio *= 1.2) : (_map.ratio /= 1.2);
+          (delta > 0) ? (view.ratio *= 1.2) : (view.ratio /= 1.2);
           
           project_map().validMinR()
           project_map().setClassbyScale()
 
-          _map.tX = (e.clientX - xs * _map.ratio);
-          _map.tY = (e.clientY - ys * _map.ratio);
+          view.tX = (e.clientX - xs * view.ratio);
+          view.tY = (e.clientY - ys * view.ratio);
 
           project_map().validMaxt()
 
@@ -692,12 +692,12 @@ const project_map = () => ({
 
             } else {
 
-              _map.focusOn = [
+              view.focusOn = [
                 parseFloat(el.getAttribute('data-x')),
                 parseFloat(el.getAttribute('data-y'))
               ]
 
-              _map.ratio = _map.focusR + 1
+              view.ratio = view.focusR + 1
     
               // Is point is part of a compact group ?
               let couldCompact = el.parentNode.classList.contains('parent')
@@ -721,7 +721,7 @@ const project_map = () => ({
             } 
 
             // Update tranform because of ratio update
-            project_map().focusOnPoint(_map.focusOn[0], _map.focusOn[1])
+            project_map().focusOnPoint(view.focusOn[0], view.focusOn[1])
             project_map().validMinR()
             project_map().setClassbyScale()
             project_map().setTransform()
@@ -732,8 +732,8 @@ const project_map = () => ({
 
       watchScreenResize: () => {
         onresize = (event) => {
-          _map.section.width  = _map.section.el.getBoundingClientRect().width
-          _map.section.height = _map.section.el.getBoundingClientRect().height
+          view.section.width  = view.section.el.getBoundingClientRect().width
+          view.section.height = view.section.el.getBoundingClientRect().height
         };
 
       }
