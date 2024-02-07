@@ -3,7 +3,7 @@ titre: Nouveau Siège EDF
 ile: Guadeloupe
 ville: Baie-Mahault
 maître_ouvrage: EDF
-typologie: Tertiaire
+typologie: Tertiaires
 type_de_travaux: Construction neuve
 statut: Marché public
 phase: Phase DET

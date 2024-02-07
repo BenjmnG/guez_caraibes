@@ -3,7 +3,7 @@ titre: Hangar de stockage SMCA
 ile: Martinique
 ville: Lamentin
 maître_ouvrage: RSMAM
-typologie: Institutions et services publics
+typologie: Tertiaires
 type_de_travaux: Construction neuve
 statut: Marché public
 phase: Phase DET

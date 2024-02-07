@@ -3,7 +3,7 @@ titre: Blanchisserie "Locavet"
 ile: Martinique
 ville: Le Robert
 maître_ouvrage: Locavet
-typologie: Tertiaire
+typologie: Tertiaires
 type_de_travaux: Construction neuve
 statut: Marché privé
 phase: Phase AVP
