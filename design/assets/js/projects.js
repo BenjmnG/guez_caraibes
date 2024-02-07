@@ -201,10 +201,12 @@ const project_list = () => ({
         item.checked = !item.checked;
       }
 
+      // Event listener
       items.forEach( (item) => {
         item.addEventListener('change', e => callback(e.target) )
         item.addEventListener('change', e => initCallback(e.target), {once: true} )
       })
+
 
       // Fallback if keyboard navigation
       // Allow to check Input with Enter key
@@ -225,7 +227,7 @@ const project_list = () => ({
 
     },
 
-    // Watch localisation filter
+    // Watch specific localisation filter
     watchSubCategorie_lo: () => {
       // This check number of selected island  and focus on selected one if single
       items_lo.forEach( item_lo => {
@@ -386,18 +388,7 @@ const project_list = () => ({
 
       })
     }
-  }),
-
-  onLoad: () => {
-    project_list().performURIparameters()
-    project_list().events().watchCategorie()
-    project_list().events().watchSubCategorie()
-    project_list().events().watchSubCategorie_lo()
-    project_list().events().watchFirstInteraction()
-    project_list().events().watchProjectListInteractions()
-    project_list().events().watchCloseAllFiltersInteraction()
-    project_list().events().disableSingleMode()
-  }
+  })
 
 })
 
@@ -660,62 +651,55 @@ const project_map = () => ({
 
       watchPointInteraction: () => {
 
+        function handlePointInteraction(el){
 
-        // This focus / display project card if user clic on its map location 
-        document.querySelectorAll('.pt').forEach(el => {
-
-          el.addEventListener("click", () => {
-
-            let alreadyActive = document.querySelector(`.list.projets [data-active="true"]`)
+          let alreadyActive = document.querySelector(`.list.projets [data-active="true"]`)
+          
+          // Is this project already in Single Mode. 
+          if(alreadyActive && alreadyActive.getAttribute('data-point_id') == el.id){
             
-            // Is this project already in Single Mode. 
-            if(alreadyActive && alreadyActive.getAttribute('data-point_id') == el.id){
-              
-              // Time to shut it down
-              project_map().setVueMode(false, el.id)
-              
-              // Reset colors point based on selected Categories
-              project_map().colorRelativePoints().removeClass(el, "single")
-              project_map().colorRelativePoints().update()
+            // Time to shut it down
+            project_map().setVueMode(false, el.id)
+            
+            // Reset colors point based on selected Categories
+            project_map().colorRelativePoints().removeClass(el, "single")
+            project_map().colorRelativePoints().update()
 
-            } else {
+          } else {
 
-              view.focusOn = [
-                parseFloat(el.getAttribute('data-x')),
-                parseFloat(el.getAttribute('data-y'))
-              ]
+            view.focusOn = [
+              parseFloat(el.getAttribute('data-x')),
+              parseFloat(el.getAttribute('data-y'))
+            ]
 
-              view.ratio = view.focusR + 1
-    
-              // Is point is part of a compact group ?
-              let couldCompact = el.parentNode.classList.contains('parent')
-    
-              if(alreadyActive) {
-                // A project is already open and there is a new project to see
-                alreadyActive.setAttribute('data-active', false)
-                project_map().setVueMode(true, el.id)
+            view.ratio = view.focusR + 1
 
-                // remove single class to old
-                project_map().colorRelativePoints().resetSingle()
-                
+            if(alreadyActive) {
+              // A project is already open and there is a new project to see
+              alreadyActive.setAttribute('data-active', false)
+              // remove single class to old
+              project_map().colorRelativePoints().resetSingle()
+            }
 
-              } else {
-                // No project is open and there is a project to see
-                project_map().setVueMode(true, el.id)
-              }
+            // Set vue Mode
+            project_map().setVueMode(true, el.id)
+            // Add Single class to new
+            project_map().colorRelativePoints().addClass(el, "single")
+          } 
 
-              // Add Single class to new
-              project_map().colorRelativePoints().addClass(el, "single")
-            } 
+          // Update tranform because of ratio update
+          project_map().focusOnPoint(view.focusOn[0], view.focusOn[1])
+          project_map().validMinR()
+          project_map().setClassbyScale()
+          project_map().setTransform()
+ 
+        }
 
-            // Update tranform because of ratio update
-            project_map().focusOnPoint(view.focusOn[0], view.focusOn[1])
-            project_map().validMinR()
-            project_map().setClassbyScale()
-            project_map().setTransform()
-          })
-
+        // This event focus / display project card if user clic on its map location 
+        document.querySelectorAll('.pt').forEach(pt => {
+          pt.addEventListener("click", evt => handlePointInteraction(evt.target) )
         })
+
       },
 
       watchScreenResize: () => {
@@ -726,10 +710,23 @@ const project_map = () => ({
 
       }
     }
-  },
+  }
 
-  onLoad: () => {
+})
 
+const projectOnload = () => {
+
+    // About Project
+    project_list().performURIparameters()
+    project_list().events().watchCategorie()
+    project_list().events().watchSubCategorie()
+    project_list().events().watchSubCategorie_lo()
+    project_list().events().watchFirstInteraction()
+    project_list().events().watchProjectListInteractions()
+    project_list().events().watchCloseAllFiltersInteraction()
+    project_list().events().disableSingleMode()
+
+    // About map 
     project_map().events().watchMouseDown()
     project_map().events().watchMouseMove()
     project_map().events().watchMouseUp()
@@ -737,15 +734,11 @@ const project_map = () => ({
     project_map().events().watchPointInteraction()
     project_map().events().watchScreenResize()
 
-  }
-})
+    project_map().focusOnPoint(191, 96)
+    items.forEach( item => item.checked = false)
 
+}
 
-
-//Temp
-
-project_map().focusOnPoint(191, 96)
-items.forEach( item => item.checked = false)
 
 
 

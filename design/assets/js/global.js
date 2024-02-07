@@ -97,8 +97,7 @@ const event = () => ({
 
     // JS for this page is verbose. 
     // Calling  function in a spécéfic project.js file
-    project_list().onLoad()
-    project_map().onLoad()
+    projectOnload()
   },
 
   equipes: () => {
