@@ -3,7 +3,7 @@ let openers  = document.querySelectorAll('[name="open_filter"]'),
     items    = document.querySelectorAll('[name^="f-"]'),
     labels    = document.querySelectorAll('[for^="f-"]'),
     items_lo = document.querySelectorAll('[name="f-lo"]'),
-    projects = document.querySelectorAll('[data-map-point]')
+    projects = document.querySelectorAll('[data-point_id]')
 
 let _map = {
 
@@ -208,7 +208,6 @@ const project_list = () => ({
       } 
 
       const initCallback = (el) => {
-        console.log(el)
           if(main.classList.contains('init')){
             let category = el.getAttribute('name').slice(-2);
             document.getElementById('filter_by_' + category).checked = true
@@ -288,35 +287,49 @@ const project_list = () => ({
     watchProjectListInteractions: () => {
 
       // This set abilities to focus map on project implentation based on lat/long coord
-      let projets_el = document.querySelector('.list.projets')
+      let projectsList = document.querySelector('.list.projets')
 
       // Using event delegation
-      projets_el.addEventListener("click", el => {
+      projectsList.addEventListener("click", handleProjectClick)
+      projectsList.addEventListener('mouseleave', handleMouseLeave)
 
-        // Return if void click
-        if(el.target.matches('.list.projets')){return}
+      function handleProjectClick(el){
 
         // Get closest card
-        el = el.target.closest('[data-map-point]')
+        clickedElement = el.target.closest('[data-point_id]')
 
-        let id_to_target     = el.getAttribute('data-map-point')
-        let island_to_target = el.getAttribute('data-island')
-        let landing_point = _map.section.el.querySelector(`#${id_to_target}`)
+        // Return if void click
+        if (!clickedElement) return; 
 
-        // tweak point overflow
+        const { point_id, island } = clickedElement.dataset;
+        let landing_point = _map.section.el.querySelector(`#${point_id}`)
+
+        // Ensure visibility
         project_map().downElOnDOM(landing_point)
 
-        if(main.getAttribute('data-vue') == 'single'){return}
+        // Focus map
+        if(main.getAttribute('data-vue') !== 'single'){
+          focusMapOnPoint(island);
+        }
 
-        // If landing point is cleared around
-        _map.ratio = _map.focusR
+        // Add class for CSS style change
+        landing_point.classList.add('focus');
+
+        // Trigger short animation
+        animatePoint(landing_point)
+                
+      }
+
+      function focusMapOnPoint(island) {
 
         // if no island to focus
         if(!_map.active_island[0]){
-          _map.active_island.push(island_to_target)
+          _map.active_island.push(island)
         }
 
-        coord = project_map().getCoord(island_to_target)
+        coord = project_map().getCoord(island)
+        // If landing point is cleared around
+        _map.ratio = _map.focusR
 
         project_map().validMinR()
         project_map().setClassbyScale()
@@ -324,10 +337,10 @@ const project_list = () => ({
         project_map().focusOnPoint(coord[0], coord[1])
         _map.focusOn = coord;
 
-        landing_point.classList.add('focus');
+      }  
 
-        // Set little interaction on landing point
-        landing_point.animate(
+      function animatePoint(point){
+        point.animate(
           [
             // étapes/keyframes
             { r: "1", fill: "var(--cR)" },
@@ -342,16 +355,9 @@ const project_list = () => ({
             effect: "cubic-bezier(.68,-0.55,.27,1.55)"
           },
         );
-                
+      }
 
-        /*el.addEventListener("mouseleave", () => {
-          landing_point.classList.remove('focus');
-        })*/
-
-      })
-
-      document.querySelector('.list.projets').addEventListener('mouseleave', () => {
-        
+      function handleMouseLeave(){
         if( _map.focusOn != null && main.getAttribute('data-vue') != 'single' && _map.active_island.length != 1
           ){
           _map.ratio = _map.avgR
@@ -360,7 +366,7 @@ const project_list = () => ({
           project_map().focusOnPoint(coord[0], coord[1])
 
         }
-      })
+      }
     },
 
     watchCloseAllFiltersInteraction: () => {
@@ -375,7 +381,7 @@ const project_list = () => ({
     disableSingleMode: () => {
       // This hide Single Vue Mode on user clic 
       document.querySelector('#filter #closeProject').addEventListener("click", el => {
-          let id = document.querySelector('[data-active="true"]').getAttribute('data-map-point')
+          let id = document.querySelector('[data-active="true"]').getAttribute('data-point_id')
           project_map().setVueMode(false, id)
 
           el.target.setAttribute('aria-hidden', true)
@@ -485,7 +491,7 @@ const project_map = () => ({
   setVueMode: (single, id) => {
     main.setAttribute('data-vue', single == true ?  'single' : 'list')
 
-    document.querySelector(`.list.projets [data-map-point="${id}"]`)
+    document.querySelector(`.list.projets [data-point_id="${id}"]`)
       .setAttribute('data-active', single == true ? true : false)
 
     document.querySelector('#closeProject')
@@ -581,7 +587,6 @@ const project_map = () => ({
         // Add Active class when needed
         if(selector.length > 0){
           let toActivate = document.querySelectorAll("#map .pt" + selector)
-          console.log("#map circle" + selector)
           if(toActivate.length > 0){
             toActivate.forEach( el => { 
               project_map().colorRelativePoints().addClass(el)
@@ -676,7 +681,7 @@ const project_map = () => ({
             let alreadyActive = document.querySelector(`.list.projets [data-active="true"]`)
             
             // Is this project already in Single Mode. 
-            if(alreadyActive && alreadyActive.getAttribute('data-map-point') == el.id){
+            if(alreadyActive && alreadyActive.getAttribute('data-point_id') == el.id){
               
               // Time to shut it down
               project_map().setVueMode(false, el.id)

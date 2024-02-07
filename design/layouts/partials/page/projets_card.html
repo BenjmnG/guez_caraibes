@@ -11,7 +11,7 @@
 
         data-lo="{%- for t in collections.localisations -%}{% if projet.data.ile == t.data.nom %}{{loop.index}},{% endif %}{% endfor %}"
 
-        data-map-point="pt-{{ projet.data.titre | getId }}"
+        data-point_id="pt-{{ projet.data.titre | getId }}"
 
         data-island="l-{{ projet.data.ile }}"
 
