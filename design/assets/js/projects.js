@@ -94,7 +94,7 @@ const project_list = () => ({
 
     // update map object
     view.active_categories[categorie.substring(2)] = checkedId
-    //console.log(view.active_categories)
+
   },
 
   /**
@@ -104,54 +104,36 @@ const project_list = () => ({
    */
   checkboxAsRadio: (justChanged) => {
 
-    // If we're a large screen
-    if(window.innerWidth >= 900 ){
 
-      // If Current input is checked
-      if(justChanged.checked == true){
-
-        // If initial Vue
-        if(main.classList.contains('init')){
-
-          // So uncheck All
-          openers.forEach( opener => opener.checked = false )
-
-        } else {
-
-          // If an Input was previously checked, Uncheck all
-          let alreadyChecked = false
-          openers.forEach(o => {
-            if(o.id != justChanged.id && o.checked == true){
-              alreadyChecked = true
-
-            }
-          })
-          
-          if(alreadyChecked){
-            openers.forEach( opener => {
-              opener.checked = false
-            } )
-          }
-
-        }
-      } else {
+    function handleDesktopUI(){
+      // Is an Input was previously checked ?
+      let alreadyChecked = document.querySelector(`[id^=filter_by]:checked:not(#${justChanged.id})`)
+      
+      // Are we in a Init situation?
+      const isInit = main.classList.contains('init')
+      
+      // Uncheck all
+      if(justChanged.checked && isInit || justChanged.checked && alreadyChecked){
         openers.forEach( opener => opener.checked = false )
       }
+    }
 
-    // If we're a small screen
-    } else {
-
-       //If Current input is checked
-       if(justChanged.checked == true){ 
-
+    function handleMobileUI(){
+      //If Current input is checked
+      if(justChanged.checked){ 
         // Uncheck all Openers but Current 
-        openers.forEach( opener => {
-          if(opener.id != justChanged.id){
-            opener.checked = false
-          }
-        })
+        openers.forEach( opener => opener.checked = opener.id == justChanged.id)
       }
     }
+
+    const isLargeScreen = window.innerWidth >= 900;
+
+    if(isLargeScreen){
+      handleDesktopUI()
+    } else {
+      handleMobileUI()
+    }
+
   },
 
   removeInitCLass: () => {
@@ -331,9 +313,11 @@ const project_list = () => ({
         // If landing point is cleared around
         view.ratio = view.focusR
 
+        // handle Zoom ration
         project_map().validMinR()
         project_map().setClassbyScale()
        
+        // Center map on point
         project_map().focusOnPoint(coord[0], coord[1])
         view.focusOn = coord;
 
@@ -348,7 +332,6 @@ const project_list = () => ({
             { r: "1px", fill: "var(--cR)" },
           ],
           {
-            // temporisation
             duration: 600,
             delay: 100,
             iterations: 2,
@@ -358,9 +341,15 @@ const project_list = () => ({
       }
 
       function handleMouseLeave(){
-        if( view.focusOn != null && main.getAttribute('data-vue') != 'single' && view.active_island.length != 1
+        if( view.focusOn != null && 
+            main.getAttribute('data-vue') != 'single' && 
+            view.active_island.length != 1
           ){
+
+          // Restore average zoom on map
           view.ratio = view.avgR
+
+          // Center map on Guadeloup
           project_map().setTransform()
           let coord = project_map().getCoord('l-Guadeloupe')
           project_map().focusOnPoint(coord[0], coord[1])
@@ -401,7 +390,6 @@ const project_list = () => ({
 
   onLoad: () => {
     project_list().performURIparameters()
-
     project_list().events().watchCategorie()
     project_list().events().watchSubCategorie()
     project_list().events().watchSubCategorie_lo()
