@@ -343,21 +343,16 @@ main[data-type="equipes"]{
 		#equipes{
 
 			address {
+				width: min-width;
 				> ul{
-					display: flex;
-					justify-content: center;
-					gap: $baseline;
+					column-count: 3;
+			    column-rule: 1px solid var(--cB);
+			    column-gap: 5rem;
 
 					> li{
 						flex-grow: 1;
-						//top: 50%;
-						//transform: translateY(-50%);
 						transition: width .25s cubic-bezier(0.68, -0.55, 0.265, 1.55),
 												transform .25s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-						/* &:hover{
-							flex-grow: 2;
-							width: 110%;
-						} */
 					}
 				}
 			}
