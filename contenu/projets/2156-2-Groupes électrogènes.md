@@ -3,7 +3,7 @@ titre: Groupes électrogènes "Aéroport Pôle Caraïbes"
 ile: Guadeloupe
 ville: Les Abymes
 maître_ouvrage: Societe Aéroportuaire Guadeloupe Pôle Caraïbes
-typologie: Transport
+typologie: Transports
 type_de_travaux: Réhabilitation énergétique
 statut: Marché privé
 phase: Livré
