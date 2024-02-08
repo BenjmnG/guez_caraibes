@@ -93,7 +93,7 @@ visible: true
 + Logements et Hébergements
 + Culture, Sport et Loisirs
 + Aménagement Urbain
-+ Aéroportuaire et maritime
++ Transports
 + Institutions et services public
 
 Un seul choix possible.
