@@ -5,11 +5,11 @@
     >
   {%- for projet in collections.projets | shuffle -%}
 
-    <li data-ty=" {%- for t in typologies -%}{% if projet.data.typologie == t %}{{loop.index}},{% endif %}{% endfor %}"
+    <li data-ty=" {%- for t in typologies -%}{% if projet.data.typologie | lower == t | lower %}{{projet.data.typologie}}{{t}}{{loop.index}},{% endif %}{% endfor %}"
 
-        data-sf="{%- for sf in collections.savoirFaire -%}{% if projet.data.mission | isIncludes(sf.data.nom) %}{{ loop.index }},{% endif %}{% endfor %}"
+        data-sf="{%- for sf in collections.savoirFaire -%}{% if projet.data.mission | lower | isIncludes(sf.data.nom| lower ) %}{{ loop.index }},{% endif %}{% endfor %}"
 
-        data-lo="{%- for t in collections.localisations -%}{% if projet.data.ile == t.data.nom %}{{loop.index}},{% endif %}{% endfor %}"
+        data-lo="{%- for t in collections.localisations -%}{% if projet.data.ile | lower == t.data.nom | lower %}{{loop.index}},{% endif %}{% endfor %}"
 
         data-point_id="pt-{{ projet.data.titre | getId }}"
 

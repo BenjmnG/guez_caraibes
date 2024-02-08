@@ -86,7 +86,7 @@ visible: true
 
 À choisir parmi les valeurs :
 
-+ Centres commerciaux et Commerces 
++ Centres commerciaux et Commerces
 + Santé 
 + Enseignement 
 + Tertiaires

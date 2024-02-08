@@ -3,7 +3,7 @@ titre: Agence "Autodiscount"
 ile: Guadeloupe
 ville: Les Abymes
 maître_ouvrage: Autodiscount Location
-typologie: Transport
+typologie: Transports
 type_de_travaux: Construction neuve
 statut: Marché privé
 phase: Livré
