@@ -1,5 +1,5 @@
 ---
-titre: Club MED "Les Boucaniers"
+titre: Village Club Med "Les Boucaniers"
 ile: Martinique
 ville: Sainte-Anne
 maître_ouvrage: Club Méditerranée SA

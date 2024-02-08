@@ -94,7 +94,7 @@ visible: true
 + Culture, Sport et Loisirs
 + Aménagement Urbain
 + Transports
-+ Institutions et services public
++ Institutions et services publics
 
 Un seul choix possible.
 

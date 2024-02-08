@@ -3,7 +3,7 @@ titre: Relogement du Tribunal Administratif
 ile: Guadeloupe
 ville: Basse-Terre
 maître_ouvrage: Conseil d'état
-typologie: Institutions et services public
+typologie: Institutions et services publics
 type_de_travaux: Réhabilitation
 statut: Marché public
 phase: Livré

@@ -3,7 +3,7 @@ titre: Hangar de stockage EDF
 ile: Saint-Martin
 ville: Marigot
 maître_ouvrage: EDF
-typologie: Institutions et services publics
+typologie: Tertiaires
 type_de_travaux: Construction neuve
 statut: Marché privé
 phase: Livré
@@ -17,7 +17,7 @@ calendrier:
   fin: 2024-01-01
 
 cover:
-  src: 2641C-2.jpg
+  src: 2641C-2.jpeg
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: false
 
