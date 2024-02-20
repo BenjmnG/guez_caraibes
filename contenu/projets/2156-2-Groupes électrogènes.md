@@ -17,7 +17,7 @@ calendrier:
   fin: 2019-10-01
 
 cover:
-  src: 2156-2.jpg
+  src: 2156-2.JPG
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: false
   
