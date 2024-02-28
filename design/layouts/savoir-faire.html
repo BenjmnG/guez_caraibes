@@ -2,6 +2,7 @@
 
 {% block main %}
   <h1>Notre savoir-faire</h1>
+  {{collections.savoirFaire | debug}}
   <ul class="list savoir-faire"
       aria-label="Liste des savoir-faire">
     {%- for sf in collections.savoirFaire -%}

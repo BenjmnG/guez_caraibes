@@ -99,6 +99,13 @@ module.exports = config => {
 
   config.addCollection("savoirFaire", function(collection) {
       let savoirFaire = collection.getFilteredByGlob("contenu/savoir-faire/*.md");
+      
+      // Sort by number
+      savoirFaire.sort((obj1, obj2) => {
+        const path1 = obj1.template.inputPath;
+        const path2 = obj2.template.inputPath;
+        return path1.localeCompare(path2);
+      });
       return savoirFaire;
   });
 
