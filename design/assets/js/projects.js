@@ -716,6 +716,9 @@ const project_map = () => ({
 
 const projectOnload = () => {
 
+    // Init
+    items.forEach( item => item.checked = false)
+
     // About Project
     project_list().performURIparameters()
     project_list().events().watchCategorie()
@@ -735,7 +738,6 @@ const projectOnload = () => {
     project_map().events().watchScreenResize()
 
     project_map().focusOnPoint(191, 96)
-    items.forEach( item => item.checked = false)
 
 }
 
