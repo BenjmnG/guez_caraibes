@@ -4,7 +4,7 @@ adresse:
   postale: Hope Estate Grand-Case; 97150 Saint-Martin
   téléphone: +590 690 262 676
   mail: betsxm@guezcaraibes.fr
-coordonnées: 18.104268205329976, -63.0533129673406
+coordonnées: 18.0957797675179, -63.04021400021153
 
 cover:
   src: _media/equipe_Saint-Martin.jpg
