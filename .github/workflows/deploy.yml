@@ -30,19 +30,19 @@ jobs:
         node-version: [20.10.0]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
 
       - name: Build with Node.js  ${{ matrix.node-version }} 
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version:  ${{ matrix.node-version }}
 
       - name: Cache node modules
         id: cache-npm
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -67,7 +67,7 @@ jobs:
       - run: npm run build:prod  
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
