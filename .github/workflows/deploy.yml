@@ -22,24 +22,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Build job
+
+  # Build files
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [20.10.0]
     steps:
+
+      # Setup Pages
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Setup Pages
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      # Setup Node
       - name: Build with Node.js  ${{ matrix.node-version }} 
         uses: actions/setup-node@v4
         with:
           node-version:  ${{ matrix.node-version }}
 
+      # Check for cached dependencies
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v4
@@ -54,24 +60,29 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+      # List 
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         name: List the state of node modules
         continue-on-error: true
         run: npm list
 
+      # Install dependencies
       - run: npm ci
 
-      ##- run: npm run build  
+      # Build stylesheet
       - run: npm run build:sass
         
+      # Build site
       - run: npm run build:prod  
 
+      # Upload to public folder
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
-  # Deployment job
+
+  # Deploy files in GH Pages
   deploy:
     environment:
       name: github-pages
