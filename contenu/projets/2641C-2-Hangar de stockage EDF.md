@@ -17,7 +17,7 @@ calendrier:
   fin: 2024-01-01
 
 cover:
-  src: 2641C-2.jpeg
+  src: 2641C-2.jpg
   alt: Batiment blanc entouré d'arbre en contre-plongée
   temporary: false
 
