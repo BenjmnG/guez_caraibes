@@ -7,7 +7,7 @@ typologie: Logements et Hébergements
 type_de_travaux: Réhabilitation
 statut: Marché privé
 phase: Livré
-mission: MOE
+mission: MOE, BET ENVIRONNEMENT
 montants_de_travaux_en_€HT: 31260000
 surface_en_m² : 21000
 coordonnées: 16.218837, -61.395435
