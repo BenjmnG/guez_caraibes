@@ -1,4 +1,4 @@
-<footer aria-label="Pied de page">
+<footer aria-label="Pied de page" id="footer">
 
 	<svg viewBox="0 0 200 150">
 			<title>Emblème Guez Caraïbes</title>
@@ -88,4 +88,15 @@
 		<li>Design & Code&thinsp;: <a href="https://bnjm.eu" target="_blank">bnjm.eu</a></li>
 	</ul>
 
+
+	{% if layout  == 'index' %}
+		<a href="#footer"
+			 class="scrollDown" 
+			 role="button"
+			 aria-label="Voir le pied de page"
+			 onclick="this.classList.add('activated')"
+			>
+			{% include "../../assets/svg/arrowDown.svg" %}
+		</a>
+	{% endif %}
 </footer>

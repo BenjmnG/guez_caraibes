@@ -54,8 +54,17 @@ body[data-serve="index"]{
 		}
 
 		.header{
-			border-bottom: 1px solid currentColor;
 			min-height: calc(#{$minH} - #{$baseline * 2});
+
+			&:after{
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: calc(100% - #{$unite*3.5});
+				border-bottom: 1px solid currentColor;
+				transition: width .25s ease-in;
+			}
 
 		}
 
@@ -134,4 +143,10 @@ body[data-serve="index"]{
 		}
 	}
 	
+}
+
+
+
+body[data-serve="index"] main:has(+ footer .scrollDown.activated) .header:after{
+	width: 100%;
 }
