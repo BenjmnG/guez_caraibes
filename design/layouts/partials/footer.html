@@ -84,7 +84,7 @@
 			aria-label="Mentions légales et crédits">
 		<li>{{ site.currentYear() }} — {{website.name}}</li>
 		<li><a href="/mentions_legales">Mentions légales</a></li>
-		<li>Photos&thinsp;: {{ website.colophon.photo }} </li>
+		<li>Photos&thinsp;: {{ website.colophon.photo | markdown | escaP | safe }} </li>
 		<li>Design & Code&thinsp;: <a href="https://bnjm.eu" target="_blank">bnjm.eu</a></li>
 	</ul>
 
