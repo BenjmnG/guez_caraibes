@@ -124,6 +124,7 @@ main[data-type="projets"]{
 				//max-height: max(10rem, 20vh);
 				border-bottom: 1px solid currentColor;
 
+				/* 				
 				&.temporary{
 					background: var(--cR);
 					picture{
@@ -134,7 +135,7 @@ main[data-type="projets"]{
 					picture + figure{
 						display: none;
 					}
-				}
+				} */
 
 				figure, picture, img{
 					width: 100%;
