@@ -106,63 +106,6 @@
         </li>
       </ul>
       
-
-      <!--
-      Below is templte for job list
-      <ul>
-        {%- for job in collections.jobs -%}
-          {%- if not job.data.date_limite or (job.data.date_limite and job.data.date_limite | isDateNotPast)-%}
-            <li>
-              <details>
-                <summary>
-
-                  <svg viewbox="0 0 20 20"><use href="#icon-arrow"></use></svg>
-
-                  <h2>{{ job.data.titre }}</h2>
-
-                  {% if job.data.contrat %}
-                    <span>{{ job.data.contrat }}</span>
-                  {% endif %}
-                  
-                  {% if job.data.temps %}
-                    <span>{{ job.data.temps }}</span>
-                  {% endif %}
-
-                  {% if job.data.ile %}
-                    <span>{{ job.data.ile }}</span>
-                  {% endif %}
-
-                  {% set email = website.email %}
-                  {%- for equipe in collections.equipes -%}
-                    {% if job.data.ile == equipe.data.nom %}
-                      {% set email = equipe.data.adresse.mail %}
-                    {%- endif -%}
-                  {%- endfor -%}
-
-                  <a class="obf button" 
-                     data-href="{{ email | reverse}}"
-                     data-protocol="mail"
-                     data-subject='Candidature : "{{ job.data.titre }}"'
-                     role="button"
-                     aria-label="Postuler par mail">
-                    Candidater par Mail
-                  </a>
-
-                </summary>
-
-                  {{ job.content 
-                    | replace('h2', 'h3') 
-                    | replace('h1', 'h2') 
-                    | safe 
-                  }}
-              </details>
-
-            </li>
-          {% endif %}
-        {%- endfor -%}
-      <ul>-->
-
-
     </div>
 
   </section>
