@@ -171,6 +171,18 @@ body:has(#topbar #mobileMenu:checked){
 
 body[data-serve="index"]{
 	#topbar{
+		&:before{
+			content: "";
+			position: absolute;
+			width: 100vw;
+			height: 150%;
+			top: 0;
+			left: -$unite;
+			background: linear-gradient(180deg, 
+					rgba(0, 0, 0, .125) 0, 
+					rgba(0, 0, 0, .10) 50%, 
+					rgba(0, 0, 0, 0) 100%);
+		}
 	}
 }
 
