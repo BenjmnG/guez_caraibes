@@ -46,6 +46,39 @@ npm i
 Depuis la page du répertoire Git, appuyer sur `shift + . ` ou aller à la page [github.dev/BenjmnG/guez_caraibes](https://github.dev/BenjmnG/guez_caraibes)
 
 
+## Ajouter une photographie sur la page d'accueil
+
+Sur le fichier `contenu/index.njk`, nous retrouvons le champs suivant :
+
+```
+cover:
+  -   src: "_media/1er_image.jpg"
+      alt: "Batiment en construction. Au premier plan des ouvriers s'affairent. Au loin, une végétation tropical"
+
+  -   src: "_media/2nd_image.jpg"
+      alt: "Batiment en construction. Au premier plan des ouvriers s'affairent. Au loin, une végétation tropical"
+      
+```
+
+`src` représente le chemin d'accès de l'image. Ici la photo `1er_image.jpg` dans le dossier `_media`
+
+`alt` représente un texte alternatif, permettant aux personnes en cécité de comprendre l'image.
+
+Il est possible d'ajouter plusieurs images. Une sélection se fera au hasard à chaque visite de la page d'accueil. L'exemple ci-dessus mentionne ainsi deux images, introduites par un tiret
+
+## Modifier les métadonnées du site
+
+Sur le fichier `_data/website.json`, il est possible de modifier :
+
++ l'url du site
++ le nom des photographes et designers
++ les informations utiles au référencement 
++ + Titre du site
+  + Sous-titre
+  + Texte de description
+
+
+
 ## Rédiger un projet
 
 Voici un projet type
