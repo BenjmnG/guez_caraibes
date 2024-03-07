@@ -7,7 +7,7 @@ typologie: Culture, Sport et Loisirs
 type_de_travaux: Construction neuve
 statut: Marché public
 phase: Phase DET
-mission: MOE
+mission: MOE, BET ENVIRONNEMENT
 montants_de_travaux_en_€HT: 3500000
 surface_en_m² : 1635
 coordonnées: 16.207099071467614, -61.49555236534178
