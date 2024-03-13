@@ -132,7 +132,7 @@ footer{
 				> *::before{
 					content: attr(data-icon);
 					position: absolute;
-					top: .3em;
+					top: .475em;
 					left: $u*-1.95;
 					@include f1(0);
 					font-size: .6rem;

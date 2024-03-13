@@ -62,6 +62,13 @@
                 {{ equipe.data.adresse.postale | replace('; ', '<br>') | safe  }}
               </a>
             </li>
+
+            <li aria-label="Coordonnées">
+              <a data-icon="Coord"
+                href="https://www.openstreetmap.org/?mlat={{lat}}&mlon={{long}}#map=19/{{lat}}/{{long}}" target="_blank">
+                {{ lat | string | truncate(8, true, "") }}, {{ long | string | truncate(10, true, "") }}
+              </a>
+            </li>
             </ul>
 
           </li>

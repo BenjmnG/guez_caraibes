@@ -112,7 +112,7 @@ main[data-type="equipes"]{
 							&:before{
 								position: absolute;
 								content: attr(data-icon);
-								top: .3em;
+								top: .4em;
 								left: 0;
 								@include f1(0);
 								font-size: .6rem;
