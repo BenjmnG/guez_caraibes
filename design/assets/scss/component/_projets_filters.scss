@@ -100,7 +100,7 @@ input#filter_by_local:not(:checked) ~ input[name="f-lo"]:checked ~ #filter > ul 
 @for $i from 1 through $ty_len {
 	@for $j from 1 through $sf_len {
 		@for $k from 1 through $lo_len {
-			[id="f-ty_#{$i}"]:checked ~ [id="f-sf_#{$j}"]:checked ~ [id="f-lo_#{$j}"]:checked ~ ul [data-ty*="#{$i},"][data-sf*="#{$j},"][data-lo*="#{$k},"]{
+			[id="f-ty_#{$i}"]:checked ~ [id="f-sf_#{$j}"]:checked ~ [id="f-lo_#{$k}"]:checked ~ ul [data-ty*="#{$i},"][data-sf*="#{$j},"][data-lo*="#{$k},"]{
 				display: block;
 			}
 		}
