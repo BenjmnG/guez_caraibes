@@ -77,6 +77,7 @@ module.exports = config => {
   config.addFilter("setAttribute", (dictionary, key, value) => {dictionary[key] = value; return dictionary;});
   config.addFilter("appendToArray", (dictionary, object) => { dictionary.push(object); return dictionary });
   config.addFilter("isIncludes", (a, b) => { if(a && b){ return a.includes(b) } });
+  config.addFilter("startsWith", (a, b) => { return a.startsWith(b) });
   config.addDataExtension("yaml", contents => yaml.load(contents));
   
   config.setLibrary("md", markdownLibrary);
