@@ -75,7 +75,7 @@
 				//justify-content: end;
 
 				display: grid;
-				grid-template-rows: calc(100vh - #{$base*17} - #{$base*8} * 3 - #{$baseline}- 1px) #{$base*13} auto;
+				grid-template-rows: calc(100vh - #{$base*17} - #{$base*8} * 3 - #{$baseline} - 1px) #{$base*13} auto;
 				grid-template-rows: calc(100dvh - #{$base*22} - #{$base*8} * 3 - 1px) #{$base*13} auto;
 				grid-template-columns: 1fr;
 				grid-gap: 0;//$base*4;
