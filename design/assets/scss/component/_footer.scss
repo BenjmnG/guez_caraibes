@@ -151,7 +151,7 @@ footer{
 
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
-		grid-gap: $baseline/4 $u;
+		grid-gap: math.div($baseline, 4) $u;
 
 		a{text-decoration: underline;}
 	}

@@ -125,7 +125,13 @@ module.exports = config => {
       localisations.push(stBart)
       return localisations;
   });
-  
+
+
+
+  // Sass Watch
+  if(process.env.NODE_ENV == 'development'){
+    config.addWatchTarget("./design/assets/scss/", "./design/assets/css/");
+  }
 
   // pass through !
   config.addPassthroughCopy({
