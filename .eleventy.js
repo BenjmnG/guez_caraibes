@@ -125,11 +125,6 @@ module.exports = config => {
       localisations.push(stBart)
       return localisations;
   });
-
-
-
-  // Sass Watch
-  config.addWatchTarget("./design/assets/scss/", "./design/assets/css/");
   
 
   // pass through !
